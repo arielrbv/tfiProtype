@@ -1,3 +1,5 @@
+M.AutoInit();
+
 var //btnAbrirPopup = document.getElementById('btn-abrir-popup'),
 	overlay = document.getElementById('overlay'),
 	popup = document.getElementById('popup'),
@@ -6,6 +8,10 @@ var //btnAbrirPopup = document.getElementById('btn-abrir-popup'),
 	overlay2 = document.getElementById('overlay2')
 spiner = document.getElementById('spinner');
 
+//document.addEventListener('DOMContentLoaded', function() {
+//	var elems = document.querySelectorAll('.tooltipped');
+//	var instances = M.Tooltip.init(elems, options);
+//});
 
 
 //btnAbrirPopup.addEventListener('click', function() {
@@ -71,4 +77,8 @@ function createAccount() {
 			console.log(jqXHR.status);
 		});
 }
+
+
+
+
 
