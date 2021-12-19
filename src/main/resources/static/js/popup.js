@@ -34,7 +34,7 @@ function openSpinner() {
 	overlay2.classList.add('active');
 }
 
-function dothings() {
+function createAccount() {
 
 	$("#formPatient").submit(function(event) {
 		event.preventDefault();

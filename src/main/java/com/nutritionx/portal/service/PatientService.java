@@ -13,9 +13,14 @@ public class PatientService {
 	@Autowired
 	private PatientRepository patRep;
 	
+	
+	//patient creation
 	public void createPatient(Patient p) {
 		patRep.save(p);
 	}
+	
+	
+	
 
 	
 }
