@@ -5,10 +5,14 @@
 }
 
 
-
 body {
     background: #fff;
     font-family: 'Open Sans', sans-serif;
+}
+
+.card-panel{
+	margin-right:2px;
+	margin-left: 2px;
 }
 
 .contenedor {
