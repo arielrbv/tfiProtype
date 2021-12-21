@@ -5,15 +5,16 @@
 }
 
 
+
 body {
     background: #fff;
     font-family: 'Open Sans', sans-serif;
 }
 
-.card-panel{
-	margin-right:2px;
-	margin-left: 2px;
+.card-body{
+	flex-direction: column;	
 }
+
 
 .contenedor {
     width: 90%;

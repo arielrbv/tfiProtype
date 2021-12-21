@@ -7,6 +7,9 @@ import java.sql.Timestamp;
 import java.util.Base64;
 import java.util.Date;
 
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
@@ -132,6 +135,17 @@ public class PatientController {
 		}
 		return m;
 	}
-
+	
+	// POST Patient LOGOUT Attempt from VIEW
+	@RequestMapping(value = "/logout")
+	public String logout(HttpServletRequest request, Model m) {
+		HttpSession session = request.getSession(false);
+	    if (session != null) {
+	        session.invalidate();
+	    }
+	    m.addAttribute("patient", newPatient());
+	    return "redirect:/login"; 
+	}
+	
 
 }
