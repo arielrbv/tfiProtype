@@ -6,7 +6,6 @@ import java.security.SecureRandom;
 import java.sql.Timestamp;
 import java.util.Base64;
 import java.util.Date;
-
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
@@ -27,6 +26,7 @@ import org.springframework.web.servlet.ModelAndView;
 
 import com.nutritionx.portal.model.Patient;
 import com.nutritionx.portal.repository.PatientRepository;
+import com.nutritionx.portal.repository.PatologyRepository;
 import com.nutritionx.portal.service.PatientService;
 import com.nutritionx.portal.service.ServiceResponse;
 import com.nutritionx.portal.util.JavaMailUtil;
@@ -41,6 +41,8 @@ public class PatientController {
 	@Autowired
 	private PatientRepository patRep;
 	
+	@Autowired
+	private PatologyRepository patoRep;
 	
 	//SET the patient to be present in the session.
 	@ModelAttribute("patient")
@@ -56,10 +58,10 @@ public class PatientController {
 
 	// GET to load the selfReg View
 	@GetMapping("/selfRegistration")
-	public String showSelfRegForm(Model model) {
-		Patient p = new Patient();
-		model.addAttribute("patient", p);
-		return "redirect:/selfRegistration";
+	public String showSelfRegForm(/*Model model*/) {
+		//Patient p = new Patient();
+		//model.addAttribute("patient", p);
+		return "selfRegistration";//
 	}
 
 	// GET to load the home View
@@ -71,6 +73,27 @@ public class PatientController {
 		m.addAttribute("patient", patRep.findByEmailAndPassword("ariel.rbv@gmail.com", "pas123"));
 		return "home";
 	}
+	
+	// GET to load the planPreStep1 View
+	@GetMapping("/planprep/step-1")
+	public String showPlanPrepStep1(/* @RequestBody Patient p, */ Model m) {
+		//
+		//			GET RID OFF This when /home be complete
+		//
+		return "planPrepStep1";
+	}
+	
+	// GET to load the planPreStep1 View
+	
+	@GetMapping("/planprep/step-2")
+	public String showPlanPrepStep2(Model m) {
+		
+		m.addAttribute("patology", patoRep.findAll());
+
+		return "planPrepStep2";
+	}
+	
+	
 
 	// POST Patient Account Creation from AJAX
 	@ResponseBody

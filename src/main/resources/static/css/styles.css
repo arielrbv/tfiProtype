@@ -4,17 +4,33 @@
     box-sizing: border-box;
 }
 
-
-
 body {
     background: #fff;
-    font-family: 'Open Sans', sans-serif;
+    font-family: 'Spartan', sans-serif;
+    font-weight: 450;
+    display: flex;
+    min-height: 100vh;
+    flex-direction: column;
 }
 
-.card-body{
-	flex-direction: column;	
+main {
+    flex: 1 0 auto;
 }
 
+.footerZZ {
+    position: fixed;
+    left: 0;
+    bottom: 0;
+    width: 100%;
+}
+
+.footerbtn {
+    background-color: #354a63;
+}
+
+.card-body {
+    flex-direction: column;
+}
 
 .contenedor {
     width: 90%;
@@ -54,6 +70,19 @@ body {
 
 .contenedor article .btn-abrir-popup:hover {
     background: rgba(94, 125, 227, .9);
+}
+
+.title {
+    font-weight: 600;
+}
+
+.card-ztitle {
+    font-weight: 600;
+    font-size: medium;
+}
+
+.zheight {
+    width: 80px;
 }
 
 
@@ -172,6 +201,7 @@ body {
     visibility: visible;
 }
 
+
 /*************** 
  *ANIMACIONES
  **************/
@@ -243,3 +273,61 @@ body {
         opacity: 1;
     }
 }
+
+
+/************
+     CARD
+************/
+
+.zcard {
+    cursor: pointer;
+    user-select: none;
+}
+
+.zcardcolor.zactive {
+    background-color: #93dc9b;
+}
+
+.zcardcolor.zdisabled {
+    background-color: #DFDFDF;
+}
+
+.zcardcolor.zinactive {
+    background-color: #DFDFDF !important;
+    color: #9F9F9F !important;
+}
+
+.card {
+    border-radius: 10px;
+}
+
+/************
+     Label
+************/
+.zlabel{
+	color: #000000;
+	font-size: 14px;
+}
+
+
+/************
+     BUTTONS
+************/
+
+.btn {
+    border-radius: 10px;
+}
+
+
+/*******************
+   TOOLTIP FIXED
+*******************/
+
+.material-tooltip{
+    max-width: 400px;
+}
+
+
+
+
+
