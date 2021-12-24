@@ -282,6 +282,7 @@ main {
 .zcard {
     cursor: pointer;
     user-select: none;
+    border-radius: 10px;
 }
 
 .zcardcolor.zactive {
@@ -297,9 +298,6 @@ main {
     color: #9F9F9F !important;
 }
 
-.card {
-    border-radius: 10px;
-}
 
 /************
      Label
@@ -318,6 +316,10 @@ main {
     border-radius: 10px;
 }
 
+.zbtn{
+	width: 70px;
+    height: 70px;
+}
 
 /*******************
    TOOLTIP FIXED
@@ -328,6 +330,8 @@ main {
 }
 
 
-
+.zimg{
+	border-radius: 10px 10px 0px 0px;
+}
 
 
