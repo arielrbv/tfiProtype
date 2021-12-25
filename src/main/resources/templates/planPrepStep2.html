@@ -13,8 +13,9 @@
 
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>NutritionX</title>
+    <title>NutritionX-PlanS2</title>
   </head>
+
 
   <body>
     <header>
@@ -91,12 +92,12 @@
           </div>
         </div>
 
-
+<form action="/test/checkbox" method="post">
         <div class="row g-0 ">
           <div class="col col-12 col-lg-4 col-md-6 col-sm-12 mb-3" th:each="pat : ${patology}">
             <span>
               <label>
-                <input type="checkbox" />
+                <input type="checkbox" name="pats" th:value="${pat.patologyId}"/>
                 <span th:text="${pat.name}+' '" class="zlabel"></span>
               </label>
               <i style="color:grey" class="far fa-question-circle ms-2 tooltipped ztooltip" data-position="bottom"
@@ -128,6 +129,7 @@
               data-tooltip="Funcionalidad aún no disponible"></i>
           </div>
         </div>
+  
 
         <div class="row g-0 mb-0">
           <div class="col">
@@ -165,50 +167,25 @@
             </div>
           </div>
         </div>
+        <input id="selectedCard" type="hidden" th:field="${preference.preferenceId}">
+
+
         <div class="row g-0 mb-2">
           <div class="col">
             <h6 class="title">¿Deseas evitar alguno de los siguientes alimentos?</h6>
           </div>
         </div>
         <div class="row g-0 ">
-          <div class="col col-12 col-lg-4 col-md-6 col-sm-12 mb-3">
-            <label class="">
-              <input type="checkbox" />
-              <span class="zlabel">Carne vacuna</span>
-            </label>
-            <i style="color:grey" class="far fa-question-circle ms-2 tooltipped ztooltip" data-position="bottom"
-              data-tooltip="Funcionalidad aún no disponible"></i>
+        
+        <div class="col col-12 col-lg-4 col-md-6 col-sm-12 mb-3" th:each="prefs : ${preference2}">
+            <span>
+              <label>
+                <input type="checkbox" name="prefs" th:value="${prefs.preferenceId}"/>
+                <span th:text="${prefs.name}+' '" class="zlabel"></span>
+              </label>
+            </span>
           </div>
-          <div class="col col-12 col-lg-4 col-md-6 col-sm-12 mb-3">
-            <label class="">
-              <input type="checkbox" />
-              <span class="zlabel">Carne de Ave</span>
-            </label>
-          </div>
-          <div class="col col-12 col-lg-4 col-md-6 col-sm-12 mb-3">
-            <label class="">
-              <input type="checkbox" />
-              <span class="zlabel">Pescado</span>
-            </label>
-          </div>
-          <div class="col col-12 col-lg-4 col-md-6 col-sm-12 mb-3">
-            <label class="">
-              <input type="checkbox" />
-              <span class="zlabel">Huevo</span>
-            </label>
-          </div>
-          <div class="col col-12 col-lg-4 col-md-6 col-sm-12 mb-3">
-            <label class="">
-              <input type="checkbox" />
-              <span class="zlabel">Queso</span>
-            </label>
-          </div>
-          <div class="col col-12 col-lg-4 col-md-6 col-sm-12 mb-3">
-            <label class="">
-              <input type="checkbox" />
-              <span class="zlabel">Leche</span>
-            </label>
-          </div>
+      
           <div class="col col-12 col-lg-4 col-md-6 col-sm-12 mb-3">
             <label class="">
               <input type="checkbox" disabled="disabled" />
@@ -237,7 +214,8 @@
           </div>
         </div>
       </div>
-
+      
+</form>
       <!--################################### FIXED BUTTON #################################### -->
       <div class="fixed-action-btn direction-top d-none d-md-block" style="bottom: 25%; right: 24px; ">
         <a class="btn-floating btn-large " style="background-color:#0b423d; ">

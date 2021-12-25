@@ -12,7 +12,7 @@
 
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>NutritionX</title>
+    <title>NutritionX-PlanS1</title>
 </head>
 
 <body>
@@ -84,34 +84,26 @@
                     <h6 class="title  ps-0 ">Datos y características físicas</h6>
                 </div>
             </div>
+ <!--form  action="/planprep/step-2" method="post" th:object="${patpref}"-->  
+ 
+ <form  action="/planprep/step-2" method="post">           
+            
             <div class="row flex-row g-0 mb-0">
                 <div class="col col-lg-12 d-flex">
                     <div class=" ps-0 pe-4">
                         <div class="zheight input-field inline m-0 mt-3">
-                            <input th:value="${height}" id="height" type="text" class="validate">
+                            <!--input th:field="*{pat.height}" id="height" type="text" class="validate"-->
+                            <input th:field="${patient.height}" id="height" type="text" class="validate">
                             <label for="heigth">Altura</label>
                         </div>Mts
                     </div>
                     <div>
                         <div class="zheight input-field inline m-0 mt-3">
-                            <input id="weight" type="text" class="validate">
+                            <!--input th:field="*{pat.weight}" id="weight" type="text" class="validate"-->
+                            <input th:field="${patient.weight}" id="weight" type="text" class="validate">
                             <label for="weight">Peso</label>
                         </div>Kgs
                     </div>
-                </div>
-            </div>
-            <div class="row g-0 mb-0">
-                <div class="col col-lg-12">
-                    <h6 class="title ">Índice de Masa Corporal</h6>
-                    <p th:text="${'El Indice de Masa Coporal (IMC) es un calculo reconocido internacionalmente para el calculo de sobrepeso en mayores de 18 años. Tu IMC es igual a ## lo que indica que tienes Sobrepeso.'}">
-                    </p>
-                    <p class="mb-0 ">Referencia del IMC: </p>
-                    <p class="offset-2">
-                        <i>Peso insuficiente < 18.5 
-                        <br>Normal 18.5–24.9 
-                        <br>Sobrepeso 25.0–29.9 
-                        <br>Obesidad>= 30.0</i>
-                    </p>
                 </div>
             </div>
             <div class="row g-0 mb-0">
@@ -138,13 +130,10 @@
                         <div class="card-body d-flex align-items-stretch justify-content-center">
                             <h5 class="card-ztitle mt-1">Rápido</h5>
                             <p class="card-text">Para aquellas personas que desean bajar de peso rápidamente siguiendo un plan estricto.
-
                             </p>
                         </div>
                     </div>
-
                 </div>
-
                 <div class="d-flex col col-12 col-lg-3 col-md-6 col-sm-12  ">
                     <div class="card zcard zcardcolor zinactive " id="card2">
                         <div class="card-body d-flex">
@@ -166,19 +155,24 @@
                 <div class="d-flex col col-12 col-lg-3 col-md-6 col-sm-12 ">
                     <div class="card hoverable waves-effect waves-light z-depth-1 zcard zcardcolor" id="card4">
                         <div class="card-body d-flex align-items-stretch justify-content-center ">
-                            <h5 class="card-ztitle mt-1">Musculatura</h5>
-                            <p class="card-text ">Un plan de comidas de culturismo debe consistir en grasas, proteínas y carbohidratos saludables.
+                            <h5 class="card-ztitle mt-1">Dep. Alto Rendimiento</h5>
+                            <p class="card-text ">Plan de pensado para aquellos que realizan deportes de alto rendimiento donde su cuerpo exige gran cantidad de nutrientes.
                             </p>
                         </div>
                     </div>
                 </div>
-            </div>
+              </div>
+              <!--input id="selectedCard" type="hidden" th:field="*{pref.name}"/-->
+              <input id="selectedCard" type="hidden" th:field="${preference.preferenceId}">
             <div class="row  justify-content-end mb-5">
                 <div class="col"><button class="btn btn-large waves-effect waves-light right mt-3" type="submit" name="action">Siguiente
                   <i class="material-icons right">send</i>
                 </button>
                 </div>
             </div>
+</form>
+            
+            
         </div>
 
         <!--################################### FIXED BUTTON #################################### -->
@@ -203,8 +197,6 @@
 
 
     <!--################################### FOOTER #################################### -->
-
-
     <footer class="page-footer " style="background-color:#59a52c; ">
         <div class="container ">
             <div class="row g-0 ">

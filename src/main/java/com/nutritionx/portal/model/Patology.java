@@ -25,7 +25,6 @@ public class Patology {
 	private Set<Patient> patients = new HashSet<>();
 	
 	
-	
 	public Patology() {
 		// TODO Auto-generated constructor stub
 	}
@@ -58,6 +57,7 @@ public class Patology {
 	public void addPatient(Patient p) {
 		this.patients.add(p);
 	}
+	
 	
 	
 	@Override

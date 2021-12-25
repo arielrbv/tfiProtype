@@ -7,6 +7,7 @@ import java.util.Set;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
@@ -73,7 +74,7 @@ public class Patient {
 	private Set<PatientNutriPlan> linesOfPlan = new HashSet<>();
 	
 	//WITH PREFERENCES BYPASSING  PATIENT_PREFERENCES
-	@ManyToMany(cascade = CascadeType.ALL)
+	@ManyToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
 	@JoinTable(
 			  name = "patient_preferences", 
 			  joinColumns = @JoinColumn(name = "patient_id"), 
@@ -82,7 +83,7 @@ public class Patient {
 	Set<Preference> preferences = new HashSet<>();
 	
 	//WITH PATOLOGIES BYPASSING  PATIENT_PATOLOGIES
-	@ManyToMany(cascade = CascadeType.ALL)
+	@ManyToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
 	@JoinTable(
 			  name = "patient_patologies", 
 			  joinColumns = @JoinColumn(name = "patient_id"), 
@@ -247,17 +248,38 @@ public class Patient {
 	public Set<Professional> getProfessional() {
 		return professional;
 	}
-
-	
+	public Set<Preference> getPreferences() {
+		return preferences;
+	}
+	public void setPreferences(Set<Preference> preferences) {
+		this.preferences = preferences;
+	}
+	public void setPatologies(Set<Patology> patologies) {
+		this.patologies = patologies;
+	}
 	
 	@Override
 	public String toString() {
-		return "Patient [patientId=" + patientId + ", dni=" + dni + ", firstName=" + firstName + ", lasttName="
+		return "Patient [patientId=" + patientId + ", dni=" + dni + ", firstName=" + firstName + ", lastName="
 				+ lastName + ", email=" + email + ", phone=" + phone + ", address=" + address + ", postalCode="
 				+ postalCode + ", birthdate=" + birthdate + ", gender=" + gender + ", weight=" + weight + ", height="
-				+ height + ", plan_type=" + planType + ", status=" + status + ", created=" + created + ", lastLogin="
+				+ height + ", planType=" + planType + ", status=" + status + ", created=" + created + ", lastLogin="
 				+ lastLogin + ", password=" + password + ", token=" + token + "]";
 	}
+
+	
+	
+//	@Override
+//	public String toString() {
+//		return "Patient [patientId=" + patientId + ", dni=" + dni + ", firstName=" + firstName + ", lasttName="
+//				+ lastName + ", email=" + email + ", phone=" + phone + ", address=" + address + ", postalCode="
+//				+ postalCode + ", birthdate=" + birthdate + ", gender=" + gender + ", weight=" + weight + ", height="
+//				+ height + ", plan_type=" + planType + ", status=" + status + ", created=" + created + ", lastLogin="
+//				+ lastLogin + ", password=" + password + ", token=" + token + "]";
+//	}
+	
+	
+	
 	
 
 }

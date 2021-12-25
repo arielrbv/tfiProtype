@@ -20,6 +20,7 @@ import org.springframework.web.servlet.ModelAndView;
 
 import com.nutritionx.portal.model.Patient;
 import com.nutritionx.portal.repository.PatientRepository;
+import com.nutritionx.portal.service.PatientService;
 import com.nutritionx.portal.service.ServiceResponse;
 
 @Controller
@@ -27,21 +28,40 @@ public class TestControllers {
 
 	@Autowired
 	private PatientRepository patRep;
+	
+	@Autowired
+	private PatientService patServ;
 
 
+//	@ResponseBody
+//	@RequestMapping(value = "/test/query", method = RequestMethod.GET, consumes = MediaType.APPLICATION_JSON_VALUE)
+//	public ResponseEntity<Object> createPatientStandAlone(@RequestBody Patient p) {
+//		p = patRep.findByEmailAndPassword(p.getEmail(), p.getPassword());
+//		ServiceResponse<Patient> response;
+//		if (p != null) {
+//			response = new ServiceResponse<Patient>("OK", p);
+//		} else {
+//			response = new ServiceResponse<Patient>("NOK", p);
+//		}
+//		return new ResponseEntity<Object>(response, HttpStatus.OK);
+//	}
+
+	
+	@GetMapping ("/test/query")
 	@ResponseBody
-	@RequestMapping(value = "/test/query", method = RequestMethod.GET, consumes = MediaType.APPLICATION_JSON_VALUE)
-	public ResponseEntity<Object> createPatientStandAlone(@RequestBody Patient p) {
-		p = patRep.findByEmailAndPassword(p.getEmail(), p.getPassword());
-		ServiceResponse<Patient> response;
-		if (p != null) {
-			response = new ServiceResponse<Patient>("OK", p);
-		} else {
-			response = new ServiceResponse<Patient>("NOK", p);
-		}
-		return new ResponseEntity<Object>(response, HttpStatus.OK);
+	public Patient getPatient(@RequestBody Patient p){
+		return patRep.findByPatientId(p.getPatientId());
 	}
-
+	
+	@ResponseBody
+	@RequestMapping(value = "/test/query/patient", method = RequestMethod.POST, consumes = MediaType.APPLICATION_JSON_VALUE/*, produces = "application/json"*/)
+	public ResponseEntity createPatientStandAlone(@RequestBody Patient p) {	
+		
+		patServ.updatePatient(p);
+				
+		System.out.println(p);
+		return new ResponseEntity(HttpStatus.OK);
+	}
 	
 //	@ResponseBody
 //	@RequestMapping(value = "/login", method = RequestMethod.POST, consumes = MediaType.APPLICATION_JSON_VALUE, produces = "application/json")
@@ -78,6 +98,8 @@ public class TestControllers {
 //	}
 	
 
+	
+	
 
 
 	/** IT WORKS PERFECTLY WITHOUT SENDING A JSON */

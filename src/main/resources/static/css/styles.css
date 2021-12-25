@@ -290,11 +290,12 @@ main {
 }
 
 .zcardcolor.zdisabled {
-    background-color: #DFDFDF;
+	/*background-color: #DFDFDF;*/
+	background-color:rgb(240, 240, 240);
 }
 
 .zcardcolor.zinactive {
-    background-color: #DFDFDF !important;
+    background-color:rgb(240, 240, 240);
     color: #9F9F9F !important;
 }
 

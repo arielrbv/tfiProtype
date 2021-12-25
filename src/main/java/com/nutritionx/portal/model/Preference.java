@@ -6,6 +6,7 @@ import java.util.Set;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.Id;
 import javax.persistence.ManyToMany;
 import javax.persistence.Table;
@@ -18,8 +19,8 @@ public class Preference{
 	@Id
 	@Column(name = "preference_id")
 	private String preferenceId;
-	@Column(name = "name")
 	private String name;
+	private String description;
 	
 
 	
@@ -31,12 +32,13 @@ public class Preference{
 	public Preference() {
 		// TODO Auto-generated constructor stub
 	}
-	public Preference(String preferenceId, String name) {
+
+	public Preference(String preferenceId, String name, String description) {
 		this.preferenceId = preferenceId;
 		this.name = name;
+		this.description = description;
 	}
-	
-	
+
 	public String getPreferenceId() {
 		return preferenceId;
 	}
@@ -49,14 +51,30 @@ public class Preference{
 	public void setName(String name) {
 		this.name = name;
 	}
+	public String getDescription() {
+		return description;
+	}
+	public void setDescription(String description) {
+		this.description = description;
+	}
+	public Set<Patient> getPatients() {
+		return patients;
+	}
+	public void setPatients(Set<Patient> patients) {
+		this.patients = patients;
+	}
 	public void addPatient(Patient p) {
 		this.patients.add(p);
 	}
 
 	
-	
 	@Override
 	public String toString() {
-		return "PreferenceLib [preferenceId=" + preferenceId + ", name=" + name + ", patients=" + patients + "]";
+		return "Preference [preferenceId=" + preferenceId + ", name=" + name + ", description=" + description
+				+ "]";
 	}
+
+	
+	
+
 }
