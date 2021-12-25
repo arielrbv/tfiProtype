@@ -79,7 +79,6 @@
       </ul>
     </header>
     <main>
-      <!--################################### FORM #################################### -->
       <div class=" container ">
         <div class="row g-0 mb-2 mt-4">
           <div class="col">
@@ -92,130 +91,132 @@
           </div>
         </div>
 
-<form action="/test/checkbox" method="post">
-        <div class="row g-0 ">
-          <div class="col col-12 col-lg-4 col-md-6 col-sm-12 mb-3" th:each="pat : ${patology}">
-            <span>
-              <label>
-                <input type="checkbox" name="pats" th:value="${pat.patologyId}"/>
-                <span th:text="${pat.name}+' '" class="zlabel"></span>
+        <!--################################### FORM #################################### -->
+        <form id="theForm" action="/test/checkbox" method="post">
+          <div class="row g-0 ">
+            <div class="col col-12 col-lg-4 col-md-6 col-sm-12 mb-3" th:each="pat : ${patology}">
+              <span>
+                <label>
+                  <input type="checkbox" name="pats" th:value="${pat.patologyId}" />
+                  <span th:text="${pat.name}+' '" class="zlabel"></span>
+                </label>
+                <i style="color:grey" class="far fa-question-circle ms-2 tooltipped ztooltip" data-position="bottom"
+                  th:attr="data-tooltip=''+${pat.description}+''"></i>
+              </span>
+            </div>
+            <div class="col col-12 col-lg-4 col-md-6 col-sm-12">
+              <label class="">
+                <input type="checkbox" disabled="disabled" />
+                <span>Otras1</span>
               </label>
               <i style="color:grey" class="far fa-question-circle ms-2 tooltipped ztooltip" data-position="bottom"
-                th:attr="data-tooltip=''+${pat.description}+''"></i>
-            </span>
-          </div>
-          <div class="col col-12 col-lg-4 col-md-6 col-sm-12">
-            <label class="">
-              <input type="checkbox" disabled="disabled" />
-              <span>Otras1</span>
-            </label>
-            <i style="color:grey" class="far fa-question-circle ms-2 tooltipped ztooltip" data-position="bottom"
-              data-tooltip="Funcionalidad aún no disponible"></i>
-          </div>
-          <div class="col col-12 col-lg-4 col-md-6 col-sm-12">
-            <label class="">
-              <input type="checkbox" disabled="disabled" />
-              <span>Otras2</span>
-            </label>
-            <i style="color:grey" class="far fa-question-circle ms-2 tooltipped ztooltip" data-position="bottom"
-              data-tooltip="Funcionalidad aún no disponible"></i>
-          </div>
-          <div class="col col-12 col-lg-4 col-md-6 col-sm-12">
-            <label class="">
-              <input type="checkbox" disabled="disabled" />
-              <span>Otras3</span>
-            </label>
-            <i style="color:grey" class="far fa-question-circle ms-2 tooltipped" data-position="bottom"
-              data-tooltip="Funcionalidad aún no disponible"></i>
-          </div>
-        </div>
-  
-
-        <div class="row g-0 mb-0">
-          <div class="col">
-            <h6 class="title ">¿Que tanto te gusta cocinar?</h6>
-          </div>
-        </div>
-        <div class="  row flex-row  g-0 mb-4 d-flex ">
-          <div class="d-flex col col-12 col-lg-4 col-md-6 col-sm-12 ">
-            <div class="card hoverable waves-effect waves-light z-depth-1 zcard zcardcolor" id="card1">
-              <div class="card-body d-flex align-items-stretch justify-content-center ">
-                <h5 class="card-ztitle mt-1">Mantenimiento</h5>
-                <p class="card-text ">Plan adecuado para personas que quieren mantener su peso actual, pero con una dieta equilibrada.
-                </p>
-              </div>
+                data-tooltip="Funcionalidad aún no disponible"></i>
             </div>
-          </div>
-          <div class="d-flex col col-12 col-lg-4 col-md-6 col-sm-12 ">
-            <div class="card hoverable waves-effect waves-light z-depth-1 zcard zcardcolor" id="card2">
-              <div class="card-body d-flex align-items-stretch justify-content-center ">
-                <h5 class="card-ztitle mt-1">Dep. Alto Rendimiento</h5>
-                <p class="card-text ">Un plan de comidas pensado aquellos que realizan deportes de alto rendimiento donde su cuerpo exige gran cantidad
-                  de nutrientes.
-                </p>
-              </div>
-            </div>
-          </div>
-          <div class="d-flex col col-12 col-lg-4 col-md-6 col-sm-12 ">
-            <div class="card hoverable waves-effect waves-light z-depth-1 zcard zcardcolor" id="card3">
-              <div class="card-body d-flex align-items-stretch justify-content-center ">
-                <h5 class="card-ztitle mt-1">Dep. Alto Rendimiento</h5>
-                <p class="card-text ">Un plan de comidas pensado aquellos que realizan deportes de alto rendimiento donde su cuerpo exige gran cantidad
-                  de nutrientes.
-                </p>
-              </div>
-            </div>
-          </div>
-        </div>
-        <input id="selectedCard" type="hidden" th:field="${preference.preferenceId}">
-
-
-        <div class="row g-0 mb-2">
-          <div class="col">
-            <h6 class="title">¿Deseas evitar alguno de los siguientes alimentos?</h6>
-          </div>
-        </div>
-        <div class="row g-0 ">
-        
-        <div class="col col-12 col-lg-4 col-md-6 col-sm-12 mb-3" th:each="prefs : ${preference2}">
-            <span>
-              <label>
-                <input type="checkbox" name="prefs" th:value="${prefs.preferenceId}"/>
-                <span th:text="${prefs.name}+' '" class="zlabel"></span>
+            <div class="col col-12 col-lg-4 col-md-6 col-sm-12">
+              <label class="">
+                <input type="checkbox" disabled="disabled" />
+                <span>Otras2</span>
               </label>
-            </span>
+              <i style="color:grey" class="far fa-question-circle ms-2 tooltipped ztooltip" data-position="bottom"
+                data-tooltip="Funcionalidad aún no disponible"></i>
+            </div>
+            <div class="col col-12 col-lg-4 col-md-6 col-sm-12">
+              <label class="">
+                <input type="checkbox" disabled="disabled" />
+                <span>Otras3</span>
+              </label>
+              <i style="color:grey" class="far fa-question-circle ms-2 tooltipped" data-position="bottom"
+                data-tooltip="Funcionalidad aún no disponible"></i>
+            </div>
           </div>
-      
-          <div class="col col-12 col-lg-4 col-md-6 col-sm-12 mb-3">
-            <label class="">
-              <input type="checkbox" disabled="disabled" />
-              <span>Otras1</span>
-            </label>
+
+
+          <div class="row g-0 mb-0">
+            <div class="col">
+              <h6 class="title ">¿Que tanto te gusta cocinar?</h6>
+            </div>
           </div>
-          <div class="col col-12 col-lg-4 col-md-6 col-sm-12 mb-3">
-            <label class="">
-              <input type="checkbox" disabled="disabled" />
-              <span>Otras2</span>
-            </label>
+          <div class="  row flex-row  g-0 mb-4 d-flex ">
+            <div class="d-flex col col-12 col-lg-4 col-md-6 col-sm-12 ">
+              <div class="card hoverable waves-effect waves-light z-depth-1 zcard zcardcolor" id="card1">
+                <div class="card-body d-flex align-items-stretch justify-content-center ">
+                  <h5 class="card-ztitle mt-1">Poco</h5>
+                  <p class="card-text ">La elección para aquellos que no disponen de tiempo durante el día y prefieren comidas saludables rápidas de
+                    cocinar, o que se pueden comprar.
+                  </p>
+                </div>
+              </div>
+            </div>
+            <div class="d-flex col col-12 col-lg-4 col-md-6 col-sm-12 ">
+              <div class="card hoverable waves-effect waves-light z-depth-1 zcard zcardcolor" id="card2">
+                <div class="card-body d-flex align-items-stretch justify-content-center ">
+                  <h5 class="card-ztitle mt-1">Normal</h5>
+                  <p class="card-text ">Indicado para personas que pueden disponer de un tiempo moderado para elaborar platos.
+                  </p>
+                </div>
+              </div>
+            </div>
+            <div class="d-flex col col-12 col-lg-4 col-md-6 col-sm-12 ">
+              <div class="card hoverable waves-effect waves-light z-depth-1 zcard zcardcolor" id="card3">
+                <div class="card-body d-flex align-items-stretch justify-content-center ">
+                  <h5 class="card-ztitle mt-1">Mucho</h5>
+                  <p class="card-text ">Ideado para aquellas personas que gustan de cocinar sus propias comidas. Este plan les proporciona recetas
+                    saludables.
+                  </p>
+                </div>
+              </div>
+            </div>
           </div>
-          <div class="col col-12 col-lg-4 col-md-6 col-sm-12 mb-3">
-            <label class="">
-              <input type="checkbox" disabled="disabled" />
-              <span>Otras3</span>
-            </label>
-          </div>
-        </div>
-        <div class="row  justify-content-end mb-5">
-          <div class="col">
-            <button class="btn btn-large waves-effect waves-light right mt-3" type="submit" name="action">
-              Siguiente
-              <i class="material-icons right">send</i>
-            </button>
-          </div>
-        </div>
+          <input id="selectedCard" type="hidden" th:field="${preference.preferenceId}">
+
+
+            <div class="row g-0 mb-2">
+              <div class="col">
+                <h6 class="title">¿Deseas evitar alguno de los siguientes alimentos?</h6>
+              </div>
+            </div>
+            <div class="row g-0 ">
+
+              <div class="col col-12 col-lg-4 col-md-6 col-sm-12 mb-3" th:each="prefs : ${preference2}">
+                <span>
+                  <label>
+                    <input type="checkbox" name="prefs" th:value="${prefs.preferenceId}" />
+                    <span th:text="${prefs.name}+' '" class="zlabel"></span>
+                  </label>
+                </span>
+              </div>
+
+              <div class="col col-12 col-lg-4 col-md-6 col-sm-12 mb-3">
+                <label class="">
+                  <input type="checkbox" disabled="disabled" />
+                  <span>Otras1</span>
+                </label>
+              </div>
+              <div class="col col-12 col-lg-4 col-md-6 col-sm-12 mb-3">
+                <label class="">
+                  <input type="checkbox" disabled="disabled" />
+                  <span>Otras2</span>
+                </label>
+              </div>
+              <div class="col col-12 col-lg-4 col-md-6 col-sm-12 mb-3">
+                <label class="">
+                  <input type="checkbox" disabled="disabled" />
+                  <span>Otras3</span>
+                </label>
+              </div>
+            </div>
+            <div class="row  justify-content-end mb-5">
+              <div class="col">
+                <!--button class="btn btn-large waves-effect waves-light right mt-3" name="action" onclick="submitForm()" -->
+                <button class="btn btn-large waves-effect waves-light right mt-3" type="submit" name="action">
+                  Siguiente
+                  <i class="material-icons right">send</i>
+                </button>
+              </div>
+            </div>
       </div>
-      
-</form>
+
+    </form>
       <!--################################### FIXED BUTTON #################################### -->
       <div class="fixed-action-btn direction-top d-none d-md-block" style="bottom: 25%; right: 24px; ">
         <a class="btn-floating btn-large " style="background-color:#0b423d; ">
@@ -236,6 +237,63 @@
           </li>
         </ul>
       </div>
+
+
+
+      <!--################################### Modal Structure #################################### -->
+      <div id="modal1" class="modal modal-fixed-footer" th:with="imc=${patient.weight}/(${patient.height}*${patient.height})" style="height: 470px;">
+        <div class="modal-content">
+          <h5>Indice de Masa Corporal</h5>
+          <p>
+            El Indice de Masa Coporal (IMC) es un calculo reconocido internacionalmente para el calculo de sobrepeso en
+            mayores de 18 años. Tu IMC es igual a
+            <b>
+              <span th:text="${#numbers.formatDecimal(imc, 0, 'COMMA', 2, 'POINT')}"></span>
+            </b>
+            lo que indica que:
+          </p>
+          <p class="center">
+            <span th:if="${imc <= 18.5}">
+              Tienes un
+              <b>Peso Insuficiente para tu talla</b>
+              .
+            </span>
+            <span th:if="${imc >= 18.5 and imc <= 24.9}">
+              Tu peso es
+              <b>Normal</b>
+              .
+            </span>
+            <span th:if="${imc >= 25 and imc <= 29.9}">
+              Padeces
+              <b>Sobrepeso</b>
+              .
+            </span>
+            <span th:if="${imc >= 30}">
+              Padeces
+              <b>Obesidad</b>
+              .
+            </span>
+          </p>
+
+          <p>Estos datos tambien seran incluidos en el sistema de forma que pueda proporcionarte el Plan Nutricional adecuado.</p>
+
+        </br>
+          <span>Aqui una referencia del IMC y sus categorias: </span>
+          <p class="offset-1">
+            Peso insuficiente < 18.5
+            <br />
+            Normal 18.5–24.9
+            <br />
+            Sobrepeso 25.0–29.9
+            <br />
+            Obesidad >= 30.0
+          </p>
+        </div>
+        <div class="modal-footer">
+          <a href="#!" class="modal-close waves-effect waves-green btn-flat center">De acuerdo</a>
+        </div>
+      </div>
+
     </main>
 
 
@@ -280,14 +338,14 @@
     </footer>
 
 
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+
     <!--script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js "></script -->
     <!-- script type="text/javascript" src="/js/materialize.min.js"></script> -->
     <!--script type="text/javascript" src="/js/popup.js"></script -->
-
-    <script type="text/javascript" src="/js/cards2.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     <script type="text/javascript" src="/js/matminjs.js"></script>
-    <script type="text/javascript" src="/js/general.js"></script>
+    <script type="text/javascript" src="/js/planS2.js"></script>
+    <!--script type="text/javascript" src="/js/general.js"></script -->
 
 
   </body>

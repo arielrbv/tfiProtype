@@ -27,6 +27,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.servlet.ModelAndView;
 
@@ -213,11 +214,12 @@ public class PatientController {
 	}
 
 	// map to post the step2
-	@PostMapping("/test/checkbox")
+	
+	//@PostMapping("/test/checkbox")
+	@RequestMapping(value = "/test/checkbox", method = RequestMethod.POST, consumes = MediaType.APPLICATION_FORM_URLENCODED_VALUE, produces = "application/json")
 	public ResponseEntity showfinalModal(@RequestParam(value = "pats", required = false) List<Patology> pat,
 			@ModelAttribute("preference") Preference pref1,
-			@RequestParam(value = "prefs", required = false) List<Preference> prefs, Model m) {
-		
+			@RequestParam(value = "prefs", required = false) List<Preference> prefs, Model m) {	
 		Patient p = (Patient) m.getAttribute("patient");
 		Set<Patology> setPat = new HashSet<Patology>(pat);
 		p.setPatologies(setPat);
@@ -226,7 +228,7 @@ public class PatientController {
 			p.addPreference(pr);
 			
 		}
-
+		
 		switch (pref1.getPreferenceId()) {
 		case "card1":
 			pref1 = prefRep.findByPreferenceId("8b5f86da-5ec8-11ec-9e40-98fa9b9e034a");
