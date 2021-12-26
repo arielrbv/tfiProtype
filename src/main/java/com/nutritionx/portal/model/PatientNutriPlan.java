@@ -21,11 +21,19 @@ public class PatientNutriPlan {
 	private String planId;
 	@Column(name = "plan_type",length = 45)
 	private String planType;
-	@Column(length = 45)
-	private String day;
-	@Column(name = "daily_meal",length = 45)
-	private String dailyMeal;
-	private String detail;
+	private Integer day;
+	@Column(columnDefinition="TEXT")
+	private String breakfast;
+	@Column(columnDefinition="TEXT")
+	private String msnack;
+	@Column(columnDefinition="TEXT")
+	private String lunch;
+	@Column(columnDefinition="TEXT")
+	private String asnack;
+	@Column(columnDefinition="TEXT")
+	private String pdsnack;
+	@Column(columnDefinition="TEXT")
+	private String dinner;
 	
 	
 	@ManyToOne(cascade = CascadeType.ALL)
@@ -33,21 +41,32 @@ public class PatientNutriPlan {
 	private Patient patient;
 	
 	
-	
 	public PatientNutriPlan() {
 		// TODO Auto-generated constructor stub
 	}
-	public PatientNutriPlan(String planId, String planType, String day, String dailyMeal,
-			String detail) {
+	public PatientNutriPlan(Integer id, String planId, String planType, Integer day, String breakfast, String msnack,
+			String lunch, String asnack, String pdsnack, String dinner) {
+		this.id = id;
 		this.planId = planId;
 		this.planType = planType;
 		this.day = day;
-		this.dailyMeal = dailyMeal;
-		this.detail = detail;
+		this.breakfast = breakfast;
+		this.msnack = msnack;
+		this.lunch = lunch;
+		this.asnack = asnack;
+		this.pdsnack = pdsnack;
+		this.dinner = dinner;
 	}
 	
 	
 	
+
+	public Integer getId() {
+		return id;
+	}
+	public void setId(Integer id) {
+		this.id = id;
+	}
 	public String getPlanId() {
 		return planId;
 	}
@@ -60,23 +79,47 @@ public class PatientNutriPlan {
 	public void setPlanType(String planType) {
 		this.planType = planType;
 	}
-	public String getDay() {
+	public Integer getDay() {
 		return day;
 	}
-	public void setDay(String day) {
+	public void setDay(Integer day) {
 		this.day = day;
 	}
-	public String getDailyMeal() {
-		return dailyMeal;
+	public String getBreakfast() {
+		return breakfast;
 	}
-	public void setDailyMeal(String dailyMeal) {
-		this.dailyMeal = dailyMeal;
+	public void setBreakfast(String breakfast) {
+		this.breakfast = breakfast;
 	}
-	public String getDetail() {
-		return detail;
+	public String getMsnack() {
+		return msnack;
 	}
-	public void setDetail(String detail) {
-		this.detail = detail;
+	public void setMsnack(String msnack) {
+		this.msnack = msnack;
+	}
+	public String getLunch() {
+		return lunch;
+	}
+	public void setLunch(String lunch) {
+		this.lunch = lunch;
+	}
+	public String getAsnack() {
+		return asnack;
+	}
+	public void setAsnack(String asnack) {
+		this.asnack = asnack;
+	}
+	public String getPdsnack() {
+		return pdsnack;
+	}
+	public void setPdsnack(String pdsnack) {
+		this.pdsnack = pdsnack;
+	}
+	public String getDinner() {
+		return dinner;
+	}
+	public void setDinner(String dinner) {
+		this.dinner = dinner;
 	}
 	public Patient getPatient() {
 		return patient;
@@ -84,12 +127,14 @@ public class PatientNutriPlan {
 	public void setPatient(Patient patient) {
 		this.patient = patient;
 	}
+	
+	
+	
 	@Override
 	public String toString() {
 		return "PatientNutriPlan [id=" + id + ", planId=" + planId + ", planType=" + planType + ", day=" + day
-				+ ", dailyMeal=" + dailyMeal + ", detail=" + detail + ", patient=" + patient + "]";
+				+ ", breakfast=" + breakfast + ", msnack=" + msnack + ", lunch=" + lunch + ", asnack=" + asnack
+				+ ", pdsnack=" + pdsnack + ", dinner=" + dinner + "]";
 	}
-	
-
 	
 }

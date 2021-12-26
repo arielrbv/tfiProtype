@@ -61,7 +61,7 @@ public class Patient {
 	
 	/**RELATIONS WITH TABLES*/
 	//WITH PROFESSIONAL
-	@ManyToMany(cascade = CascadeType.ALL)
+	@ManyToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL )
 	@JoinTable(
 			  name = "patient_professional", 
 			  joinColumns = @JoinColumn(name = "patient_id"), 
@@ -70,7 +70,7 @@ public class Patient {
 	Set<Professional> professional = new HashSet<>();
 	
 	//WITH PATIENT_NUTRIPLAN
-	@OneToMany(mappedBy = "patient", cascade = CascadeType.ALL)
+	@OneToMany(mappedBy = "patient", fetch = FetchType.EAGER, cascade = CascadeType.ALL)
 	private Set<PatientNutriPlan> linesOfPlan = new HashSet<>();
 	
 	//WITH PREFERENCES BYPASSING  PATIENT_PREFERENCES
@@ -194,11 +194,11 @@ public class Patient {
 	public void setHeight(float height) {
 		this.height = height;
 	}
-	public String getPlan_type() {
+	public String getPlanType() {
 		return planType;
 	}
-	public void setPlan_type(String plan_type) {
-		this.planType = plan_type;
+	public void setPlanType(String planType) {
+		this.planType = planType;
 	}
 	public Integer getStatus() {
 		return status;
@@ -242,6 +242,18 @@ public class Patient {
 	public void addPatology(Patology pat) {
 		this.patologies.add(pat);
 	}
+	public void setLinesOfPlan(Set<PatientNutriPlan> linesOfPlan) {
+		this.linesOfPlan = linesOfPlan;
+	}
+	public void setPreferences(Set<Preference> preferences) {
+		this.preferences = preferences;
+	}
+	public void setPatologies(Set<Patology> patologies) {
+		this.patologies = patologies;
+	}
+	public Set<PatientNutriPlan> getLinesOfPlan() {
+		return linesOfPlan;
+	}
 	public Set<Patology> getPatologies() {
 		return patologies;
 	}
@@ -250,12 +262,6 @@ public class Patient {
 	}
 	public Set<Preference> getPreferences() {
 		return preferences;
-	}
-	public void setPreferences(Set<Preference> preferences) {
-		this.preferences = preferences;
-	}
-	public void setPatologies(Set<Patology> patologies) {
-		this.patologies = patologies;
 	}
 	
 	@Override

@@ -336,3 +336,13 @@ main {
 }
 
 
+/*******************
+   Custoicon
+*******************/
+.zicon {
+    background: url('/assets/breakfast-1.png');
+    height: 20px;
+    width: 20px;
+    /* Other styles here */
+}
+

@@ -82,13 +82,13 @@
       <div class="container-fluid">
         <div class="row g-0 mt-3 mb-1">
           <div class="col-lg-10 offset-lg-1 ps-3 mb-0">
-            <h5 class="title" th:text=" 'Bienvenido una vez más ' + ${patient.firstName} "></h5>
+            <h5 class="title" th:text=" 'Bienvenido ' + ${patient.firstName} "></h5>
           </div>
         </div>
         <!--################################### USER CARD #################################### -->
 
         <div class="row g-0 d-flex justify-content-center align-items-stretch ">
-          <div class="col col-12 col-lg-2 d-flex col-md-4 d-none d-md-block">
+          <div class="col col-12 d-flex col-lg-2 d-flex col-md-4 d-none d-md-block">
             <div class="card zcard z-depth-2 hoverable">
               <div class="card-image">
                 <img class="zimg" style="border-radius:10px 10px 0 0;"
@@ -111,29 +111,122 @@
                   <i class="tiny material-icons">insert_chart</i>
                   Tu evolución
                 </span>
-                <div class="card-image " style="margin-top: 10px; ">
-                  <a class=" tooltipped " data-position="right" data-tooltip="Funcionalidad aún no disponible ">
+                <div class="card-image" style="margin-top: 10px;">
+                  <a class="tooltipped" data-position="right" data-tooltip="Funcionalidad aún no disponible">
                     <img src="https://github.com/arielrbv/universidadutiles/blob/main/chart.png?raw=true " />
                   </a>
                 </div>
               </div>
-              <div class="card-action center" style="margin-right: 0px; border-radius: 0px 0px 10px 10px">
-                <a class="me-0 tooltipped" data-position="right" data-tooltip="Funcionalidad aún no disponible ">Blog de recetas</a>
+              <div class="card-action center d-flex" style="margin-right: 0px; border-radius: 0px 0px 10px 10px">
+                <a class="me-0 tooltipped" data-position="right" data-tooltip="Funcionalidad aún no disponible">Blog de recetas</a>
               </div>
             </div>
           </div>
 
           <!--################################### MENU THINGS #################################### -->
           <div class=" col col-12 d-flex col-lg-4 col-md-8 col-sm-12">
-            <div class="card-panel zcard green lighten-5 z-depth-2 hoverable w-100 d-flex ">
-              <div class="card-body d-flex align-items-center justify-content-center ">
-                <a href="/planprep/step-1" class="btn-floating pulse zbtn waves-effect waves-light green lighten-1 ">
-                  <i class="large material-icons pt-3">touch_app</i>
-                </a>
-                <p class="pt-3 center">Aún no tienes un Plan Nutricional asigado, solicta uno aqui.</p>
+            <!--##### if you don't have a menu ######## -->
+            <span th:if="${patient.planType != NULL}" class="d-flex">
+              <div class="card-panel zcard green lighten-5 z-depth-2 hoverable w-100 d-flex align-items-center justify-content-center">
+                <div class="card-body d-flex align-items-center justify-content-center ">
+                  <a href="/planprep/step-1" class="btn-floating pulse zbtn waves-effect waves-light green lighten-1 ">
+                    <i class="large material-icons pt-3">touch_app</i>
+                  </a>
+                  <p class="pt-3 center">Aún no tienes un Plan Nutricional asigado, solicta uno aqui.</p>
+                </div>
               </div>
-            </div>
+            </span>
+            <!--##### if you have a menu ######## -->
+            <span th:if="${patient.planType == NULL}" class="d-flex w-100">
 
+
+
+
+
+
+
+
+
+              <div class="card d-flex z-depth-2 w-100 hoverable zcard">
+                <div class="card-content zcard ps-3 pt-3 pb-0">
+                  <p>Plan Asignado</p>
+                </div>
+                <div class="card-tabs center">
+                  <ul class="tabs">
+                    <!--li class="tab" th:each="lineOfP : ${patient.linesOfPlan}" -->
+                    <li class="tab" th:each="lineOfP : ${plan}">
+                      <!--a href="#test1"><span th:text="${lineOfP.day}"/></a> -->
+                      <a th:attr="href='#test'+${lineOfP.id}">
+                        <th:block th:switch="${lineOfP.day}">
+                          <span th:case="'1'" th:text="'D'" />
+                          <span th:case="'2'" th:text="'L'" />
+                          <span th:case="'3'" th:text="'M'" />
+                          <span th:case="'4'" th:text="'M'" />
+                          <span th:case="'5'" th:text="'J'" />
+                          <span th:case="'6'" th:text="'V'" />
+                          <span th:case="'7'" th:text="'S'" />
+                        </th:block>
+                      </a>
+                    </li>
+                  </ul>
+                </div>
+                <div class="card-content zcard p-3 pt-2 pb-2">
+                  <div th:attr="id='test'+${lineOfP.id}" th:each="lineOfP : ${plan}">
+                    <ul class="collapsible expandable">
+                      <li>
+                        <div class="collapsible-header p-2 ps-3 align-items-center">
+                          <img src="/assets/breakfast-1.png" style="width: 30px;"/><span class="ms-3 pt-2">Desayuno</span>
+                        </div>
+                        <div class="collapsible-body p-2">
+                          <p th:utext="${lineOfP.breakfast}" />
+                        </div>
+                      </li>
+                      <li>
+                        <div class="collapsible-header p-2 ps-3 align-items-center">
+                          <img src="/assets/snack-1.png" style="width: 30px;"/><span class="ms-3 pt-2">Tentempié</span>
+                        </div>
+                        <div class="collapsible-body p-2">
+                          <p th:utext="${lineOfP.msnack}" />
+                        </div>
+                      </li>
+                      <li>
+                        <div class="collapsible-header p-2 ps-3 align-items-center">
+                          <img src="/assets/meal-1.png" style="width: 30px;"/><span class="ms-3 pt-2">Almuerzo</span>
+                        </div>
+                        <div class="collapsible-body p-2">
+                          <p th:utext="${lineOfP.lunch}" />
+                        </div>
+                      </li>
+                      <li>
+                        <div class="collapsible-header p-2 ps-3 align-items-center">
+                          <img src="/assets/asnack-1.png" style="width: 30px;"/><span class="ms-3 pt-2">Merienda</span>
+                        </div>
+                        <div class="collapsible-body p-2">
+                          <p th:utext="${lineOfP.asnack}" />
+                        </div>
+                      </li>
+                      <li>
+                        <div class="collapsible-header p-2 ps-3 align-items-center">
+                          <img src="/assets/snack-1.png" style="width: 30px;"/><span class="ms-3 pt-2">Tentempié</span>
+                        </div>
+                        <div class="collapsible-body p-2">
+                          <p th:utext="${lineOfP.pdsnack}" />
+                        </div>
+                      </li>
+                      <li>
+                        <div class="collapsible-header p-2 ps-3 align-items-center">
+                          <img src="/assets/meal-1.png" style="width: 30px;"/><span class="ms-3 pt-2">Cena</span>
+                        </div>
+                        <div class="collapsible-body p-2">
+                          <p th:utext="${lineOfP.dinner}" />
+                        </div>
+                      </li>
+                    </ul>
+                  </div>
+                </div>
+              </div>
+
+              <span>
           </div>
           <!--################################### DOCTOR THINGS #################################### -->
           <div class=" col col-12 d-flex col-lg-4 col-md-12 col-sm-12">
@@ -185,16 +278,16 @@
             <ul>
               <li>
                 <a class="btn-floating btn-large waves-effect waves-light " style="background-color:#354a63; ">
-                  <i class="fab fa-instagram "></i>
+                  <i class="fab fa-instagram"></i>
                 </a>
                 <a class="btn-floating btn-large waves-effect waves-light " style="background-color:#354a63; ">
-                  <i class="fab fa-facebook-f "></i>
+                  <i class="fab fa-facebook-f"></i>
                 </a>
                 <a class="btn-floating btn-large waves-effect waves-light grey-text text-lighten-3 " style="background-color:#354a63; ">
-                  <i class="fab fa-twitter "></i>
+                  <i class="fab fa-twitter"></i>
                 </a>
                 <a class="btn-floating btn-large waves-effect waves-light grey-text text-lighten-3 " style="background-color:#354a63; ">
-                  <i class="fab fa-youtube "></i>
+                  <i class="fab fa-youtube"></i>
                 </a>
               </li>
             </ul>
@@ -210,7 +303,7 @@
 
     <!--script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js "></script> <script type="text/javascript" 
       src="/js/materialize.min.js"></script -->
-    <script type="text/javascript" src="/js/matminjs.js"></script>
+     <script type="text/javascript" src="/js/matminjs.js"></script>
     <script type="text/javascript" src="/js/general.js"></script>
     <script type="text/javascript" src="/js/popup.js"></script>
   </body>

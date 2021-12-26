@@ -32,8 +32,10 @@ import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.nutritionx.portal.model.Patient;
+import com.nutritionx.portal.model.PatientNutriPlan;
 import com.nutritionx.portal.model.Patology;
 import com.nutritionx.portal.model.Preference;
+import com.nutritionx.portal.repository.PatientNutriPlanRepository;
 import com.nutritionx.portal.repository.PatientRepository;
 import com.nutritionx.portal.repository.PatologyRepository;
 import com.nutritionx.portal.repository.PreferenceRepository;
@@ -56,6 +58,9 @@ public class PatientController {
 
 	@Autowired
 	private PreferenceRepository prefRep;
+	
+	@Autowired
+	private PatientNutriPlanRepository  patNutriPRepo;
 
 	// SET the patient to be present in the session.
 	@ModelAttribute("patient")
@@ -83,7 +88,17 @@ public class PatientController {
 		//
 		// GET RID OFF This when /home be complete
 		//
-		m.addAttribute("patient", patRep.findByEmailAndPassword("ariel.rbv@gmail.com", "pas123"));
+		Patient p = new Patient();
+		p=patRep.findByEmailAndPassword("ariel.rbv@gmail.com", "pas123");
+		//System.out.println(p.getLinesOfPlan());
+		List<PatientNutriPlan> pnp = patNutriPRepo.findByPatientOrderByDayAsc(p);
+		
+
+		m.addAttribute("patient",p);
+		m.addAttribute("plan", patNutriPRepo.findByPatientOrderByDayAsc(p));
+		
+		
+
 
 		return "home";
 	}
