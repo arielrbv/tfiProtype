@@ -138,18 +138,9 @@
             </span>
             <!--##### if you have a menu ######## -->
             <span th:if="${patient.planType == NULL}" class="d-flex w-100">
-
-
-
-
-
-
-
-
-
               <div class="card d-flex z-depth-2 w-100 hoverable zcard">
                 <div class="card-content zcard ps-3 pt-3 pb-0">
-                  <p>Plan Asignado</p>
+                  <p>Plan Nutricional Recomendado</p>
                 </div>
                 <div class="card-tabs center">
                   <ul class="tabs">
@@ -170,14 +161,14 @@
                     </li>
                   </ul>
                 </div>
-                <div class="card-content zcard p-3 pt-2 pb-2">
+                <div class="card-content green lighten-5 zcard p-3 pt-2 pb-2 h-100" style="border-radius: 0px 0px 10px 10px">
                   <div th:attr="id='test'+${lineOfP.id}" th:each="lineOfP : ${plan}">
                     <ul class="collapsible expandable">
                       <li>
                         <div class="collapsible-header p-2 ps-3 align-items-center">
                           <img src="/assets/breakfast-1.png" style="width: 30px;"/><span class="ms-3 pt-2">Desayuno</span>
                         </div>
-                        <div class="collapsible-body p-2">
+                        <div class="collapsible-body grey lighten-5 p-2">
                           <p th:utext="${lineOfP.breakfast}" />
                         </div>
                       </li>
@@ -185,7 +176,7 @@
                         <div class="collapsible-header p-2 ps-3 align-items-center">
                           <img src="/assets/snack-1.png" style="width: 30px;"/><span class="ms-3 pt-2">Tentempié</span>
                         </div>
-                        <div class="collapsible-body p-2">
+                        <div class="collapsible-body grey lighten-5 p-2">
                           <p th:utext="${lineOfP.msnack}" />
                         </div>
                       </li>
@@ -193,7 +184,7 @@
                         <div class="collapsible-header p-2 ps-3 align-items-center">
                           <img src="/assets/meal-1.png" style="width: 30px;"/><span class="ms-3 pt-2">Almuerzo</span>
                         </div>
-                        <div class="collapsible-body p-2">
+                        <div class="collapsible-body grey lighten-5 p-2">
                           <p th:utext="${lineOfP.lunch}" />
                         </div>
                       </li>
@@ -201,7 +192,7 @@
                         <div class="collapsible-header p-2 ps-3 align-items-center">
                           <img src="/assets/asnack-1.png" style="width: 30px;"/><span class="ms-3 pt-2">Merienda</span>
                         </div>
-                        <div class="collapsible-body p-2">
+                        <div class="collapsible-body grey lighten-5 p-2">
                           <p th:utext="${lineOfP.asnack}" />
                         </div>
                       </li>
@@ -209,7 +200,7 @@
                         <div class="collapsible-header p-2 ps-3 align-items-center">
                           <img src="/assets/snack-1.png" style="width: 30px;"/><span class="ms-3 pt-2">Tentempié</span>
                         </div>
-                        <div class="collapsible-body p-2">
+                        <div class="collapsible-body grey lighten-5 p-2">
                           <p th:utext="${lineOfP.pdsnack}" />
                         </div>
                       </li>
@@ -217,7 +208,7 @@
                         <div class="collapsible-header p-2 ps-3 align-items-center">
                           <img src="/assets/meal-1.png" style="width: 30px;"/><span class="ms-3 pt-2">Cena</span>
                         </div>
-                        <div class="collapsible-body p-2">
+                        <div class="collapsible-body grey lighten-5 p-2">
                           <p th:utext="${lineOfP.dinner}" />
                         </div>
                       </li>
@@ -225,7 +216,6 @@
                   </div>
                 </div>
               </div>
-
               <span>
           </div>
           <!--################################### DOCTOR THINGS #################################### -->
