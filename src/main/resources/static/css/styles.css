@@ -1,347 +1,369 @@
 * {
-	padding: 0;
-	margin: 0;
-	box-sizing: border-box;
+    padding: 0;
+    margin: 0;
+    box-sizing: border-box;
 }
 
 body {
-	background: #fff;
-	font-family: 'Spartan', sans-serif;
-	font-weight: 450;
-	display: flex;
-	min-height: 100vh;
-	flex-direction: column;
+    background: #fff;
+    font-family: 'Spartan', sans-serif;
+    font-weight: 450;
+    /*display: flex;*/
+    min-height: 100vh;
+    flex-direction: column;
 }
 
 main {
-	flex: 1 0 auto;
+    flex: 1 0 auto;
 }
 
 .footerZZ {
-	position: fixed;
-	left: 0;
-	bottom: 0;
-	width: 100%;
+    position: fixed;
+    left: 0;
+    bottom: 0;
+    width: 100%;
 }
 
 .footerbtn {
-	background-color: #354a63;
+    background-color: #354a63;
 }
 
 .card-body {
-	flex-direction: column;
+    flex-direction: column;
 }
 
 .contenedor {
-	width: 90%;
-	max-width: 1000px;
-	margin: 20px auto;
+    width: 90%;
+    max-width: 1000px;
+    margin: 20px auto;
 }
 
 .contenedor article {
-	line-height: 28px;
+    line-height: 28px;
 }
 
 .contenedor article h1 {
-	font-size: 30px;
-	text-align: left;
-	padding: 50px 0;
+    font-size: 30px;
+    text-align: left;
+    padding: 50px 0;
 }
 
 .contenedor article p {
-	margin-bottom: 20px;
+    margin-bottom: 20px;
 }
 
 .contenedor article .btn-abrir-popup {
-	padding: 0 20px;
-	margin-bottom: 20px;
-	height: 40px;
-	line-height: 40px;
-	border: none;
-	color: #fff;
-	background: #5E7DE3;
-	border-radius: 3px;
-	font-family: 'Montserrat', sans-serif;
-	font-size: 16px;
-	cursor: pointer;
-	transition: .3s ease all;
-	cursor: pointer;
+    padding: 0 20px;
+    margin-bottom: 20px;
+    height: 40px;
+    line-height: 40px;
+    border: none;
+    color: #fff;
+    background: #5E7DE3;
+    border-radius: 3px;
+    font-family: 'Montserrat', sans-serif;
+    font-size: 16px;
+    cursor: pointer;
+    transition: .3s ease all;
+    cursor: pointer;
 }
 
 .contenedor article .btn-abrir-popup:hover {
-	background: rgba(94, 125, 227, .9);
+    background: rgba(94, 125, 227, .9);
 }
 
 .title {
-	font-weight: 600;
+    font-weight: 600;
 }
 
 .card-ztitle {
-	font-weight: 600;
-	font-size: medium;
+    font-weight: 600;
+    font-size: medium;
 }
 
 .zheight {
-	width: 80px;
+    width: 80px;
 }
 
+
 /* ------------------------- */
+
 
 /* POPUP */
 
+
 /* ------------------------- */
+
 .overlay {
-	background: rgba(0, 0, 0, .3);
-	position: fixed;
-	top: 0;
-	bottom: 0;
-	left: 0;
-	right: 0;
-	align-items: center;
-	justify-content: center;
-	display: flex;
-	visibility: hidden;
+    background: rgba(0, 0, 0, .3);
+    position: fixed;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    align-items: center;
+    justify-content: center;
+    display: flex;
+    visibility: hidden;
 }
 
 .overlay.active {
-	visibility: visible;
+    visibility: visible;
 }
 
 .popup {
-	background: #F8F8F8;
-	box-shadow: 0px 0px 5px 0px rgba(0, 0, 0, 0.3);
-	border-radius: 3px;
-	font-family: 'Montserrat', sans-serif;
-	padding: 20px;
-	text-align: center;
-	width: 600px;
-	transition: .3s ease all;
-	transform: scale(0.7);
-	opacity: 0;
+    background: #F8F8F8;
+    box-shadow: 0px 0px 5px 0px rgba(0, 0, 0, 0.3);
+    border-radius: 3px;
+    font-family: 'Montserrat', sans-serif;
+    padding: 20px;
+    text-align: center;
+    width: 600px;
+    transition: .3s ease all;
+    transform: scale(0.7);
+    opacity: 0;
 }
 
 .popup .btn-cerrar-popup {
-	font-size: 16px;
-	line-height: 16px;
-	display: block;
-	text-align: right;
-	transition: .20s ease all;
-	color: #BBBBBB;
+    font-size: 16px;
+    line-height: 16px;
+    display: block;
+    text-align: right;
+    transition: .20s ease all;
+    color: #BBBBBB;
 }
 
 .popup .btn-cerrar-popup:hover {
-	color: #000;
+    color: #000;
 }
 
 .popup h3 {
-	font-size: 36px;
-	font-weight: 600;
-	margin-bottom: 10px;
-	opacity: 0;
+    font-size: 36px;
+    font-weight: 600;
+    margin-bottom: 10px;
+    opacity: 0;
 }
 
 .popup h4 {
-	font-size: 26px;
-	font-weight: 300;
-	margin-bottom: 40px;
-	opacity: 0;
+    font-size: 26px;
+    font-weight: 300;
+    margin-bottom: 40px;
+    opacity: 0;
 }
 
 .popup form .contenedor-body {
-	opacity: 0;
+    opacity: 0;
 }
 
 .popup form .contenedor-body input {
-	width: 100%;
-	margin-bottom: 20px;
-	height: 52px;
-	font-size: 18px;
-	line-height: 52px;
-	text-align: center;
-	border: 1px solid #BBBBBB;
+    width: 100%;
+    margin-bottom: 20px;
+    height: 52px;
+    font-size: 18px;
+    line-height: 52px;
+    text-align: center;
+    border: 1px solid #BBBBBB;
 }
 
 .popup form .btn-submit {
-	opacity: 0;
-	padding: 0 20px;
-	height: 40px;
-	line-height: 40px;
-	border: none;
-	color: #fff;
-	background: #5E7DE3;
-	border-radius: 3px;
-	font-family: 'Montserrat', sans-serif;
-	font-size: 16px;
-	cursor: pointer;
-	transition: .11s ease all;
+    opacity: 0;
+    padding: 0 20px;
+    height: 40px;
+    line-height: 40px;
+    border: none;
+    color: #fff;
+    background: #5E7DE3;
+    border-radius: 3px;
+    font-family: 'Montserrat', sans-serif;
+    font-size: 16px;
+    cursor: pointer;
+    transition: .11s ease all;
 }
 
 .popup form .btn-submit:hover {
-	background: rgba(94, 125, 227, .9);
+    background: rgba(94, 125, 227, .9);
 }
 
 .overlay2 {
-	background: rgba(0, 0, 0, .3);
-	position: fixed;
-	top: 0;
-	bottom: 0;
-	left: 0;
-	right: 0;
-	align-items: center;
-	justify-content: center;
-	display: flex;
-	visibility: hidden;
+    background: rgba(0, 0, 0, .3);
+    position: fixed;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    align-items: center;
+    justify-content: center;
+    display: flex;
+    visibility: hidden;
 }
 
 .overlay2.active {
-	visibility: visible;
+    visibility: visible;
 }
+
 
 /*************** 
  *ANIMACIONES
  **************/
+
 .popup.active {
-	transform: scale(1);
-	opacity: 1;
+    transform: scale(1);
+    opacity: 1;
 }
 
 .popup.active h3 {
-	animation: entradaTitulo .8s ease .5s forwards;
+    animation: entradaTitulo .8s ease .5s forwards;
 }
 
 .popup.active h4 {
-	animation: entradaSubtitulo .8s ease .5s forwards;
+    animation: entradaSubtitulo .8s ease .5s forwards;
 }
 
 .popup.active .contenedor-body {
-	animation: entradaBody 0.8s linear .8s forwards;
+    animation: entradaBody 0.8s linear .8s forwards;
 }
 
 .popup.active .btn-submit {
-	animation: entradaSubmit 1s linear 1s forwards;
+    animation: entradaSubmit 1s linear 1s forwards;
 }
 
 .spinner.active {
-	transform: scale(1);
-	opacity: 1;
+    transform: scale(1);
+    opacity: 1;
 }
 
-@
-keyframes entradaTitulo {from { opacity:0;
-	transform: translateY(-25px);
+@keyframes entradaTitulo {
+    from {
+        opacity: 0;
+        transform: translateY(-25px);
+    }
+    to {
+        transform: translateY(0);
+        opacity: 1;
+    }
 }
 
-to {
-	transform: translateY(0);
-	opacity: 1;
+@keyframes entradaSubtitulo {
+    from {
+        opacity: 0;
+        transform: translateY(25px);
+    }
+    to {
+        transform: translateY(0);
+        opacity: 1;
+    }
 }
 
-}
-@
-keyframes entradaSubtitulo {from { opacity:0;
-	transform: translateY(25px);
-}
-
-to {
-	transform: translateY(0);
-	opacity: 1;
+@keyframes entradaBody {
+    from {
+        opacity: 0;
+    }
+    to {
+        opacity: 1;
+    }
 }
 
-}
-@
-keyframes entradaBody {from { opacity:0;
-	
-}
-
-to {
-	opacity: 1;
-}
-
-}
-@
-keyframes entradaSubmit {from { transform:translateY(10px);
-	opacity: 0;
+@keyframes entradaSubmit {
+    from {
+        transform: translateY(10px);
+        opacity: 0;
+    }
+    to {
+        transform: translateY(0);
+        opacity: 1;
+    }
 }
 
-to {
-	transform: translateY(0);
-	opacity: 1;
-}
-
-}
 
 /************
      CARD
 ************/
+
 .zcard {
-	cursor: pointer;
-	user-select: none;
-	border-radius: 10px;
+    cursor: pointer;
+    user-select: none;
+    border-radius: 10px;
 }
 
 .zcardcolor.zactive {
-	background-color: #93dc9b;
+    background-color: #93dc9b;
 }
 
 .zcardcolor.zdisabled {
-	/*background-color: #DFDFDF;*/
-	background-color: rgb(240, 240, 240);
+    /*background-color: #DFDFDF;*/
+    background-color: rgb(240, 240, 240);
 }
 
 .zcardcolor.zinactive {
-	background-color: rgb(240, 240, 240);
-	color: #9F9F9F !important;
+    background-color: rgb(240, 240, 240);
+    color: #9F9F9F !important;
 }
+
 
 /************
      Label
 ************/
+
 .zlabel {
-	color: #000000;
-	font-size: 14px;
+    color: #000000;
+    font-size: 14px;
 }
+
 
 /************
      BUTTONS
 ************/
+
 .btn {
-	border-radius: 10px;
+    border-radius: 10px;
+    text-transform: none;
+}
+
+.no-uppercase {
+    text-transform: none;
 }
 
 .zbtn {
-	width: 70px;
-	height: 70px;
+    width: 70px;
+    height: 70px;
 }
+
 
 /*******************
    TOOLTIP FIXED
 *******************/
+
 .material-tooltip {
-	max-width: 400px;
+    max-width: 400px;
 }
 
 .zimg {
-	border-radius: 10px 10px 0px 0px;
+    border-radius: 10px 10px 0px 0px;
 }
+
 
 /*******************
    Label Colors
 *******************/
-.tabs .tab a:hover, .tabs .tab a.active {
-	background-color: transparent;
-	color: #59a52c;
+
+.tabs .tab a:hover,
+.tabs .tab a.active {
+    background-color: transparent;
+    color: #59a52c;
 }
 
 .tabs .tab a {
-	color: rgb(180, 205, 182);
+    color: rgb(180, 205, 182);
+    text-transform: capitalize;
 }
 
 .tabs .tab a:hover {
     color: #17b32c;
 }
 
-.tabs .tab a:focus, .tabs .tab a:focus.active {
-	background-color: #e8f5e9;
+.tabs .tab a:focus,
+.tabs .tab a:focus.active {
+    background-color: #e8f5e9;
 }
 
 .tabs .tab a.active {
@@ -349,6 +371,6 @@ to {
     color: #17b32c
 }
 
-.tabs .indicator{
+.tabs .indicator {
     background-color: #17b32c;
 }

@@ -1,11 +1,11 @@
 M.AutoInit();
 
-var overlay = document.getElementById('overlay'),
+var 
+	overlay = document.getElementById('overlay'),
 	popup = document.getElementById('popup'),
 	btnCerrarPopup = document.getElementById('btn-cerrar-popup'),
 	overlay2 = document.getElementById('overlay2')
-	spiner = document.getElementById('spinner');
-
+spiner = document.getElementById('spinner');
 
 
 btnCerrarPopup.addEventListener('click', function(e) {
@@ -30,6 +30,7 @@ function createAccount() {
 
 	$("#formPatient").submit(function(event) {
 		event.preventDefault();
+		savePosition();
 	})
 
 	// DO POST
@@ -62,6 +63,38 @@ function createAccount() {
 			console.log(jqXHR.status);
 		});
 }
+
+$('#formPatient').submit(function(e) {
+	e.preventDefault();
+	e.savePosition();
+
+	var form = $(this);
+	var url = form.attr('action');
+
+	$.ajax({
+		type: "POST",
+		url: url,
+		data: form.serialize(),
+		beforeSend: openModal()
+		//console.log('openSpinner')
+	})
+		.done(function() {
+			// Por ejemplo removemos la imagen "cargando..."
+			console.log('allgood');
+			//	openPopUp();
+		})
+		.fail(function() {
+			// Manejar errores
+			console.log('all bad');
+		})
+		.always(
+			function(jqXHR) {
+				console.log(jqXHR.status);
+			}
+		);
+
+});
+
 
 
 

@@ -104,7 +104,7 @@
                   th:attr="data-tooltip=''+${pat.description}+''"></i>
               </span>
             </div>
-            <div class="col col-12 col-lg-4 col-md-6 col-sm-12">
+            <div class="col col-12 col-lg-4 col-md-6 col-sm-12 mb-3">
               <label class="">
                 <input type="checkbox" disabled="disabled" />
                 <span>Otras1</span>
@@ -112,7 +112,7 @@
               <i style="color:grey" class="far fa-question-circle ms-2 tooltipped ztooltip" data-position="bottom"
                 data-tooltip="Funcionalidad aún no disponible"></i>
             </div>
-            <div class="col col-12 col-lg-4 col-md-6 col-sm-12">
+            <div class="col col-12 col-lg-4 col-md-6 col-sm-12 mb-3">
               <label class="">
                 <input type="checkbox" disabled="disabled" />
                 <span>Otras2</span>
@@ -120,7 +120,7 @@
               <i style="color:grey" class="far fa-question-circle ms-2 tooltipped ztooltip" data-position="bottom"
                 data-tooltip="Funcionalidad aún no disponible"></i>
             </div>
-            <div class="col col-12 col-lg-4 col-md-6 col-sm-12">
+            <div class="col col-12 col-lg-4 col-md-6 col-sm-12 mb-3">
               <label class="">
                 <input type="checkbox" disabled="disabled" />
                 <span>Otras3</span>
@@ -241,12 +241,14 @@
 
 
       <!--################################### Modal Structure #################################### -->
-      <div id="modal1" class="modal modal-fixed-footer" th:with="imc=${patient.weight}/(${patient.height}*${patient.height})" style="height: 470px;">
+      <div id="modal1" class="modal modal-fixed-footer" th:with="imc=${patient.weight}/(${patient.height}*${patient.height})"
+        style="height: 470px;">
         <div class="modal-content">
           <h5>Indice de Masa Corporal</h5>
           <p>
             El Indice de Masa Coporal (IMC) es un calculo reconocido internacionalmente para el calculo de sobrepeso en
-            mayores de 18 años. Tu IMC es igual a
+            mayores de 18 años.
+            Tu IMC es igual a
             <b>
               <span th:text="${#numbers.formatDecimal(imc, 0, 'COMMA', 2, 'POINT')}"></span>
             </b>
@@ -303,13 +305,13 @@
     <footer class="page-footer " style="background-color:#59a52c; ">
       <div class="container ">
         <div class="row g-0 ">
-          <div class="col l6 s12 ">
+          <div class="col col-12 col-lg-4 col-md-12 col-sm-12">
             <h5 class="white-text ">NutritionX vAlfa</h5>
             <a class=" tooltipped text-decoration-none " data-position="right " data-tooltip="Funcionalidad aún no disponible ">
               <p class="grey-text text-lighten-4 ">Terminos y Condiciones</p>
             </a>
           </div>
-          <div class="col l4 offset-l2 s12 ">
+          <div class="col col-12 col-lg-4 offset-lg-2 col-md-12 col-sm-12">
             <h5>Siguenos</h5>
             <ul>
               <li>

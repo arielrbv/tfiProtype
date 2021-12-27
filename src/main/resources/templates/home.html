@@ -87,13 +87,13 @@
         </div>
         <!--################################### USER CARD #################################### -->
 
-        <div class="row g-0 d-flex justify-content-center align-items-stretch ">
-          <div class="col col-12 d-flex col-lg-2 d-flex col-md-4 d-none d-md-block">
-            <div class="card zcard z-depth-2 hoverable">
+        <div class="row g-0 d-flex align-items-stretch justify-content-center">
+          <div class="col col-12 d-flex col-lg-2 d-flex col-md-4 d-none d-md-block ">
+            <div class="card zcard z-depth-2 hoverable d-flex align-items-stretch"> <!--################################### H- 100 #################################### -->
               <div class="card-image">
                 <img class="zimg" style="border-radius:10px 10px 0 0;"
                   src="https://github.com/arielrbv/universidadutiles/blob/main/sample-1.png?raw=true" />
-                <span class="card-title ps-3 pe-3">
+                <span class="card-title ps-2 pe-2 mb-0">
                   <b>
                     <p th:text="${patient.firstName}+ ' '+${patient.lastName} " style="margin-top: 0px;margin-bottom: 0px; " />
                   </b>
@@ -102,7 +102,7 @@
                   <i class="material-icons">edit</i>
                 </a>
               </div>
-              <div class="card-content zcard ps-3 pe-3">
+              <div class="card-content zcard ps-2 pe-2">
                 <span class="title">Peso actual: </span>
                 <span th:text="${patient.weight} + ' Kg' "></span>
                 <br />
@@ -117,7 +117,7 @@
                   </a>
                 </div>
               </div>
-              <div class="card-action center d-flex" style="margin-right: 0px; border-radius: 0px 0px 10px 10px">
+              <div class="card-action center d-flex " style="margin-right: 0px; border-radius: 0px 0px 10px 10px">
                 <a class="me-0 tooltipped" data-position="right" data-tooltip="Funcionalidad aún no disponible">Blog de recetas</a>
               </div>
             </div>
@@ -126,7 +126,7 @@
           <!--################################### MENU THINGS #################################### -->
           <div class=" col col-12 d-flex col-lg-4 col-md-8 col-sm-12">
             <!--##### if you don't have a menu ######## -->
-            <span th:if="${patient.planType != NULL}" class="d-flex">
+            <span th:if="${patient.planType == NULL}" class="d-flex">
               <div class="card-panel zcard green lighten-5 z-depth-2 hoverable w-100 d-flex align-items-center justify-content-center">
                 <div class="card-body d-flex align-items-center justify-content-center ">
                   <a href="/planprep/step-1" class="btn-floating pulse zbtn waves-effect waves-light green lighten-1 ">
@@ -137,25 +137,23 @@
               </div>
             </span>
             <!--##### if you have a menu ######## -->
-            <span th:if="${patient.planType == NULL}" class="d-flex w-100">
-              <div class="card d-flex z-depth-2 w-100 hoverable zcard">
+            <span th:if="${patient.planType != NULL}" class="d-flex w-100">
+              <div class="card d-flex z-depth-2 w-100 hoverable zcard"> <!--################################### H- 100 #################################### -->
                 <div class="card-content zcard ps-3 pt-3 pb-0">
                   <p>Plan Nutricional Recomendado</p>
                 </div>
                 <div class="card-tabs center">
-                  <ul class="tabs">
-                    <!--li class="tab" th:each="lineOfP : ${patient.linesOfPlan}" -->
+                  <ul class="tabs" style="height: 40px;">
                     <li class="tab" th:each="lineOfP : ${plan}">
-                      <!--a href="#test1"><span th:text="${lineOfP.day}"/></a> -->
-                      <a th:attr="href='#test'+${lineOfP.id}">
+                      <a th:attr="href='#test'+${lineOfP.id}" class="p-2 pt-0 pb-0">
                         <th:block th:switch="${lineOfP.day}">
-                          <span th:case="'1'" th:text="'D'" />
-                          <span th:case="'2'" th:text="'L'" />
-                          <span th:case="'3'" th:text="'M'" />
-                          <span th:case="'4'" th:text="'M'" />
-                          <span th:case="'5'" th:text="'J'" />
-                          <span th:case="'6'" th:text="'V'" />
-                          <span th:case="'7'" th:text="'S'" />
+                          <span th:case="'1'" th:text="'Dom'" />
+                          <span th:case="'2'" th:text="'Lun'" />
+                          <span th:case="'3'" th:text="'Mar'" />
+                          <span th:case="'4'" th:text="'Mie'" />
+                          <span th:case="'5'" th:text="'Jue'" />
+                          <span th:case="'6'" th:text="'Vie'" />
+                          <span th:case="'7'" th:text="'Sab'" />
                         </th:block>
                       </a>
                     </li>
@@ -163,53 +161,59 @@
                 </div>
                 <div class="card-content green lighten-5 zcard p-3 pt-2 pb-2 h-100" style="border-radius: 0px 0px 10px 10px">
                   <div th:attr="id='test'+${lineOfP.id}" th:each="lineOfP : ${plan}">
-                    <ul class="collapsible expandable">
-                      <li>
-                        <div class="collapsible-header p-2 ps-3 align-items-center">
-                          <img src="/assets/breakfast-1.png" style="width: 30px;"/><span class="ms-3 pt-2">Desayuno</span>
+                    <ul class="collapsible expandable" style="border-radius:10px 10px 10px 10px;">
+                      <li class="active">
+                        <div class="collapsible-header p-2 ps-3 align-items-center" style="border-radius:10px 10px 0 0;">
+                          <img src="/assets/breakfast-1.png" style="width: 30px;" />
+                          <span class="ms-3 pt-2">Desayuno</span>
                         </div>
                         <div class="collapsible-body grey lighten-5 p-2">
-                          <p th:utext="${lineOfP.breakfast}" />
+                          <p th:utext="${lineOfP.breakfast}" style="font-size: 13px;" />
                         </div>
                       </li>
                       <li>
                         <div class="collapsible-header p-2 ps-3 align-items-center">
-                          <img src="/assets/snack-1.png" style="width: 30px;"/><span class="ms-3 pt-2">Tentempié</span>
+                          <img src="/assets/snack-1.png" style="width: 30px;" />
+                          <span class="ms-3 pt-2">Tentempié</span>
                         </div>
                         <div class="collapsible-body grey lighten-5 p-2">
-                          <p th:utext="${lineOfP.msnack}" />
+                          <p th:utext="${lineOfP.msnack}" style="font-size: 13px;" />
                         </div>
                       </li>
                       <li>
                         <div class="collapsible-header p-2 ps-3 align-items-center">
-                          <img src="/assets/meal-1.png" style="width: 30px;"/><span class="ms-3 pt-2">Almuerzo</span>
+                          <img src="/assets/meal-1.png" style="width: 30px;" />
+                          <span class="ms-3 pt-2">Almuerzo</span>
                         </div>
                         <div class="collapsible-body grey lighten-5 p-2">
-                          <p th:utext="${lineOfP.lunch}" />
+                          <p th:utext="${lineOfP.lunch}" style="font-size: 13px;" />
                         </div>
                       </li>
                       <li>
                         <div class="collapsible-header p-2 ps-3 align-items-center">
-                          <img src="/assets/asnack-1.png" style="width: 30px;"/><span class="ms-3 pt-2">Merienda</span>
+                          <img src="/assets/asnack-1.png" style="width: 30px;" />
+                          <span class="ms-3 pt-2">Merienda</span>
                         </div>
                         <div class="collapsible-body grey lighten-5 p-2">
-                          <p th:utext="${lineOfP.asnack}" />
+                          <p th:utext="${lineOfP.asnack}" style="font-size: 13px;" />
                         </div>
                       </li>
                       <li>
                         <div class="collapsible-header p-2 ps-3 align-items-center">
-                          <img src="/assets/snack-1.png" style="width: 30px;"/><span class="ms-3 pt-2">Tentempié</span>
+                          <img src="/assets/snack-1.png" style="width: 30px;" />
+                          <span class="ms-3 pt-2">Tentempié</span>
                         </div>
                         <div class="collapsible-body grey lighten-5 p-2">
-                          <p th:utext="${lineOfP.pdsnack}" />
+                          <p th:utext="${lineOfP.pdsnack}" style="font-size: 13px;" />
                         </div>
                       </li>
                       <li>
-                        <div class="collapsible-header p-2 ps-3 align-items-center">
-                          <img src="/assets/meal-1.png" style="width: 30px;"/><span class="ms-3 pt-2">Cena</span>
+                        <div class="collapsible-header p-2 ps-3 align-items-center" style="border-radius:0 0 10px 10px;">
+                          <img src="/assets/meal-1.png" style="width: 30px;" />
+                          <span class="ms-3 pt-2">Cena</span>
                         </div>
-                        <div class="collapsible-body grey lighten-5 p-2">
-                          <p th:utext="${lineOfP.dinner}" />
+                        <div class="collapsible-body grey lighten-5 p-2" style="border-radius:0 0 10px 10px;">
+                          <p th:utext="${lineOfP.dinner}" style="font-size: 13px;" />
                         </div>
                       </li>
                     </ul>
@@ -220,7 +224,7 @@
           </div>
           <!--################################### DOCTOR THINGS #################################### -->
           <div class=" col col-12 d-flex col-lg-4 col-md-12 col-sm-12">
-            <div class="card-panel zcard green lighten-5 z-depth-2 hoverable w-100 d-flex align-items-center justify-content-center ">
+            <div class="card-panel zcard green lighten-5 z-depth-2 hoverable w-100 d-flex align-items-center justify-content-center"> <!--################################### H- 100 #################################### -->
               <div class="card-body d-flex align-items-center justify-content-center ">
                 <i class="large material-icons align-items-center justify-content-center">person_pin</i>
                 <p class="center">Solicita un Plan Nutricional para conocer a tu Nutricionista</p>
@@ -231,7 +235,7 @@
       </div>
       <!--################################### Fixed menu Button #################################### -->
 
-      <div class="fixed-action-btn direction-top" style="bottom: 45px; right: 24px;">
+      <div class="fixed-action-btn direction-top d-none d-md-block" style="bottom: 45px; right: 24px;">
         <a class="btn-floating btn-large " style="background-color:#0b423d;">
           <i class="material-icons">menu</i>
         </a>
@@ -257,13 +261,13 @@
     <footer class="page-footer " style="background-color:#59a52c; ">
       <div class="container ">
         <div class="row g-0 ">
-          <div class="col l6 s12 ">
+          <div class="col col-12 col-lg-4 col-md-12 col-sm-12">
             <h5 class="white-text ">NutritionX vAlfa</h5>
             <a class=" tooltipped text-decoration-none " data-position="right " data-tooltip="Funcionalidad aún no disponible ">
               <p class="grey-text text-lighten-4 ">Terminos y Condiciones</p>
             </a>
           </div>
-          <div class="col l4 offset-l2 s12">
+          <div class="col col-12 col-lg-4 offset-lg-2 col-md-12 col-sm-12">
             <h5>Siguenos</h5>
             <ul>
               <li>
@@ -293,7 +297,7 @@
 
     <!--script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js "></script> <script type="text/javascript" 
       src="/js/materialize.min.js"></script -->
-     <script type="text/javascript" src="/js/matminjs.js"></script>
+    <script type="text/javascript" src="/js/matminjs.js"></script>
     <script type="text/javascript" src="/js/general.js"></script>
     <script type="text/javascript" src="/js/popup.js"></script>
   </body>
