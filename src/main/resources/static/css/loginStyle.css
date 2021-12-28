@@ -1,0 +1,29 @@
+body {
+    font-family: 'Spartan', sans-serif;
+    font-weight: 600;
+    color: var(--light);
+}
+
+.form-cotrol,
+.btn {
+    min-height: 3.125rem;
+    line-height: initial;
+}
+
+.material-icons.prefix {
+    color: #83b271;
+    padding-left: 0px;
+}
+
+.input-field.col.l12 {
+    padding-left: 0px;
+}
+
+.zlabel {
+    margin-left: 35px;
+}
+
+.btn {
+    font-weight: 600;
+    text-transform: capitalize;
+}

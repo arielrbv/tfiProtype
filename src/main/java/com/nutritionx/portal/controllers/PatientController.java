@@ -71,7 +71,7 @@ public class PatientController {
 	// GET to load the Login View
 	@GetMapping("/login")
 	public String showLogin() {
-		return "login";
+		return "loginv2";
 	}
 
 	// GET to load the selfReg View
@@ -97,9 +97,6 @@ public class PatientController {
 		m.addAttribute("patient",p);
 		m.addAttribute("plan", patNutriPRepo.findByPatientOrderByDayAsc(p));
 		
-		
-
-
 		return "home";
 	}
 

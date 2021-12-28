@@ -7,6 +7,7 @@
 body {
     background: #fff;
     font-family: 'Spartan', sans-serif;
+    font-size: 14px;
     font-weight: 450;
     /*display: flex;*/
     min-height: 100vh;
@@ -300,6 +301,13 @@ main {
 }
 
 
+/*****Text*****/
+
+.input-field>label {
+    font-size: 14px;
+}
+
+
 /************
      Label
 ************/
@@ -343,7 +351,7 @@ main {
 
 
 /*******************
-   Label Colors
+   Label Colors of tabs
 *******************/
 
 .tabs .tab a:hover,
@@ -373,4 +381,13 @@ main {
 
 .tabs .indicator {
     background-color: #17b32c;
+}
+
+
+/****inputs***/
+
+.input-field.zpadding0 {
+    position: relative;
+    margin-top: 1rem;
+    margin-bottom: 0rem;
 }
