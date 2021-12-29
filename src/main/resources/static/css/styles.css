@@ -388,3 +388,7 @@ POPUP
     margin-top: 1rem;
     margin-bottom: 0rem;
 }
+
+.input-field {
+    font-weight: 500;
+}

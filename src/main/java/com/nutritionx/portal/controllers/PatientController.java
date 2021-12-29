@@ -44,6 +44,7 @@ import com.nutritionx.portal.repository.PreferenceRepository;
 import com.nutritionx.portal.service.PatientService;
 import com.nutritionx.portal.service.ServiceResponse;
 import com.nutritionx.portal.util.DateAux;
+import com.nutritionx.portal.util.GenericUser;
 import com.nutritionx.portal.util.JavaMailUtil;
 
 @Controller
@@ -79,21 +80,18 @@ public class PatientController {
 
 	// GET to load the selfReg View
 	@GetMapping("/selfRegistration")
-	public String showSelfRegForm(/* Model model */) {
-		// Patient p = new Patient();
-		// model.addAttribute("patient", p);
+	public String showSelfRegForm() {
 		return "selfRegistration";//
 	}
 
 	// GET to load the home View
 	@GetMapping("/home")
-	public String showHome(/* @RequestBody Patient p, */ Model m) {
+	public String showHome(Model m) {
 		//
 		// GET RID OFF This when /home be complete
 		//
 		Patient p = new Patient();
-		p = patRep.findByEmailAndPassword("ariel.rbv@gmail.com", "pas123");
-		// System.out.println(p.getLinesOfPlan());
+		p = patRep.findByEmail("ariel.rbv@gmail.com");
 		List<PatientNutriPlan> pnp = patNutriPRepo.findByPatientOrderByDayAsc(p);
 
 		m.addAttribute("patient", p);
@@ -106,8 +104,6 @@ public class PatientController {
 	@GetMapping("/planprep/step-1")
 	public String showPlanPrepStep1(Model m) {
 
-		// PatPrefTest pp = new PatPrefTest();
-		// m.addAttribute("patpref", pp);
 		Preference p = new Preference();
 		m.addAttribute("preference", p);
 		return "planPrepStep1";
@@ -123,16 +119,22 @@ public class PatientController {
 		return "planPrepStep2";
 	}
 
-	// GET to load the Login View
+	// GET to load the patientUpdateProfile view
 	@GetMapping("/profile/update")
 	public String showProfileUpdate(Model m) {
 		Patient p = (Patient) m.getAttribute("patient");
 		DateAux d = new DateAux();
 		SimpleDateFormat format = new SimpleDateFormat("dd/MM/yyyy");
-		// String fechaNueva = format.format(p.getBirthdate());
 		d.setDate(format.format(p.getBirthdate()));
 		m.addAttribute("aux", d);
 		return "patientUpdateProfile";
+	}
+
+	// GET to load the passwordUpdate view
+	@GetMapping("/password/update")
+	public String showPasswordUpdate(Model m) {
+		m.addAttribute("genericUser", new GenericUser());
+		return "patientUpdatePassword";
 	}
 
 	// POST Patient Account Creation from AJAX
@@ -243,7 +245,7 @@ public class PatientController {
 
 	// @PostMapping("/test/checkbox")
 	@RequestMapping(value = "/test/checkbox", method = RequestMethod.POST, consumes = MediaType.APPLICATION_FORM_URLENCODED_VALUE, produces = "application/json")
-	public ResponseEntity showfinalModal(@RequestParam(value = "pats", required = false) List<Patology> pat,
+	public ResponseEntity<HttpStatus> showfinalModal(@RequestParam(value = "pats", required = false) List<Patology> pat,
 			@ModelAttribute("preference") Preference pref1,
 			@RequestParam(value = "prefs", required = false) List<Preference> prefs, Model m) {
 		Patient p = (Patient) m.getAttribute("patient");
@@ -271,23 +273,57 @@ public class PatientController {
 
 		patServ.updatePatient(p);
 		m.addAttribute("patient", p);
-		return new ResponseEntity(HttpStatus.OK);
+		return new ResponseEntity<HttpStatus>(HttpStatus.OK);
 	}
 
 	@RequestMapping(value = "/profile/update", method = RequestMethod.POST, consumes = MediaType.APPLICATION_FORM_URLENCODED_VALUE, produces = "application/json")
-	public ResponseEntity saveProfileChanges(@ModelAttribute("patient") Patient p, @ModelAttribute("aux") DateAux d, Model m) {
+	public ResponseEntity<HttpStatus> profileUpdate(@ModelAttribute("patient") Patient p, @ModelAttribute("aux") DateAux d, Model m) {
 
 		try {
 			Date date1=new SimpleDateFormat("dd/MM/yyyy").parse(d.getDate());
 			p.setBirthdate(date1);
 			patServ.updatePatient(p);
-			return new ResponseEntity(HttpStatus.OK);
+			return new ResponseEntity<HttpStatus>(HttpStatus.OK);
 		} catch (ParseException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
-			return new ResponseEntity(HttpStatus.INTERNAL_SERVER_ERROR);
+			return new ResponseEntity<HttpStatus>(HttpStatus.INTERNAL_SERVER_ERROR);
 		}  
 
 	}
+	
+	@RequestMapping(value = "/password/update", method = RequestMethod.POST, consumes = MediaType.APPLICATION_FORM_URLENCODED_VALUE, produces = "application/json")
+	public ResponseEntity<HttpStatus> passwordUpdate(@ModelAttribute("patient") Patient p, @ModelAttribute("genericuser") GenericUser u, Model m) {
+		
+		//
+		// GET RID OFF THE COMMENTS AT THE FINAL VERSION OF THE PROTOTYPE TO TRIGGER THE
+		// SECURE PASS
+		//
+//		MessageDigest digest = MessageDigest.getInstance("SHA-256");
+//		SecureRandom secureRandom = new SecureRandom(); // Hash Randombytes as token
+//		byte[] hash = digest.digest((p.getEmail() + u.getcPass()).getBytes(StandardCharsets.UTF_8));
+//		String secureAux = Base64.getEncoder().encodeToString(hash);
 
+
+		//p = patRep.findByEmailAndPassword(p.getEmail(), secureAux);
+//		if (p != null) {
+//			//actualizar pass
+//			return new ResponseEntity(HttpStatus.OK);
+//		}else {
+//			//no actualizar pass y mandar error
+//			return new ResponseEntity(HttpStatus.INTERNAL_SERVER_ERROR);
+//		}
+//		
+		if(p.getPassword().equals(u.getcPass())) {
+			if(u.getnPass().equals(u.getnPassC())) {
+				p.setPassword(u.getnPass());
+				patServ.updatePatient(p);
+				return new ResponseEntity<HttpStatus>(HttpStatus.OK);
+			}else {
+				return new ResponseEntity<HttpStatus>(HttpStatus.UNAUTHORIZED);
+			}
+		}else {
+			return new ResponseEntity<HttpStatus>(HttpStatus.UNAUTHORIZED);
+		}
+	}
 }
