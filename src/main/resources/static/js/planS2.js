@@ -37,12 +37,6 @@ function openModal(){
     $('#modal1').modal('open'); 
  };
 
-/*$(document).ready(function(){
-    $('#modal1').modal();
-    $('#modal1').modal('open'); 
- });*/
-
-
 $('#theForm').submit(function(e) {
 	e.preventDefault();
 

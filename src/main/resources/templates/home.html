@@ -13,7 +13,7 @@
 
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Home</title>
+    <title>NutritionX - Home</title>
 </head>
 
 <body>
@@ -23,7 +23,7 @@
                 <a href="#" data-target="slide-out" class="sidenav-trigger text-decoration-none">
                     <i class="material-icons">menu</i>
                 </a>
-                <a href="#" class="brand-logo d-flex align-items-center mt-1">
+                <a href="/home" class="brand-logo d-flex align-items-center mt-1">
                     <img class="img-fluid" width="270" style="height: auto;" src="https://github.com/arielrbv/universidadutiles/blob/main/svgexport-84.png?raw=true" />
                 </a>
                 <ul id="nav-mobile" class="right hide-on-med-and-down ">
@@ -52,7 +52,7 @@
                 </div>
             </li>
             <li>
-                <a href="#!">
+                <a href="/profile/update">
                     <i class="material-icons">person</i> Actualizar perfil
                 </a>
             </li>
@@ -84,15 +84,14 @@
             <div class="row g-0 d-flex align-items-stretch justify-content-center">
                 <div class="col col-12 d-flex col-lg-2 d-flex col-md-4 d-none d-md-block ">
                     <div class="card zcard z-depth-2 hoverable d-flex align-items-stretch">
-                        <!--################################### H- 100 #################################### -->
                         <div class="card-image">
                             <img class="zimg" style="border-radius:10px 10px 0 0;" src="https://github.com/arielrbv/universidadutiles/blob/main/sample-1.png?raw=true" />
                             <span class="card-title ps-2 pe-2 mb-0">
-                  <b>
-                    <p th:text="${patient.firstName}+ ' '+${patient.lastName} " style="margin-top: 0px;margin-bottom: 0px; " />
-                  </b>
-                </span>
-                            <a class="btn-floating halfway-fab waves-effect waves-light blue-grey darken-4">
+                              <b>
+                                <p th:text="${patient.firstName}+ ' '+${patient.lastName} " style="margin-top: 0px;margin-bottom: 0px; " />
+                              </b>
+                            </span>
+                            <a href="/profile/update" class="btn-floating halfway-fab waves-effect waves-light blue-grey darken-4" style="right: 10px;">
                                 <i class="material-icons">edit</i>
                             </a>
                         </div>
@@ -102,9 +101,9 @@
                             <br />
                             <br />
                             <span class="title" style="vertical-align:text-bottom; ">
-                  <i class="tiny material-icons">insert_chart</i>
-                  Tu evolución
-                </span>
+                              <i class="tiny material-icons">insert_chart</i>
+                              Tu evolución
+                            </span>
                             <div class="card-image" style="margin-top: 10px;">
                                 <a class="tooltipped" data-position="right" data-tooltip="Funcionalidad aún no disponible">
                                     <img src="https://github.com/arielrbv/universidadutiles/blob/main/chart.png?raw=true " />
@@ -228,14 +227,13 @@
         </div>
       </div>
       <!--################################### Fixed menu Button #################################### -->
-
-      <div class="fixed-action-btn direction-top d-none d-md-block" style="bottom: 45px; right: 24px;">
+      <div class="fixed-action-btn direction-top d-none d-md-block" style="bottom: 27%; right: 24px;">
         <a class="btn-floating btn-large " style="background-color:#0b423d;">
           <i class="material-icons">menu</i>
         </a>
         <ul>
           <li>
-            <a class="btn-floating blue-grey darken-4 tooltipped" data-position="left" data-tooltip="Actualizar perfil"
+            <a href="/profile/update" class="btn-floating blue-grey darken-4 tooltipped" data-position="left" data-tooltip="Actualizar perfil"
               style="opacity: 0; transform: scale(0.4) translateY(40px) translateX(0px);">
               <i class="material-icons">person</i>
             </a>
@@ -293,7 +291,6 @@
       src="/js/materialize.min.js"></script -->
     <script type="text/javascript" src="/js/matminjs.js"></script>
     <script type="text/javascript" src="/js/general.js"></script>
-    <script type="text/javascript" src="/js/popup.js"></script>
   </body>
 
 </html>

@@ -9,7 +9,7 @@ body {
     font-family: 'Spartan', sans-serif;
     font-size: 14px;
     font-weight: 450;
-    /*display: flex;*/
+    display: flex;
     min-height: 100vh;
     flex-direction: column;
 }
@@ -87,17 +87,13 @@ main {
 }
 
 
-/* ------------------------- */
-
-
-/* POPUP */
-
-
-/* ------------------------- */
+/* ------------------------- 
+POPUP 
+------------------------- */
 
 .overlay {
     background: rgba(0, 0, 0, .3);
-    position: fixed;
+    position: absolute !important;
     top: 0;
     bottom: 0;
     left: 0;
@@ -322,8 +318,9 @@ main {
      BUTTONS
 ************/
 
-.btn {
-    border-radius: 10px;
+.btn,
+.btn-small {
+    border-radius: 6px;
     text-transform: none;
 }
 

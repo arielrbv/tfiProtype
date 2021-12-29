@@ -4,6 +4,8 @@ import java.nio.charset.StandardCharsets;
 import java.security.MessageDigest;
 import java.security.SecureRandom;
 import java.sql.Timestamp;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.Base64;
 import java.util.Date;
 import java.util.HashSet;
@@ -41,6 +43,7 @@ import com.nutritionx.portal.repository.PatologyRepository;
 import com.nutritionx.portal.repository.PreferenceRepository;
 import com.nutritionx.portal.service.PatientService;
 import com.nutritionx.portal.service.ServiceResponse;
+import com.nutritionx.portal.util.DateAux;
 import com.nutritionx.portal.util.JavaMailUtil;
 
 @Controller
@@ -58,9 +61,9 @@ public class PatientController {
 
 	@Autowired
 	private PreferenceRepository prefRep;
-	
+
 	@Autowired
-	private PatientNutriPlanRepository  patNutriPRepo;
+	private PatientNutriPlanRepository patNutriPRepo;
 
 	// SET the patient to be present in the session.
 	@ModelAttribute("patient")
@@ -71,7 +74,7 @@ public class PatientController {
 	// GET to load the Login View
 	@GetMapping("/login")
 	public String showLogin() {
-		return "loginv2";
+		return "login";
 	}
 
 	// GET to load the selfReg View
@@ -89,14 +92,13 @@ public class PatientController {
 		// GET RID OFF This when /home be complete
 		//
 		Patient p = new Patient();
-		p=patRep.findByEmailAndPassword("ariel.rbv@gmail.com", "pas123");
-		//System.out.println(p.getLinesOfPlan());
+		p = patRep.findByEmailAndPassword("ariel.rbv@gmail.com", "pas123");
+		// System.out.println(p.getLinesOfPlan());
 		List<PatientNutriPlan> pnp = patNutriPRepo.findByPatientOrderByDayAsc(p);
-		
 
-		m.addAttribute("patient",p);
+		m.addAttribute("patient", p);
 		m.addAttribute("plan", patNutriPRepo.findByPatientOrderByDayAsc(p));
-		
+
 		return "home";
 	}
 
@@ -119,6 +121,18 @@ public class PatientController {
 		m.addAttribute("preference2", prefRep.findAllAndDescriptionisNull());
 		m.addAttribute("patology", patoRep.findAll());
 		return "planPrepStep2";
+	}
+
+	// GET to load the Login View
+	@GetMapping("/profile/update")
+	public String showProfileUpdate(Model m) {
+		Patient p = (Patient) m.getAttribute("patient");
+		DateAux d = new DateAux();
+		SimpleDateFormat format = new SimpleDateFormat("dd/MM/yyyy");
+		// String fechaNueva = format.format(p.getBirthdate());
+		d.setDate(format.format(p.getBirthdate()));
+		m.addAttribute("aux", d);
+		return "patientUpdateProfile";
 	}
 
 	// POST Patient Account Creation from AJAX
@@ -226,21 +240,20 @@ public class PatientController {
 	}
 
 	// map to post the step2
-	
-	//@PostMapping("/test/checkbox")
+
+	// @PostMapping("/test/checkbox")
 	@RequestMapping(value = "/test/checkbox", method = RequestMethod.POST, consumes = MediaType.APPLICATION_FORM_URLENCODED_VALUE, produces = "application/json")
 	public ResponseEntity showfinalModal(@RequestParam(value = "pats", required = false) List<Patology> pat,
 			@ModelAttribute("preference") Preference pref1,
-			@RequestParam(value = "prefs", required = false) List<Preference> prefs, Model m) {	
+			@RequestParam(value = "prefs", required = false) List<Preference> prefs, Model m) {
 		Patient p = (Patient) m.getAttribute("patient");
 		Set<Patology> setPat = new HashSet<Patology>(pat);
 		p.setPatologies(setPat);
-		
+
 		for (Preference pr : prefs) {
 			p.addPreference(pr);
-			
 		}
-		
+
 		switch (pref1.getPreferenceId()) {
 		case "card1":
 			pref1 = prefRep.findByPreferenceId("8b5f86da-5ec8-11ec-9e40-98fa9b9e034a");
@@ -254,11 +267,27 @@ public class PatientController {
 		default:
 			break;
 		}
-		p.addPreference(pref1);		
-		
+		p.addPreference(pref1);
+
 		patServ.updatePatient(p);
 		m.addAttribute("patient", p);
 		return new ResponseEntity(HttpStatus.OK);
+	}
+
+	@RequestMapping(value = "/profile/update", method = RequestMethod.POST, consumes = MediaType.APPLICATION_FORM_URLENCODED_VALUE, produces = "application/json")
+	public ResponseEntity saveProfileChanges(@ModelAttribute("patient") Patient p, @ModelAttribute("aux") DateAux d, Model m) {
+
+		try {
+			Date date1=new SimpleDateFormat("dd/MM/yyyy").parse(d.getDate());
+			p.setBirthdate(date1);
+			patServ.updatePatient(p);
+			return new ResponseEntity(HttpStatus.OK);
+		} catch (ParseException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+			return new ResponseEntity(HttpStatus.INTERNAL_SERVER_ERROR);
+		}  
+
 	}
 
 }
