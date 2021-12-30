@@ -37,6 +37,7 @@ import com.nutritionx.portal.model.Patient;
 import com.nutritionx.portal.model.PatientNutriPlan;
 import com.nutritionx.portal.model.Patology;
 import com.nutritionx.portal.model.Preference;
+import com.nutritionx.portal.model.Professional;
 import com.nutritionx.portal.repository.PatientNutriPlanRepository;
 import com.nutritionx.portal.repository.PatientRepository;
 import com.nutritionx.portal.repository.PatologyRepository;
@@ -92,10 +93,15 @@ public class PatientController {
 		//
 		Patient p = new Patient();
 		p = patRep.findByEmail("ariel.rbv@gmail.com");
+		
+		System.out.println(p.getLinesOfPlan());
 		List<PatientNutriPlan> pnp = patNutriPRepo.findByPatientOrderByDayAsc(p);
-
 		m.addAttribute("patient", p);
 		m.addAttribute("plan", patNutriPRepo.findByPatientOrderByDayAsc(p));
+		
+//		for (Professional prof : p.getProfessional()) {
+//			m.addAttribute("prof", prof);
+//		}
 
 		return "home";
 	}

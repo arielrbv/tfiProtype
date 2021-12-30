@@ -29,9 +29,9 @@ public class Professional {
 	@Column (name="license_id")
 	private String licenseId;
 	@Column (name="first_name")
-	private String firsttName;
+	private String firstName;
 	@Column (name="last_name")
-	private String lasttName;
+	private String lastName;
 	private String email;
 	@Column(length = 45)
 	private String phone;
@@ -56,14 +56,14 @@ public class Professional {
 	public Professional() {
 		// TODO Auto-generated constructor stub
 	}
-	public Professional(String professionalId, String dni, String licenseId, String firsttName, String lasttName,
+	public Professional(String professionalId, String dni, String licenseId, String firstName, String lastName,
 			String email, String phone, String address, String postalCode, Integer status, Date created, Date lastLogin,
 			String password, String token) {
 		this.professionalId = professionalId;
 		this.dni = dni;
 		this.licenseId = licenseId;
-		this.firsttName = firsttName;
-		this.lasttName = lasttName;
+		this.firstName = firstName;
+		this.lastName = lastName;
 		this.email = email;
 		this.phone = phone;
 		this.address = address;
@@ -95,17 +95,17 @@ public class Professional {
 	public void setLicenseId(String licenseId) {
 		this.licenseId = licenseId;
 	}
-	public String getFirsttName() {
-		return firsttName;
+	public String getFirstName() {
+		return firstName;
 	}
-	public void setFirsttName(String firsttName) {
-		this.firsttName = firsttName;
+	public void setFirstName(String firstName) {
+		this.firstName = firstName;
 	}
-	public String getLasttName() {
-		return lasttName;
+	public String getLastName() {
+		return lastName;
 	}
-	public void setLasttName(String lasttName) {
-		this.lasttName = lasttName;
+	public void setLastName(String lastName) {
+		this.lastName = lastName;
 	}
 	public String getEmail() {
 		return email;
@@ -172,7 +172,7 @@ public class Professional {
 	@Override
 	public String toString() {
 		return "Professional [professionalId=" + professionalId + ", dni=" + dni + ", licenseId=" + licenseId
-				+ ", firsttName=" + firsttName + ", lasttName=" + lasttName + ", email=" + email + ", phone=" + phone
+				+ ", firstName=" + firstName + ", lastName=" + lastName + ", email=" + email + ", phone=" + phone
 				+ ", address=" + address + ", postalCode=" + postalCode + ", status=" + status + ", created=" + created
 				+ ", lastLogin=" + lastLogin + ", password=" + password + ", token=" + token + "]";
 	}
