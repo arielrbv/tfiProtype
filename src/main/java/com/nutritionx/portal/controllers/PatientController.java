@@ -6,6 +6,9 @@ import java.security.SecureRandom;
 import java.sql.Timestamp;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.time.LocalDate;
+import java.time.Period;
+import java.time.ZoneId;
 import java.util.Base64;
 import java.util.Date;
 import java.util.HashSet;
@@ -15,6 +18,7 @@ import java.util.Set;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
+import org.kie.api.runtime.KieSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
@@ -42,11 +46,13 @@ import com.nutritionx.portal.repository.PatientNutriPlanRepository;
 import com.nutritionx.portal.repository.PatientRepository;
 import com.nutritionx.portal.repository.PatologyRepository;
 import com.nutritionx.portal.repository.PreferenceRepository;
+import com.nutritionx.portal.repository.ProfessionalRepository;
 import com.nutritionx.portal.service.PatientService;
 import com.nutritionx.portal.service.ServiceResponse;
 import com.nutritionx.portal.util.DateAux;
 import com.nutritionx.portal.util.GenericUser;
 import com.nutritionx.portal.util.JavaMailUtil;
+import com.nutritionx.portal.util.PlanAssignment;
 
 @Controller
 @SessionAttributes("patient")
@@ -66,6 +72,12 @@ public class PatientController {
 
 	@Autowired
 	private PatientNutriPlanRepository patNutriPRepo;
+	
+	@Autowired
+	private ProfessionalRepository proRepo;
+	
+	@Autowired
+	private KieSession session;
 
 	// SET the patient to be present in the session.
 	@ModelAttribute("patient")
@@ -94,7 +106,7 @@ public class PatientController {
 		Patient p = new Patient();
 		p = patRep.findByEmail("ariel.rbv@gmail.com");
 		
-		System.out.println(p.getLinesOfPlan());
+		System.out.println(p.getProfessional());
 		List<PatientNutriPlan> pnp = patNutriPRepo.findByPatientOrderByDayAsc(p);
 		m.addAttribute("patient", p);
 		m.addAttribute("plan", patNutriPRepo.findByPatientOrderByDayAsc(p));
@@ -220,7 +232,7 @@ public class PatientController {
 	}
 
 	// POST to load the planPreStep2 View
-	@PostMapping("/planprep/step-2")
+	@PostMapping("/planprep/step-1")
 	public ModelAndView showPlanPrepStep2Post(@ModelAttribute("patient") Patient pat,
 			@ModelAttribute("preference") Preference pref, Model m) {
 		ModelAndView m2 = new ModelAndView();
@@ -248,14 +260,16 @@ public class PatientController {
 	}
 
 	// map to post the step2
-
 	// @PostMapping("/test/checkbox")
 	@RequestMapping(value = "/test/checkbox", method = RequestMethod.POST, consumes = MediaType.APPLICATION_FORM_URLENCODED_VALUE, produces = "application/json")
 	public ResponseEntity<HttpStatus> showfinalModal(@RequestParam(value = "pats", required = false) List<Patology> pat,
 			@ModelAttribute("preference") Preference pref1,
 			@RequestParam(value = "prefs", required = false) List<Preference> prefs, Model m) {
+		Timestamp ts = new Timestamp(System.currentTimeMillis());
 		Patient p = (Patient) m.getAttribute("patient");
+		PlanAssignment pa = new PlanAssignment(p.getGender(),Period.between(p.getBirthdate().toInstant().atZone(ZoneId.systemDefault()).toLocalDate(), ts.toLocalDateTime().toLocalDate()).getYears(),p.getWeight(),p.getHeight(),"",null);
 		Set<Patology> setPat = new HashSet<Patology>(pat);
+				
 		p.setPatologies(setPat);
 
 		for (Preference pr : prefs) {
@@ -265,22 +279,40 @@ public class PatientController {
 		switch (pref1.getPreferenceId()) {
 		case "card1":
 			pref1 = prefRep.findByPreferenceId("8b5f86da-5ec8-11ec-9e40-98fa9b9e034a");
+			pa.setExerciseTime("30-");
 			break;
 		case "card2":
 			pref1 = prefRep.findByPreferenceId("8b5fa105-5ec8-11ec-9e40-98fa9b9e034a");
+			pa.setExerciseTime("30-60");
 			break;
 		case "card3":
 			pref1 = prefRep.findByPreferenceId("8b5fb8b3-5ec8-11ec-9e40-98fa9b9e034a");
+			pa.setExerciseTime("60+");
 			break;
 		default:
 			break;
 		}
-		p.addPreference(pref1);
 
-		patServ.updatePatient(p);
+		//trigger the SE
+		session.insert(pa);
+		session.fireAllRules();
+		
+		p.setPlanType(pa.getAssigment());
+		
+		p.addPreference(pref1);
+		patServ.updatePatient(p);	
+		
+		//assign professional
+		assingProfessional(p);
+		
+		//assign lines of plan
+		
+		
 		m.addAttribute("patient", p);
 		return new ResponseEntity<HttpStatus>(HttpStatus.OK);
 	}
+	
+	
 
 	@RequestMapping(value = "/profile/update", method = RequestMethod.POST, consumes = MediaType.APPLICATION_FORM_URLENCODED_VALUE, produces = "application/json")
 	public ResponseEntity<HttpStatus> profileUpdate(@ModelAttribute("patient") Patient p, @ModelAttribute("aux") DateAux d, Model m) {
@@ -319,7 +351,7 @@ public class PatientController {
 //			//no actualizar pass y mandar error
 //			return new ResponseEntity(HttpStatus.INTERNAL_SERVER_ERROR);
 //		}
-//		
+		
 		if(p.getPassword().equals(u.getcPass())) {
 			if(u.getnPass().equals(u.getnPassC())) {
 				p.setPassword(u.getnPass());
@@ -332,4 +364,19 @@ public class PatientController {
 			return new ResponseEntity<HttpStatus>(HttpStatus.UNAUTHORIZED);
 		}
 	}
+	
+	
+	public void assingProfessional(Patient p) {
+		Professional pr = proRepo.findByProfessionalId("880be7ec-1e1c-4aba-83b0-47de14c6222d");
+		p.addProfessional(pr);
+		patServ.updatePatient(p);	
+	}
+	
+//	public void assingLinesOfPlan(Patient p) {
+//		
+//		patServ.updatePatient(p);	
+//	}
+	
+	
+	
 }

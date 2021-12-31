@@ -1,4 +1,4 @@
-// M.AutoInit();
+M.AutoInit();
 var cards = document.querySelectorAll('.card'),
 	theForm = document.getElementById('theForm'),
 	previousCardId = String;
@@ -47,21 +47,22 @@ $('#theForm').submit(function(e) {
 		type: "POST",
 		url: url,
 		data: form.serialize(),
-		beforeSend: openModal()
+		//beforeSend: openModal()
 		//console.log('openSpinner')
 	})
 		.done(function() {
 			// Por ejemplo removemos la imagen "cargando..."
-			console.log('allgood');
+			console.log('allgood')
+			openModal()
 			//	openPopUp();
 		})
 		.fail(function() {
 			// Manejar errores
-			console.log('all bad');
+			console.log('all bad')
 		})
 		.always(
 			function(jqXHR) {
-				console.log(jqXHR.status);
+				console.log(jqXHR.status)
 			}
 		);
 

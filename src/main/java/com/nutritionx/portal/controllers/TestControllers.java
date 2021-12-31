@@ -1,5 +1,9 @@
 package com.nutritionx.portal.controllers;
 
+import java.time.Period;
+import java.time.ZoneId;
+
+import org.kie.api.runtime.KieSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpRequest;
 import org.springframework.http.HttpStatus;
@@ -22,6 +26,7 @@ import com.nutritionx.portal.model.Patient;
 import com.nutritionx.portal.repository.PatientRepository;
 import com.nutritionx.portal.service.PatientService;
 import com.nutritionx.portal.service.ServiceResponse;
+import com.nutritionx.portal.util.PlanAssignment;
 
 @Controller
 public class TestControllers {
@@ -61,6 +66,20 @@ public class TestControllers {
 				
 		System.out.println(p);
 		return new ResponseEntity(HttpStatus.OK);
+	}
+	
+	
+	@Autowired
+	private KieSession session;
+	
+	@ResponseBody
+	@RequestMapping(value = "/planAssignment", method = RequestMethod.POST, consumes = MediaType.APPLICATION_JSON_VALUE)
+	public PlanAssignment planAssignment(@RequestBody PlanAssignment pa) {
+		
+		//PlanAssignment pa = new PlanAssignment("M",31,86.7f,1.73f,"30-",null);
+		session.insert(pa);
+		session.fireAllRules();
+		return pa;
 	}
 	
 //	@ResponseBody

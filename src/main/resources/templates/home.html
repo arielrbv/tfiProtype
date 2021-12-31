@@ -231,7 +231,7 @@
           <!--################################### DOCTOR THINGS #################################### -->
           <!--##### if you don't have a menu, you don't have a doctor ######## -->
           <div class=" col col-12 d-flex col-lg-4 col-md-12 col-sm-12">
-            <span th:if="${patient.professional == NULL}" class="d-flex">
+            <span th:if="${#lists.isEmpty(patient.professional)}" class="d-flex w-100">
               <div class="card-panel zcard green lighten-5 z-depth-2 hoverable w-100 d-flex align-items-center justify-content-center">
                 <div class="card-body d-flex align-items-center justify-content-center ">
                   <i class="large material-icons align-items-center justify-content-center">person_pin</i>
@@ -240,7 +240,8 @@
               </div>
             </span>
             <!--##### if you have a menu, you do have a doctor ######## -->
-            <span th:if="${patient.professional != NULL}" class="d-flex w-100">
+            <!--span th:if="${patient.professional != NULL}" class="d-flex w-100"-->
+            <span th:if="${not #lists.isEmpty(patient.professional)}" class="d-flex w-100">
               <div class="card-panel zcard green lighten-5 z-depth-2 hoverable w-100 p-3">
                 <span style="font-weight: 600;">Tu Nutricionista</span>
                 <div th:each="prof, stats : ${patient.professional}">
