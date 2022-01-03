@@ -37,11 +37,14 @@ import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.nutritionx.portal.model.Meals;
+import com.nutritionx.portal.model.NutritionalPlan;
 import com.nutritionx.portal.model.Patient;
 import com.nutritionx.portal.model.PatientNutriPlan;
 import com.nutritionx.portal.model.Patology;
 import com.nutritionx.portal.model.Preference;
 import com.nutritionx.portal.model.Professional;
+import com.nutritionx.portal.repository.NutritionalPlanRepository;
 import com.nutritionx.portal.repository.PatientNutriPlanRepository;
 import com.nutritionx.portal.repository.PatientRepository;
 import com.nutritionx.portal.repository.PatologyRepository;
@@ -78,6 +81,9 @@ public class PatientController {
 	
 	@Autowired
 	private KieSession session;
+	
+	@Autowired
+	private NutritionalPlanRepository nutriPlanRepo;
 
 	// SET the patient to be present in the session.
 	@ModelAttribute("patient")
@@ -106,7 +112,7 @@ public class PatientController {
 		Patient p = new Patient();
 		p = patRep.findByEmail("ariel.rbv@gmail.com");
 		
-		System.out.println(p.getProfessional());
+		//System.out.println(p.getProfessional());
 		List<PatientNutriPlan> pnp = patNutriPRepo.findByPatientOrderByDayAsc(p);
 		m.addAttribute("patient", p);
 		m.addAttribute("plan", patNutriPRepo.findByPatientOrderByDayAsc(p));
@@ -293,20 +299,29 @@ public class PatientController {
 			break;
 		}
 
-		//trigger the SE
+		//trigger the SE and plan assignment
 		session.insert(pa);
 		session.fireAllRules();
 		
 		p.setPlanType(pa.getAssigment());
-		
 		p.addPreference(pref1);
-		patServ.updatePatient(p);	
+		
+		//create patientNutriPlan Lines
+		
+		for (Meals meal : nutriPlanRepo.findByNutriPlanId(p.getPlanType()).getMealsOfplan()) {
+				p.addLinesOfPlan(new PatientNutriPlan(
+						null, p.getPlanType(), p ,meal.getDay(),
+						meal.getBreakfast().getId(),meal.getBreakfast().getDescription()
+						,meal.getmSnack().getId(),meal.getmSnack().getDescription()
+						,meal.getLunch().getId(),meal.getLunch().getDescription()
+						,meal.getaSnack().getId(),meal.getaSnack().getDescription()
+						,meal.getPdSnack().getId(),meal.getPdSnack().getDescription()
+						,meal.getDinner().getId(),meal.getDinner().getDescription()));
+		}
+		
 		
 		//assign professional
 		assingProfessional(p);
-		
-		//assign lines of plan
-		
 		
 		m.addAttribute("patient", p);
 		return new ResponseEntity<HttpStatus>(HttpStatus.OK);

@@ -2,6 +2,7 @@ package com.nutritionx.portal.controllers;
 
 import java.time.Period;
 import java.time.ZoneId;
+import java.util.Optional;
 
 import org.kie.api.runtime.KieSession;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -22,7 +23,11 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.nutritionx.portal.model.Breakfast;
+import com.nutritionx.portal.model.NutritionalPlan;
 import com.nutritionx.portal.model.Patient;
+import com.nutritionx.portal.repository.BreakfastRepository;
+import com.nutritionx.portal.repository.NutritionalPlanRepository;
 import com.nutritionx.portal.repository.PatientRepository;
 import com.nutritionx.portal.service.PatientService;
 import com.nutritionx.portal.service.ServiceResponse;
@@ -33,9 +38,10 @@ public class TestControllers {
 
 	@Autowired
 	private PatientRepository patRep;
-	
+
 	@Autowired
 	private PatientService patServ;
+
 
 
 //	@ResponseBody
@@ -81,6 +87,26 @@ public class TestControllers {
 		session.fireAllRules();
 		return pa;
 	}
+	
+	
+	@Autowired
+	private NutritionalPlanRepository nutriPlanRepo;
+	
+	@GetMapping ("/test/nutriplan")
+	@ResponseBody
+	public NutritionalPlan getNutriPlan (@RequestBody NutritionalPlan np){
+		return nutriPlanRepo.findByNutriPlanId(np.getNutriPlanId());
+	}
+
+	@Autowired
+	private BreakfastRepository breakfastRepo;
+	
+	@GetMapping ("/test/breakfast")
+	@ResponseBody
+	public Optional<Breakfast> getbreakfast (@RequestBody Breakfast b){
+		return breakfastRepo.findById(b.getId());
+	}
+	
 	
 //	@ResponseBody
 //	@RequestMapping(value = "/login", method = RequestMethod.POST, consumes = MediaType.APPLICATION_JSON_VALUE, produces = "application/json")
