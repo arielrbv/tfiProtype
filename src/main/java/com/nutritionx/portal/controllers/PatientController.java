@@ -267,7 +267,7 @@ public class PatientController {
 
 	// map to post the step2
 	// @PostMapping("/test/checkbox")
-	@RequestMapping(value = "/test/checkbox", method = RequestMethod.POST, consumes = MediaType.APPLICATION_FORM_URLENCODED_VALUE, produces = "application/json")
+	@RequestMapping(value = "/planprep/assignment", method = RequestMethod.POST, consumes = MediaType.APPLICATION_FORM_URLENCODED_VALUE, produces = "application/json")
 	public ResponseEntity<HttpStatus> showfinalModal(@RequestParam(value = "pats", required = false) List<Patology> pat,
 			@ModelAttribute("preference") Preference pref1,
 			@RequestParam(value = "prefs", required = false) List<Preference> prefs, Model m) {
@@ -311,14 +311,13 @@ public class PatientController {
 		for (Meals meal : nutriPlanRepo.findByNutriPlanId(p.getPlanType()).getMealsOfplan()) {
 				p.addLinesOfPlan(new PatientNutriPlan(
 						null, p.getPlanType(), p ,meal.getDay(),
-						meal.getBreakfast().getId(),meal.getBreakfast().getDescription()
-						,meal.getmSnack().getId(),meal.getmSnack().getDescription()
-						,meal.getLunch().getId(),meal.getLunch().getDescription()
-						,meal.getaSnack().getId(),meal.getaSnack().getDescription()
-						,meal.getPdSnack().getId(),meal.getPdSnack().getDescription()
-						,meal.getDinner().getId(),meal.getDinner().getDescription()));
+						meal.getBreakfastId(),meal.getBreakfastDescription()
+						,meal.getMsnackId(),meal.getMsnackDescription()
+						,meal.getLunchId(),meal.getLunchDescription()
+						,meal.getAsnackId(),meal.getAsnackDescription()
+						,meal.getPdsnackId(),meal.getPdsnackDescription()
+						,meal.getDinnerId(),meal.getDinnerDescription()));
 		}
-		
 		
 		//assign professional
 		assingProfessional(p);

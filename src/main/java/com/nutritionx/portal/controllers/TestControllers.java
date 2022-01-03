@@ -2,6 +2,7 @@ package com.nutritionx.portal.controllers;
 
 import java.time.Period;
 import java.time.ZoneId;
+import java.util.List;
 import java.util.Optional;
 
 import org.kie.api.runtime.KieSession;
@@ -24,9 +25,11 @@ import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.nutritionx.portal.model.Breakfast;
+import com.nutritionx.portal.model.Meals;
 import com.nutritionx.portal.model.NutritionalPlan;
 import com.nutritionx.portal.model.Patient;
 import com.nutritionx.portal.repository.BreakfastRepository;
+import com.nutritionx.portal.repository.MealsRepository;
 import com.nutritionx.portal.repository.NutritionalPlanRepository;
 import com.nutritionx.portal.repository.PatientRepository;
 import com.nutritionx.portal.service.PatientService;
@@ -96,6 +99,17 @@ public class TestControllers {
 	@ResponseBody
 	public NutritionalPlan getNutriPlan (@RequestBody NutritionalPlan np){
 		return nutriPlanRepo.findByNutriPlanId(np.getNutriPlanId());
+	}
+	
+	@Autowired
+	private MealsRepository mealRepo;
+	
+	@GetMapping ("/test/meals")
+	@ResponseBody
+	public List<Meals> getMeal (@RequestBody Meals meal){
+	//	Meals m3 = mealRepo.findByMealId("27");
+	//	System.out.println("\n\n"+m3);
+		return  mealRepo.findByPlanId(meal.getPlanId());
 	}
 
 	@Autowired

@@ -3,13 +3,10 @@ package com.nutritionx.portal.model;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
-import javax.persistence.MapsId;
-import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
 import org.hibernate.annotations.GenericGenerator;
@@ -22,143 +19,155 @@ public class Meals {
 	@GenericGenerator(name = "uuid2",strategy = "uuid2")
 	@Column(name = "meal_id")
 	private String mealId;
-//	@Column(name = "plan_id",insertable  = false, updatable = false)
-//	private String planId;
-	
-	//WITH NUTRITIONAL_PLAN
-	@ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
-	@JoinColumn(name ="plan_Id")
-	private NutritionalPlan nutriPlan;
-	
+	@Column(name = "plan_id", insertable = false, updatable = false)
+	private String planId;
 	@Column(name="day")
 	private Integer day;
-	@OneToOne
-	@JoinColumn(name = "breakfast_id")
-	@MapsId
-	private Breakfast breakfast;
-	@OneToOne
-	@JoinColumn(name = "msnack_id")
-	@MapsId
-	private Msnack mSnack;
-	@OneToOne
-	@JoinColumn(name = "lunch_id")
-	@MapsId
-	private Lunch lunch;
-	@OneToOne
-	@JoinColumn(name = "asnack_id")
-	@MapsId
-	private Asnack aSnack;
-	@OneToOne
-	@JoinColumn(name = "pdsnack_id")
-	@MapsId
-	private Pdsnack pdSnack;
-	@OneToOne
-	@JoinColumn(name = "dinner_id")
-	@MapsId
-	private Dinner dinner;
-//	@Column(name="msnack_id")
-//	private String msnackId;	
-//	@Column(name="lunch_id")
-//	private String lunchId;
-//	@Column(name="asnack_id")
-//	private String asnackId;
-//	@Column(name="pdsnack_id")
-//	private String pdsnackId;
-//	@Column(name="dinner_id")
-//	private String dinnerId;
+
+
+	@Column(name="breakfast_id")
+	private String breakfastId;
+	@Column(name="breakfast_description", columnDefinition = "TEXT")
+	private String breakfastDescription;
+	@Column(name="msnack_id")
+	private String msnackId;
+	@Column(name="msnack_description", columnDefinition = "TEXT")
+	private String msnackDescription;
+	@Column(name="lunch_id")
+	private String lunchId;
+	@Column(name="lunch_description", columnDefinition = "TEXT")
+	private String lunchDescription;
+	@Column(name="asnack_id")
+	private String asnackId;
+	@Column(name="asnack_description", columnDefinition = "TEXT")
+	private String asnackDescription;
+	@Column(name="pdsnack_id")
+	private String pdsnackId;
+	@Column(name="pdsnack_description", columnDefinition = "TEXT")
+	private String pdsnackDescription;
+	@Column(name="dinner_id")
+	private String dinnerId;
+	@Column(name="dinner_description", columnDefinition = "TEXT")
+	private String dinnerDescription;
 	
 	/**RELATIONSHIPS WITH TABLES*/
-//	//WITH NUTRITIONAL_PLAN
-//	@ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
-//	@JoinColumn(name ="plan_Id")
-//	private NutritionalPlan nutriPlan;
+	//WITH NUTRITIONAL_PLAN
+	@ManyToOne(cascade = CascadeType.ALL)
+	@JoinColumn(name ="plan_Id")
+	private NutritionalPlan nutriPlan;
 
 	
 	
 	public Meals() {
 		// TODO Auto-generated constructor stub
 	}
-
-	public Meals(String mealId, NutritionalPlan nutriPlan, Integer day, Breakfast breakfast, Msnack mSnack, Lunch lunch,
-		Asnack aSnack, Pdsnack pdSnack, Dinner dinner) {
-	this.mealId = mealId;
-	this.nutriPlan = nutriPlan;
-	this.day = day;
-	this.breakfast = breakfast;
-	this.mSnack = mSnack;
-	this.lunch = lunch;
-	this.aSnack = aSnack;
-	this.pdSnack = pdSnack;
-	this.dinner = dinner;
+	public Meals(String mealId, String planId, Integer day, String breakfastId, String msnackId, String lunchId,
+			String asnackId, String pdsnackId, String dinnerId, NutritionalPlan nutriPlan) {
+		this.mealId = mealId;
+		this.planId = planId;
+		this.day = day;
+		this.breakfastId = breakfastId;
+		this.msnackId = msnackId;
+		this.lunchId = lunchId;
+		this.asnackId = asnackId;
+		this.pdsnackId = pdsnackId;
+		this.dinnerId = dinnerId;
+		this.nutriPlan = nutriPlan;
 	}
-
-
 	public String getMealId() {
 		return mealId;
 	}
 	public void setMealId(String mealId) {
 		this.mealId = mealId;
 	}
-//	public String getPlanId() {
-//		return planId;
-//	}
-//	public void setPlanId(String planId) {
-//		this.planId = planId;
-//	}
+	public String getPlanId() {
+		return planId;
+	}
+	public void setPlanId(String planId) {
+		this.planId = planId;
+	}
 	public Integer getDay() {
 		return day;
 	}
 	public void setDay(Integer day) {
 		this.day = day;
 	}
-//	public NutritionalPlan getNutriPlan() {
-//		return nutriPlan;
-//	}
-	public void setNutriPlan(NutritionalPlan nutriPlan) {
-		this.nutriPlan = nutriPlan;
+	public String getBreakfastId() {
+		return breakfastId;
 	}
-	public Breakfast getBreakfast() {
-		return new Breakfast(breakfast.getId(), breakfast.getDescription());
+	public void setBreakfastId(String breakfastId) {
+		this.breakfastId = breakfastId;
 	}
-	public void setBreakfast(Breakfast breakfast) {
-		this.breakfast = breakfast;
+	public String getBreakfastDescription() {
+		return breakfastDescription;
 	}
-	public Msnack getmSnack() {
-		return new Msnack(mSnack.getId(), mSnack.getDescription());
+	public void setBreakfastDescription(String breakfastDescription) {
+		this.breakfastDescription = breakfastDescription;
 	}
-	public void setmSnack(Msnack mSnack) {
-		this.mSnack = mSnack;
+	public String getMsnackId() {
+		return msnackId;
 	}
-	public Lunch getLunch() {
-		return new Lunch(lunch.getId(), lunch.getDescription());
+	public void setMsnackId(String msnackId) {
+		this.msnackId = msnackId;
 	}
-	public void setLunch(Lunch lunch) {
-		this.lunch = lunch;
+	public String getMsnackDescription() {
+		return msnackDescription;
 	}
-	public Asnack getaSnack() {
-		return new Asnack(aSnack.getId(), aSnack.getDescription());
+	public void setMsnackDescription(String msnackDescription) {
+		this.msnackDescription = msnackDescription;
 	}
-	public void setaSnack(Asnack aSnack) {
-		this.aSnack = aSnack;
+	public String getLunchId() {
+		return lunchId;
 	}
-	public Pdsnack getPdSnack() {
-		return new Pdsnack(pdSnack.getId(), pdSnack.getDescription());
+	public void setLunchId(String lunchId) {
+		this.lunchId = lunchId;
 	}
-	public void setPdSnack(Pdsnack pdSnack) {
-		this.pdSnack = pdSnack;
+	public String getLunchDescription() {
+		return lunchDescription;
 	}
-	public Dinner getDinner() {
-		return new Dinner(dinner.getId(), dinner.getDescription());
+	public void setLunchDescription(String lunchDescription) {
+		this.lunchDescription = lunchDescription;
 	}
-	public void setDinner(Dinner dinner) {
-		this.dinner = dinner;
+	public String getAsnackId() {
+		return asnackId;
 	}
+	public void setAsnackId(String asnackId) {
+		this.asnackId = asnackId;
+	}
+	public String getAsnackDescription() {
+		return asnackDescription;
+	}
+	public void setAsnackDescription(String asnackDescription) {
+		this.asnackDescription = asnackDescription;
+	}
+	public String getPdsnackId() {
+		return pdsnackId;
+	}
+	public void setPdsnackId(String pdsnackId) {
+		this.pdsnackId = pdsnackId;
+	}
+	public String getPdsnackDescription() {
+		return pdsnackDescription;
+	}
+	public void setPdsnackDescription(String pdsnackDescription) {
+		this.pdsnackDescription = pdsnackDescription;
+	}
+	public String getDinnerId() {
+		return dinnerId;
+	}
+	public void setDinnerId(String dinnerId) {
+		this.dinnerId = dinnerId;
+	}
+	public String getDinnerDescription() {
+		return dinnerDescription;
+	}
+	public void setDinnerDescription(String dinnerDescription) {
+		this.dinnerDescription = dinnerDescription;
+	}
+	
 
-	@Override
-	public String toString() {
-		return "Meals [mealId=" + mealId + ", nutriPlan=" + nutriPlan.getName() + ", day=" + day + ", breakfast=" + breakfast.getDescription()
-				+ ", mSnack=" + mSnack.getDescription() + ", lunch=" + lunch.getDescription() + ", aSnack=" + aSnack.getDescription() + ", pdSnack=" + pdSnack.getDescription()
-				+ ", dinner=" + dinner.getDescription() + "]";
-	}
+
+
+
 			
 }

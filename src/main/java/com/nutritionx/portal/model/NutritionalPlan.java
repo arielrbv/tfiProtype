@@ -29,7 +29,7 @@ public class NutritionalPlan {
 	
 	/**RELATIONSHIPS WITH TABLES*/
 	//WITH MEALS
-	@OneToMany(fetch = FetchType.LAZY, mappedBy = "nutriPlan", cascade = CascadeType.ALL)
+	@OneToMany(mappedBy = "nutriPlan", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
 	private Set<Meals> mealsOfplan = new HashSet<>();
 	
 	
@@ -42,8 +42,7 @@ public class NutritionalPlan {
 		this.status = status;
 	}
 	
-	
-	
+
 	public String getNutriPlanId() {
 		return nutriPlanId;
 	}
@@ -72,8 +71,6 @@ public class NutritionalPlan {
 		this.mealsOfplan.add(mealOfPlan);
 	}
 
-	
-	
 	
 	@Override
 	public String toString() {

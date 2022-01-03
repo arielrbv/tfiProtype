@@ -205,13 +205,15 @@
                         </div>
                       </li>
                       <li>
-                        <div class="collapsible-header p-2 ps-3 align-items-center">
-                          <img src="/assets/dailyMealIcons/snack-1.png" style="width: 30px;" />
-                          <span class="ms-3 pt-2">Tentempié</span>
-                        </div>
-                        <div class="collapsible-body grey lighten-5 p-2">
-                          <p th:utext="${lineOfP.pdsnackDescription}" style="font-size: 12px;" />
-                        </div>
+                        <span th:if="${lineOfP.pdsnackId != NULL}">
+                          <div class="collapsible-header p-2 ps-3 align-items-center">
+                            <img src="/assets/dailyMealIcons/snack-1.png" style="width: 30px;" />
+                            <span class="ms-3 pt-2">Tentempié</span>
+                          </div>
+                          <div class="collapsible-body grey lighten-5 p-2">
+                            <p th:utext="${lineOfP.pdsnackDescription}" style="font-size: 12px;" />
+                          </div>
+                        </span>
                       </li>
                       <li>
                         <div class="collapsible-header p-2 ps-3 align-items-center" style="border-radius:0 0 10px 10px;">
