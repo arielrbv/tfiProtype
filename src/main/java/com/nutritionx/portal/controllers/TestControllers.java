@@ -28,9 +28,11 @@ import com.nutritionx.portal.model.Breakfast;
 import com.nutritionx.portal.model.Meals;
 import com.nutritionx.portal.model.NutritionalPlan;
 import com.nutritionx.portal.model.Patient;
+import com.nutritionx.portal.model.PatientNutriPlan;
 import com.nutritionx.portal.repository.BreakfastRepository;
 import com.nutritionx.portal.repository.MealsRepository;
 import com.nutritionx.portal.repository.NutritionalPlanRepository;
+import com.nutritionx.portal.repository.PatientNutriPlanRepository;
 import com.nutritionx.portal.repository.PatientRepository;
 import com.nutritionx.portal.service.PatientService;
 import com.nutritionx.portal.service.ServiceResponse;
@@ -45,6 +47,8 @@ public class TestControllers {
 	@Autowired
 	private PatientService patServ;
 
+	@Autowired
+	private PatientNutriPlanRepository patNutriPRepo;
 
 
 //	@ResponseBody
@@ -106,6 +110,7 @@ public class TestControllers {
 	
 	@GetMapping ("/test/meals")
 	@ResponseBody
+	//@RequestMapping(value = "/test/meals", method = RequestMethod.GET, consumes = MediaType.APPLICATION_JSON_VALUE, produces = "application/json")
 	public List<Meals> getMeal (@RequestBody Meals meal){
 	//	Meals m3 = mealRepo.findByMealId("27");
 	//	System.out.println("\n\n"+m3);
@@ -115,11 +120,54 @@ public class TestControllers {
 	@Autowired
 	private BreakfastRepository breakfastRepo;
 	
-	@GetMapping ("/test/breakfast")
+	//@GetMapping ("/test/breakfast")
 	@ResponseBody
-	public Optional<Breakfast> getbreakfast (@RequestBody Breakfast b){
-		return breakfastRepo.findById(b.getId());
+	@RequestMapping(value = "/test/breakfast", method = RequestMethod.POST, consumes = MediaType.APPLICATION_JSON_VALUE, produces = "application/json")
+	public Optional <Breakfast> getbreakfast (@RequestBody Breakfast b){
+		String[] input = b.getId().split("\\|");		
+		Optional <Breakfast> br = breakfastRepo.findById(input[1]);
+		br.ifPresent(id -> id.setId(input[0])); 
+		return br;
 	}
+	
+	
+	
+	@RequestMapping(value = "/test/changeBreakfast", method = RequestMethod.POST, consumes = MediaType.APPLICATION_JSON_VALUE/*, produces = "application/json"*/)
+//	public ModelAndView changeBreakfast (@RequestBody PatientNutriPlan pnp){
+//		ModelAndView m = new ModelAndView();
+//		String[] input = pnp.getBreakfastId().split("\\|");	
+//		Optional<PatientNutriPlan> pnp2 = patNutriPRepo.findById(Integer.parseInt(input[0]));
+//		Optional <Breakfast> br = breakfastRepo.findById(input[1]);
+//		
+//		pnp2.ifPresent(pn2 ->{
+//			br.ifPresent(br2 ->{
+//				pn2.setBreakfastId(br2.getId());
+//				pn2.setBreakfastDescription(br2.getDescription());
+//				patNutriPRepo.save(pn2);
+//			});
+//			m.addObject("patient", patRep.findByPatientId(pn2.getPatient().getPatientId()));
+//		} );
+//		
+//		m.setViewName("home2");
+//		return m;
+//	}
+	public String changeBreakfast (@RequestBody PatientNutriPlan pnp, Model m){
+		String[] input = pnp.getBreakfastId().split("\\|");	
+		Optional<PatientNutriPlan> pnp2 = patNutriPRepo.findById(Integer.parseInt(input[0]));
+		Optional <Breakfast> br = breakfastRepo.findById(input[1]);
+		
+		pnp2.ifPresent(pn2 ->{
+			br.ifPresent(br2 ->{
+				pn2.setBreakfastId(br2.getId());
+				pn2.setBreakfastDescription(br2.getDescription());
+				patNutriPRepo.save(pn2);
+			});
+			m.addAttribute("patient", patRep.findByPatientId(pn2.getPatient().getPatientId()));
+		} );
+		
+		return "home2";
+	}
+
 	
 	
 //	@ResponseBody

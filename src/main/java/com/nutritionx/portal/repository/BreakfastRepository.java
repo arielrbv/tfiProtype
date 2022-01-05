@@ -6,6 +6,6 @@ import com.nutritionx.portal.model.Breakfast;
 
 public interface BreakfastRepository extends JpaRepository<Breakfast, String>{
 
-	//Breakfast findByBreakfastId(String id);
+	//Breakfast findByBid(String id);
 	
 }

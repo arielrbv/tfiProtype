@@ -22,6 +22,7 @@ public class Breakfast {
 	@Id
 	@GeneratedValue(generator = "uuid2")
 	@GenericGenerator(name = "uuid2",strategy = "uuid2")
+	@Column(name = "id")
 	private String id;
 	@Column(columnDefinition = "TEXT")
 	private String description;

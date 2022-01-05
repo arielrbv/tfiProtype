@@ -1,366 +1,340 @@
-<!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
 
-  <head>
-    <link rel="shortcut icon" type="" href="/assets/favicon.ico" />
-    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet" />
-    <link href="https://fonts.googleapis.com/css2?family=Spartan:wght@300;400;500;600&display=swap" rel="stylesheet" />
-    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.5.0/css/all.css" />
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"
-      integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous" />
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css" />
-    <link type="text/css" href="/css/styles.css" rel="stylesheet" />
+<head>
+<link rel="shortcut icon" type="" href="/assets/favicon.ico" />
+<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet" />
+<link href="https://fonts.googleapis.com/css2?family=Spartan:wght@300;400;500;600&display=swap" rel="stylesheet" />
+<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.5.0/css/all.css" />
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"
+ integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous" />
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css" />
+<link type="text/css" href="/css/styles.css" rel="stylesheet" />
+<link type="text/css" href="/css/home.css" rel="stylesheet" />
 
 
-    <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>NutritionX - Home</title>
-  </head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>NutritionX - Home</title>
+</head>
 
-  <body>
-    <header>
-      <nav>
-        <div class="nav-wrapper" style="background-color:#59a52c;">
-          <a href="#" data-target="slide-out" class="sidenav-trigger text-decoration-none">
-            <i class="material-icons">menu</i>
-          </a>
-          <a href="/home" class="brand-logo" style="margin-top: .35%;">
-            <img class="img-fluid" width="250" style="height: auto;"
-              src="https://github.com/arielrbv/universidadutiles/blob/main/svgexport-84.png?raw=true" />
-          </a>
-          <ul id="nav-mobile" class="right hide-on-med-and-down ">
+<body>
+ <header>
+  <nav>
+   <div class="nav-wrapper" style="background-color: #59a52c;">
+    <a href="#" data-target="slide-out" class="sidenav-trigger text-decoration-none"> <i class="material-icons">menu</i>
+    </a> <a href="/home" class="brand-logo" style="margin-top: .35%;"> <img class="img-fluid" width="250"
+     style="height: auto;" src="https://github.com/arielrbv/universidadutiles/blob/main/svgexport-84.png?raw=true" />
+    </a>
+    <ul id="nav-mobile" class="right hide-on-med-and-down ">
 
-            <li>
-              <form id="logoutForm" action="/logout" method="post">
-                <a href="javascript:{}" onclick="document.getElementById('logoutForm').submit();">
-                  <i class="material-icons left ">power_settings_new</i>
-                  Cerrar sesión
-                </a>
-              </form>
-            </li>
-          </ul>
-        </div>
-      </nav>
-      <!--################################### SIDENAV #################################### -->
-      <ul id="slide-out" class="sidenav">
-        <li>
-          <div class="user-view">
-            <div class="background">
-              <img src="https://github.com/arielrbv/universidadutiles/blob/main/sample-1.png?raw=true" />
-            </div>
-            <a href="#user">
-              <img class="circle" src="" />
-            </a>
-            <span class="white-text" th:text="${patient.firstName}+' '+${patient.lastName}" />
-          </div>
-        </li>
-        <li>
-          <a href="/profile/update">
-            <i class="material-icons">person</i>
-            Actualizar perfil
-          </a>
-        </li>
-        <li>
-          <a href="/password/update">
-            <i class="material-icons">vpn_key</i>
-            Actualizar contraseña
-          </a>
-        </li>
-        <li>
-          <div class="divider"></div>
-        </li>
-        <li>
-          <a class="waves-effect" href="javascript:{}" onclick="document.getElementById('logoutForm').submit();">
-            <i class="material-icons left ">power_settings_new</i>
-            Cerrar sesión
-          </a>
-        </li>
-      </ul>
-    </header>
-    <!--################################### WELCOME BANNER #################################### -->
-    <main>
-      <div class="container-fluid">
-        <div class="row g-0 mt-3 mb-1">
-          <div class="col-lg-10 offset-lg-1 ps-3 mb-0">
-            <h5 class="title" th:text=" 'Bienvenido ' + ${patient.firstName} "></h5>
-          </div>
-        </div>
-        <!--################################### USER CARD #################################### -->
+     <li>
+      <form id="logoutForm" action="/logout" method="post">
+       <a href="javascript:{}" onclick="document.getElementById('logoutForm').submit();"> <i
+        class="material-icons left ">power_settings_new</i> Cerrar sesión
+       </a>
+      </form>
+     </li>
+    </ul>
+   </div>
+  </nav>
+  <!--################################### SIDENAV #################################### -->
+  <ul id="slide-out" class="sidenav">
+   <li>
+    <div class="user-view">
+     <div class="background">
+      <img src="https://github.com/arielrbv/universidadutiles/blob/main/sample-1.png?raw=true" />
+     </div>
+     <a href="#user"> <img class="circle" src="" />
+     </a> <span class="white-text" th:text="${patient.firstName}+' '+${patient.lastName}" />
+    </div>
+   </li>
+   <li><a href="/profile/update"> <i class="material-icons">person</i> Actualizar perfil
+   </a></li>
+   <li><a href="/password/update"> <i class="material-icons">vpn_key</i> Actualizar contraseña
+   </a></li>
+   <li>
+    <div class="divider"></div>
+   </li>
+   <li><a class="waves-effect" href="javascript:{}" onclick="document.getElementById('logoutForm').submit();">
+     <i class="material-icons left ">power_settings_new</i> Cerrar sesión
+   </a></li>
+  </ul>
+ </header>
+ <!--################################### WELCOME BANNER #################################### -->
+ <main>
+  <div class="container-fluid">
+   <div class="row g-0 mt-3 mb-1">
+    <div class="col-lg-10 offset-lg-1 ps-3 mb-0">
+     <h5 class="title" th:text=" 'Bienvenido ' + ${patient.firstName} "></h5>
+    </div>
+   </div>
+   <!--################################### USER CARD #################################### -->
 
-        <div class="row g-0 d-flex align-items-stretch justify-content-center">
-          <div class="col col-12 d-flex col-lg-2 d-flex col-md-4 d-none d-md-block ">
-            <div class="card zcard z-depth-2 hoverable d-flex align-items-stretch">
-              <div class="card-image">
-                <img class="zimg" style="border-radius:10px 10px 0 0;"
-                  src="https://github.com/arielrbv/universidadutiles/blob/main/sample-1.png?raw=true" />
-                <span class="card-title ps-2 pe-2 mb-0">
-                  <b>
-                    <p th:text="${patient.firstName}+ ' '+${patient.lastName} " style="margin-top: 0px;margin-bottom: 0px; " />
-                  </b>
-                </span>
-                <a href="/profile/update" class="btn-floating halfway-fab waves-effect waves-light blue-grey darken-4"
-                  style="right: 10px;">
-                  <i class="material-icons">edit</i>
-                </a>
-              </div>
-              <div class="card-content zcard ps-2 pe-2">
-                <span class="title">Peso actual: </span>
-                <span th:text="${patient.weight} + ' Kg' "></span>
-                <br />
-                <br />
-                <span class="title" style="vertical-align:text-bottom; ">
-                  <i class="tiny material-icons">insert_chart</i>
-                  Tu evolución
-                </span>
-                <div class="card-image" style="margin-top: 10px;">
-                  <a class="tooltipped" data-position="right" data-tooltip="Funcionalidad aún no disponible">
-                    <img src="https://github.com/arielrbv/universidadutiles/blob/main/chart.png?raw=true " />
-                  </a>
-                </div>
-              </div>
-              <div class="card-action center d-flex " style="margin-right: 0px; border-radius: 0px 0px 10px 10px">
-                <a class="me-0 tooltipped" data-position="right" data-tooltip="Funcionalidad aún no disponible">Blog de recetas</a>
-              </div>
-            </div>
-          </div>
-
-          <!--################################### MENU THINGS #################################### -->
-          <div class=" col col-12 d-flex col-lg-4 col-md-8 col-sm-12">
-            <!--##### if you don't have a menu ######## -->
-            <span th:if="${patient.planType == NULL}" class="d-flex">
-              <div class="card-panel zcard green lighten-5 z-depth-2 hoverable w-100 d-flex align-items-center justify-content-center">
-                <div class="card-body d-flex align-items-center justify-content-center ">
-                  <a href="/planprep/step-1" class="btn-floating pulse zbtn waves-effect waves-light green lighten-1 ">
-                    <i class="large material-icons pt-3">touch_app</i>
-                  </a>
-                  <p class="pt-3 center">Aún no tienes un Plan Nutricional asigado, solicta uno aqui.</p>
-                </div>
-              </div>
-            </span>
-            <!--##### if you have a menu ######## -->
-            <span th:if="${patient.planType != NULL}" class="d-flex w-100">
-              <div class="card d-flex z-depth-2 w-100 hoverable zcard">
-                <div class="card-content zcard ps-3 pt-3 pb-0">
-                  <p style="font-weight: 600;">Tu Plan Nutricional Recomendado</p>
-                </div>
-                <!-- <span th:text="${patient.linesOfPlan}"/> -->
-
-                <!-- <div th:each="p, stats : ${patient.professional}"> -->
-                <!-- <div th:text="${prof.firstName}"></div> -->
-                <!-- </div> -->
-                <div class="card-tabs center">
-                  <ul class="tabs" style="height: 40px;">
-                    <li class="tab" th:each="lineOfP : ${plan}">
-                      <a th:attr="href='#test'+${lineOfP.id}" class="p-2 pt-0 pb-0">
-                        <th:block th:switch="${lineOfP.day}">
-                          <span th:case="'1'" th:text="'Dom'" />
-                          <span th:case="'2'" th:text="'Lun'" />
-                          <span th:case="'3'" th:text="'Mar'" />
-                          <span th:case="'4'" th:text="'Mie'" />
-                          <span th:case="'5'" th:text="'Jue'" />
-                          <span th:case="'6'" th:text="'Vie'" />
-                          <span th:case="'7'" th:text="'Sab'" />
-                        </th:block>
-                      </a>
-                    </li>
-                  </ul>
-                </div>
-                <div class="card-content green lighten-5 zcard p-3 pt-2 pb-2 h-100" style="border-radius: 0px 0px 10px 10px">
-                  <div th:attr="id='test'+${lineOfP.id}" th:each="lineOfP : ${plan}">
-                    <ul class="collapsible expandable" style="border-radius:10px 10px 10px 10px;">
-                      <li class="active">
-                        <div class="collapsible-header p-2 ps-3 align-items-center" style="border-radius:10px 10px 0 0;">
-                          <img src="/assets/dailyMealIcons/breakfast-1.png" style="width: 30px;" />
-                          <span class="ms-3 pt-2">Desayuno</span>
-                        </div>
-                        <div class="collapsible-body grey lighten-5 p-2">
-                          <p th:utext="${lineOfP.breakfastDescription}" style="font-size: 12px;" />
-                        </div>
-                      </li>
-                      <li>
-                        <div class="collapsible-header p-2 ps-3 align-items-center">
-                          <img src="/assets/dailyMealIcons/snack-1.png" style="width: 30px;" />
-                          <span class="ms-3 pt-2">Tentempié</span>
-                        </div>
-                        <div class="collapsible-body grey lighten-5 p-2">
-                          <p th:utext="${lineOfP.msnackDescription}" style="font-size: 12px;" />
-                        </div>
-                      </li>
-                      <li>
-                        <div class="collapsible-header p-2 ps-3 align-items-center">
-                          <img src="/assets/dailyMealIcons/meal-1.png" style="width: 30px;" />
-                          <span class="ms-3 pt-2">Almuerzo</span>
-                        </div>
-                        <div class="collapsible-body grey lighten-5 p-2">
-                          <p th:utext="${lineOfP.lunchDescription}" style="font-size: 12px;" />
-                        </div>
-                      </li>
-                      <li>
-                        <div class="collapsible-header p-2 ps-3 align-items-center">
-                          <img src="/assets/dailyMealIcons/asnack-1.png" style="width: 30px;" />
-                          <span class="ms-3 pt-2">Merienda</span>
-                        </div>
-                        <div class="collapsible-body grey lighten-5 p-2">
-                          <p th:utext="${lineOfP.asnackDescription}" style="font-size: 12px;" />
-                        </div>
-                      </li>
-                      <li>
-                        <span th:if="${lineOfP.pdsnackId != NULL}">
-                          <div class="collapsible-header p-2 ps-3 align-items-center">
-                            <img src="/assets/dailyMealIcons/snack-1.png" style="width: 30px;" />
-                            <span class="ms-3 pt-2">Tentempié</span>
-                          </div>
-                          <div class="collapsible-body grey lighten-5 p-2">
-                            <p th:utext="${lineOfP.pdsnackDescription}" style="font-size: 12px;" />
-                          </div>
-                        </span>
-                      </li>
-                      <li>
-                        <div class="collapsible-header p-2 ps-3 align-items-center" style="border-radius:0 0 10px 10px;">
-                          <img src="/assets/dailyMealIcons/meal-1.png" style="width: 30px;" />
-                          <span class="ms-3 pt-2">Cena</span>
-                        </div>
-                        <div class="collapsible-body grey lighten-5 p-2" style="border-radius:0 0 10px 10px;">
-                          <p th:utext="${lineOfP.dinnerDescription}" style="font-size: 12px;" />
-                        </div>
-                      </li>
-                    </ul>
-                  </div>
-                </div>
-              </div>
-              <span>
-          </div>
-          <!--################################### DOCTOR THINGS #################################### -->
-          <!--##### if you don't have a menu, you don't have a doctor ######## -->
-          <div class=" col col-12 d-flex col-lg-4 col-md-12 col-sm-12">
-            <span th:if="${#lists.isEmpty(patient.professional)}" class="d-flex w-100">
-              <div class="card-panel zcard green lighten-5 z-depth-2 hoverable w-100 d-flex align-items-center justify-content-center">
-                <div class="card-body d-flex align-items-center justify-content-center ">
-                  <i class="large material-icons align-items-center justify-content-center">person_pin</i>
-                  <p class="center">Solicita un Plan Nutricional para conocer a tu Nutricionista</p>
-                </div>
-              </div>
-            </span>
-            <!--##### if you have a menu, you do have a doctor ######## -->
-            <!--span th:if="${patient.professional != NULL}" class="d-flex w-100"-->
-            <span th:if="${not #lists.isEmpty(patient.professional)}" class="d-flex w-100">
-              <div class="card-panel zcard green lighten-5 z-depth-2 hoverable w-100 p-3">
-                <span style="font-weight: 600;">Tu Nutricionista</span>
-                <div th:each="prof, stats : ${patient.professional}">
-
-                  <div class="card-body p-0 ">
-                    <div class="row p-0 m-0">
-                      <div class=" col col-4 col-lg-4 m-0 p-0">
-                        <img style="width: 100%; border-radius:25px 25px 25px 25px;" src="/assets/nutritionistCard/nutritionist.png" />
-                      </div>
-                      <div class="col col-8 col-lg-8 ">
-                        <p style="font-size:18px; font-weight: 400; padding:0px; margin-top:15%; margin-bottom:0px;"
-                          th:text="${prof.firstName}+' '+${prof.lastName}" />
-                        <p style="font-size:10px">Ultima vez activo/a hace: 4hs.</p>
-                      </div>
-                    </div>
-                    <p style="font-weight: 600; margin-top:20px; margin-bottom:5px;">Mensajes</p>
-                    <p style="font-size:11px">Aun no le has hecho una pregunta a tu nutricionista</p>
-                    <button class="waves-effect waves-light light-green darken-2 btn tooltipped text-white" data-position="bottom"
-                      data-tooltip="Funcionalidad aún no disponible." style="width:100%">Haz una consulta</button>
-
-                    <div class="row mt-3 mb-3">
-                      <div class=" col l4" style="padding-right:0px;">
-                        <div class="card-panel light-green lighten-3 center hoverable tooltipped" data-position="bottom"
-                          data-tooltip="Funcionalidad aún no disponible." style="margin:0px; padding:7%; font-size:12px; font-weight: 400;">
-                          <img style="width: 30px;" src="/assets/nutritionistCard/history.png" />
-                          <p style="font-weight: 500; margin-top:5px; margin-bottom:0px;">Historial de Consultas</p>
-                        </div>
-                      </div>
-                      <div class=" col l4">
-                        <div class="card-panel light-green lighten-3 center hoverable tooltipped" data-position="bottom"
-                          data-tooltip="Funcionalidad aún no disponible." style="margin:0px; padding:7%; font-size:12px; font-weight: 400;">
-                          <img style="width: 30px;" src="/assets/nutritionistCard/calendar.png" />
-                          <p  style="font-weight: 500; margin-top:5px; margin-bottom:0px;">Cronograma de eventos</p>
-                        </div>
-                      </div>
-                      <div class=" col l4" style="padding-left:0px;">
-                        <div class="card-panel light-green lighten-3 center hoverable tooltipped" data-position="bottom"
-                          data-tooltip="Funcionalidad aún no disponible." style="margin:0px; padding:7%; font-size:12px; font-weight: 400;">
-                          <img style="width: 30px;" src="/assets/nutritionistCard/video-conference.png" />
-                          <p class="hide-on-small-only" style="font-weight: 500; margin-top:5px; margin-bottom:0px;">Programar videollamada</p>
-                          <p class="show-on-small hide-on-med-and-up" style="font-weight: 500; margin-top:5px; margin-bottom:0px;">Programar video...</p>
-                        </div>
-                      </div>
-                    </div>
-                    <button class="waves-effect waves-light light-green lighten-3 btn-small tooltipped" data-position="bottom"
-                      data-tooltip="Funcionalidad aún no disponible." style="width:100%; font-size:12px; color:#212529;">Quiero cambiar mi nutricionista</button>
-                  </div>
-                </div>
-              </div>
-            </span>
-          </div>
-        </div>
+   <div class="row g-0 d-flex align-items-stretch justify-content-center">
+    <div class="col col-12 d-flex col-lg-2 d-flex col-md-4 d-none d-md-block ">
+     <div class="card zcard z-depth-2 hoverable d-flex align-items-stretch">
+      <div class="card-image">
+       <img class="zimg" style="border-radius: 10px 10px 0 0;"
+        src="https://github.com/arielrbv/universidadutiles/blob/main/sample-1.png?raw=true" /> <span
+        class="card-title ps-2 pe-2 mb-0"> <b>
+         <p th:text="${patient.firstName}+ ' '+${patient.lastName} " style="margin-top: 0px; margin-bottom: 0px;" />
+       </b>
+       </span> <a href="/profile/update" class="btn-floating halfway-fab waves-effect waves-light blue-grey darken-4"
+        style="right: 10px;"> <i class="material-icons">edit</i>
+       </a>
       </div>
-      <!--################################### Fixed menu Button #################################### -->
-      <div class="fixed-action-btn direction-top d-none d-md-block" style="bottom: 27%; right: 24px;">
-        <a class="btn-floating btn-large light-green darken-2" >
-          <i class="material-icons">menu</i>
+      <div class="card-content zcard ps-2 pe-2">
+       <span class="title">Peso actual: </span> <span th:text="${patient.weight} + ' Kg' "></span> <br /> <br /> <span
+        class="title" style="vertical-align: text-bottom;"> <i class="tiny material-icons">insert_chart</i> Tu
+        evolución
+       </span>
+       <div class="card-image" style="margin-top: 10px;">
+        <a class="tooltipped" data-position="right" data-tooltip="Funcionalidad aún no disponible"> <img
+         src="https://github.com/arielrbv/universidadutiles/blob/main/chart.png?raw=true " />
         </a>
-        <ul>
-          <li>
-            <a href="/profile/update" class="btn-floating blue-grey darken-4 tooltipped" data-position="left"
-              data-tooltip="Actualizar perfil" style="opacity: 0; transform: scale(0.4) translateY(40px) translateX(0px);">
-              <i class="material-icons">person</i>
-            </a>
-          </li>
-          <li>
-            <a href="/password/update" class="btn-floating deep-orange tooltipped" data-position="left"
-              data-tooltip="Actualizar contraseña" style="opacity: 0; transform: scale(0.4) translateY(40px) translateX(0px);">
-              <i class="material-icons">vpn_key</i>
-            </a>
-          </li>
+       </div>
+      </div>
+      <div class="card-action center d-flex " style="margin-right: 0px; border-radius: 0px 0px 10px 10px">
+       <a class="me-0 tooltipped" data-position="right" data-tooltip="Funcionalidad aún no disponible">Blog de
+        recetas</a>
+      </div>
+     </div>
+    </div>
+
+    <!--################################### MENU THINGS #################################### -->
+    <div class=" col col-12 d-flex col-lg-4 col-md-8 col-sm-12">
+     <!--##### if you don't have a menu ######## -->
+     <span th:if="${patient.planType == NULL}" class="d-flex">
+      <div
+       class="card-panel zcard green lighten-5 z-depth-2 hoverable w-100 d-flex align-items-center justify-content-center">
+       <div class="card-body d-flex align-items-center justify-content-center ">
+        <a href="/planprep/step-1" class="btn-floating pulse zbtn waves-effect waves-light green lighten-1 "> <i
+         class="large material-icons pt-3">touch_app</i>
+        </a>
+        <p class="pt-3 center">Aún no tienes un Plan Nutricional asigado, solicta uno aqui.</p>
+       </div>
+      </div>
+     </span>
+     <!--##### if you have a menu ######## -->
+     <span th:if="${patient.planType != NULL}" class=" d-flex w-100">
+      <div class="card d-flex z-depth-2 w-100 hoverable zcard">
+       <div class="card-content zcard ps-3 pt-3 pb-0">
+        <p style="font-weight: 600;">Tu Plan Nutricional Recomendado</p>
+        <input id="jsPatientId" type="hidden" th:value="${patient.patientId}">
+       </div>
+       <!-- <span th:text="${patient.linesOfPlan}" /> -->
+
+       <!-- <div th:each="p, stats : ${patient.professional}"> -->
+       <!-- <div th:text="${prof.firstName}"></div> -->
+       <!-- </div> -->
+       <div class="card-tabs center">
+        <ul class="tabs" style="height: 40px;">
+         <li class="tab" th:each="lineOfP : ${plan}"><a th:attr="href='#test'+${lineOfP.id}" class="p-2 pt-0 pb-0">
+           <th:block th:switch="${lineOfP.day}">
+            <span th:case="'1'" th:text="'Dom'" />
+            <span th:case="'2'" th:text="'Lun'" />
+            <span th:case="'3'" th:text="'Mar'" />
+            <span th:case="'4'" th:text="'Mie'" />
+            <span th:case="'5'" th:text="'Jue'" />
+            <span th:case="'6'" th:text="'Vie'" />
+            <span th:case="'7'" th:text="'Sab'" />
+           </th:block>
+         </a></li>
         </ul>
-      </div>
-    </main>
-
-
-    <!--################################### FOOTER #################################### -->
-    <footer class="page-footer" style="background-color:#59a52c;">
-      <div class="container ">
-        <div class="row g-0 ">
-          <div class="col col-12 col-lg-4 col-md-12 col-sm-12">
-            <h5 class="white-text ">NutritionX vAlfa</h5>
-            <a class=" tooltipped text-decoration-none " data-position="right " data-tooltip="Funcionalidad aún no disponible ">
-              <p class="grey-text text-lighten-4 ">Terminos y Condiciones</p>
-            </a>
-          </div>
-          <div class="col col-12 col-lg-4 offset-lg-2 col-md-12 col-sm-12">
-            <h5>Siguenos</h5>
-            <ul>
-              <li>
-                <a class="btn-floating btn-large waves-effect waves-light " style="background-color:#354a63; ">
-                  <i class="fab fa-instagram"></i>
-                </a>
-                <a class="btn-floating btn-large waves-effect waves-light " style="background-color:#354a63; ">
-                  <i class="fab fa-facebook-f"></i>
-                </a>
-                <a class="btn-floating btn-large waves-effect waves-light grey-text text-lighten-3 " style="background-color:#354a63; ">
-                  <i class="fab fa-twitter"></i>
-                </a>
-                <a class="btn-floating btn-large waves-effect waves-light grey-text text-lighten-3 " style="background-color:#354a63; ">
-                  <i class="fab fa-youtube"></i>
-                </a>
-              </li>
-            </ul>
-          </div>
+       </div>
+       <div class="card-content green lighten-5 zcard p-3 pt-2 pb-2 h-100" style="border-radius: 0px 0px 10px 10px">
+        <div th:attr="id='test'+${lineOfP.id}" th:each="lineOfP : ${plan}">
+         <ul class="collapsible expandable" style="border-radius: 10px 10px 10px 10px;">
+          <li class="active">
+           <div class="collapsible-header p-2 ps-3 align-items-center" style="border-radius: 10px 10px 0 0;">
+            <img src="/assets/dailyMealIcons/breakfast-1.png" style="width: 30px;" /> <span class="ms-3 pt-2">Desayuno</span>
+           </div>
+           <div class="collapsible-body grey lighten-5 p-2">
+            <p th:utext="${lineOfP.breakfastDescription}" style="font-size: 12px;" />
+            <a th:attr="id=${lineOfP.id}+'|'+${lineOfP.breakfastId}" class="hide-on-small-only" style="margin-left: 79%; font-size: 12px"
+             href="javascript:{}" onclick="searchBreackfast(this.id)">Editar plato</a> <a
+             th:attr="id=${lineOfP.breakfastId}" class="show-on-small hide-on-med-and-up"
+             style="margin-left: 72%; font-size: 12px" href="javascript:{}" onclick="searchBreackfast(this.id)">Editar
+             plato</a>
+           </div>
+          </li>
+          <li>
+           <div class="collapsible-header p-2 ps-3 align-items-center w-100">
+            <img src="/assets/dailyMealIcons/snack-1.png" style="width: 30px;" /> <span class="ms-3 pt-2">Tentempié</span>
+           </div>
+           <div class="collapsible-body grey lighten-5 p-2">
+            <p th:utext="${lineOfP.msnackDescription}" style="font-size: 12px;" />
+           </div>
+          </li>
+          <li>
+           <div class="collapsible-header p-2 ps-3 align-items-center">
+            <img src="/assets/dailyMealIcons/meal-1.png" style="width: 30px;" /> <span class="ms-3 pt-2">Almuerzo</span>
+           </div>
+           <div class="collapsible-body grey lighten-5 p-2">
+            <p th:utext="${lineOfP.lunchDescription}" style="font-size: 12px;" />
+           </div>
+          </li>
+          <li>
+           <div class="collapsible-header p-2 ps-3 align-items-center">
+            <img src="/assets/dailyMealIcons/asnack-1.png" style="width: 30px;" /> <span class="ms-3 pt-2">Merienda</span>
+           </div>
+           <div class="collapsible-body grey lighten-5 p-2">
+            <p th:utext="${lineOfP.asnackDescription}" style="font-size: 12px;" />
+           </div>
+          </li>
+          <li><span th:if="${lineOfP.pdsnackId != NULL}">
+            <div class="collapsible-header p-2 ps-3 align-items-center">
+             <img src="/assets/dailyMealIcons/snack-1.png" style="width: 30px;" /> <span class="ms-3 pt-2">Tentempié</span>
+            </div>
+            <div class="collapsible-body grey lighten-5 p-2">
+             <p th:utext="${lineOfP.pdsnackDescription}" style="font-size: 12px;" />
+            </div>
+          </span></li>
+          <li>
+           <div class="collapsible-header p-2 ps-3 align-items-center" style="border-radius: 0 0 10px 10px;">
+            <img src="/assets/dailyMealIcons/meal-1.png" style="width: 30px;" /> <span class="ms-3 pt-2">Cena</span>
+           </div>
+           <div class="collapsible-body grey lighten-5 p-2" style="border-radius: 0 0 10px 10px;">
+            <p th:utext="${lineOfP.dinnerDescription}" style="font-size: 12px;" />
+           </div>
+          </li>
+         </ul>
         </div>
+       </div>
+      </div> <span>
+    </div>
+    <!--################################### DOCTOR THINGS #################################### -->
+    <!--##### if you don't have a menu, you don't have a doctor ######## -->
+    <div class=" col col-12 d-flex col-lg-4 col-md-12 col-sm-12">
+     <span th:if="${#lists.isEmpty(patient.professional)}" class="d-flex w-100">
+      <div
+       class="card-panel zcard green lighten-5 z-depth-2 hoverable w-100 d-flex align-items-center justify-content-center">
+       <div class="card-body d-flex align-items-center justify-content-center ">
+        <i class="large material-icons align-items-center justify-content-center">person_pin</i>
+        <p class="center">Solicita un Plan Nutricional para conocer a tu Nutricionista</p>
+       </div>
       </div>
-      <div class="footer-copyright ">
-        <div class="container center ">
-          © 2021 Copyright - TFI Ariel Romero
+     </span>
+     <!--##### if you have a menu, you do have a doctor ######## -->
+     <!--span th:if="${patient.professional != NULL}" class="d-flex w-100" -->
+     <span th:if="${not #lists.isEmpty(patient.professional)}" class="d-flex w-100">
+      <div class="card-panel zcard green lighten-5 z-depth-2 hoverable w-100 p-3">
+       <span style="font-weight: 600;">Tu Nutricionista</span>
+       <div th:each="prof, stats : ${patient.professional}">
+
+        <div class="card-body p-0 ">
+         <div class="row p-0 m-0">
+          <div class=" col col-4 col-lg-4 m-0 p-0">
+           <img style="width: 100%; border-radius: 25px 25px 25px 25px;" src="/assets/nutritionistCard/nutritionist.png" />
+          </div>
+          <div class="col col-8 col-lg-8 ">
+           <p style="font-size: 18px; font-weight: 400; padding: 0px; margin-top: 15%; margin-bottom: 0px;"
+            th:text="${prof.firstName}+' '+${prof.lastName}" />
+           <p style="font-size: 10px">Ultima vez activo/a hace: 4hs.</p>
+          </div>
+         </div>
+         <p style="font-weight: 600; margin-top: 20px; margin-bottom: 5px;">Mensajes</p>
+         <p style="font-size: 11px">Aun no le has hecho una pregunta a tu nutricionista</p>
+         <button class="waves-effect waves-light light-green darken-2 btn tooltipped text-white" data-position="bottom"
+          data-tooltip="Funcionalidad aún no disponible." style="width: 100%">Haz una consulta</button>
+
+         <div class="row mt-3 mb-3">
+          <div class=" col l4" style="padding-right: 0px;">
+           <div class="card-panel light-green lighten-3 center hoverable tooltipped" data-position="bottom"
+            data-tooltip="Funcionalidad aún no disponible."
+            style="margin: 0px; padding: 7%; font-size: 12px; font-weight: 400;">
+            <img style="width: 30px;" src="/assets/nutritionistCard/history.png" />
+            <p style="font-weight: 500; margin-top: 5px; margin-bottom: 0px;">Historial de Consultas</p>
+           </div>
+          </div>
+          <div class=" col l4">
+           <div class="card-panel light-green lighten-3 center hoverable tooltipped" data-position="bottom"
+            data-tooltip="Funcionalidad aún no disponible."
+            style="margin: 0px; padding: 7%; font-size: 12px; font-weight: 400;">
+            <img style="width: 30px;" src="/assets/nutritionistCard/calendar.png" />
+            <p style="font-weight: 500; margin-top: 5px; margin-bottom: 0px;">Cronograma de eventos</p>
+           </div>
+          </div>
+          <div class=" col l4" style="padding-left: 0px;">
+           <div class="card-panel light-green lighten-3 center hoverable tooltipped" data-position="bottom"
+            data-tooltip="Funcionalidad aún no disponible."
+            style="margin: 0px; padding: 7%; font-size: 12px; font-weight: 400;">
+            <img style="width: 30px;" src="/assets/nutritionistCard/video-conference.png" />
+            <p class="hide-on-small-only" style="font-weight: 500; margin-top: 5px; margin-bottom: 0px;">Programar
+             videollamada</p>
+            <p class="show-on-small hide-on-med-and-up" style="font-weight: 500; margin-top: 5px; margin-bottom: 0px;">Programar
+             video...</p>
+           </div>
+          </div>
+         </div>
+         <button class="waves-effect waves-light light-green lighten-3 btn-small tooltipped" data-position="bottom"
+          data-tooltip="Funcionalidad aún no disponible." style="width: 100%; font-size: 12px; color: #212529;">Quiero
+          cambiar mi nutricionista</button>
         </div>
+       </div>
       </div>
-    </footer>
+     </span>
+    </div>
+   </div>
+  </div>
+  <!--################################### Fixed menu Button #################################### -->
+  <div class="fixed-action-btn direction-top d-none d-md-block" style="bottom: 27%; right: 24px;">
+   <a class="btn-floating btn-large light-green darken-2"> <i class="material-icons">menu</i>
+   </a>
+   <ul>
+    <li><a href="/profile/update" class="btn-floating blue-grey darken-4 tooltipped" data-position="left"
+     data-tooltip="Actualizar perfil" style="opacity: 0; transform: scale(0.4) translateY(40px) translateX(0px);"> <i
+      class="material-icons">person</i>
+    </a></li>
+    <li><a href="/password/update" class="btn-floating deep-orange tooltipped" data-position="left"
+     data-tooltip="Actualizar contraseña" style="opacity: 0; transform: scale(0.4) translateY(40px) translateX(0px);">
+      <i class="material-icons">vpn_key</i>
+    </a></li>
+   </ul>
+  </div>
+
+  <!--################################### OVERLAY + POPUP #################################### -->
+
+  <div id="modal1"></div>
+
+ </main>
 
 
-    <script type="text/javascript" src="/js/matminjs.js"></script>
-    <script type="text/javascript" src="/js/general.js"></script>
-  </body>
+ <!--################################### FOOTER #################################### -->
+ <footer class="page-footer" style="background-color: #59a52c;">
+  <div class="container ">
+   <div class="row g-0 ">
+    <div class="col col-12 col-lg-4 col-md-12 col-sm-12">
+     <h5 class="white-text ">NutritionX vAlfa</h5>
+     <a class=" tooltipped text-decoration-none " data-position="right " data-tooltip="Funcionalidad aún no disponible ">
+      <p class="grey-text text-lighten-4 ">Terminos y Condiciones</p>
+     </a>
+    </div>
+    <div class="col col-12 col-lg-4 offset-lg-2 col-md-12 col-sm-12">
+     <h5>Siguenos</h5>
+     <ul>
+      <li><a class="btn-floating btn-large waves-effect waves-light " style="background-color: #354a63;"> <i
+        class="fab fa-instagram"></i>
+      </a> <a class="btn-floating btn-large waves-effect waves-light " style="background-color: #354a63;"> <i
+        class="fab fa-facebook-f"></i>
+      </a> <a class="btn-floating btn-large waves-effect waves-light grey-text text-lighten-3 "
+       style="background-color: #354a63;"> <i class="fab fa-twitter"></i>
+      </a> <a class="btn-floating btn-large waves-effect waves-light grey-text text-lighten-3 "
+       style="background-color: #354a63;"> <i class="fab fa-youtube"></i>
+      </a></li>
+     </ul>
+    </div>
+   </div>
+  </div>
+  <div class="footer-copyright ">
+   <div class="container center ">© 2021 Copyright - TFI Ariel Romero</div>
+  </div>
+ </footer>
+
+ <script type="text/javascript" src="/js/jquery-3.6.0.min.js "></script>
+ <script type="text/javascript" src="/js/matminjs.js"></script>
+ <script type="text/javascript" src="/js/general.js"></script>
+ <script type="text/javascript" src="/js/menuEdition.js"></script>
+</body>
 
 </html>
