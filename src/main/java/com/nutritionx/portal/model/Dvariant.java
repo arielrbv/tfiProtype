@@ -47,12 +47,12 @@ public class Dvariant {
 	public void setDescription(String description) {
 		this.description = description;
 	}
-	public Set<Dinner> getLunch() {
-		return dinner;
-	}
-//	public void setBreakfast(Set<Dinner> d) {
-//		this.dinner = d;
+//	public Set<Dinner> getLunch() {
+//		return dinner;
 //	}
+	public void setBreakfast(Set<Dinner> d) {
+		this.dinner = d;
+	}
 	public void addBreakfast(Dinner d) {
 		this.dinner.add(d);
 	}

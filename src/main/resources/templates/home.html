@@ -151,9 +151,9 @@
            </div>
            <div class="collapsible-body grey lighten-5 p-2">
             <p th:utext="${lineOfP.breakfastDescription}" style="font-size: 12px;" />
-            <a th:attr="id=${lineOfP.id}+'|'+${lineOfP.breakfastId}" class="hide-on-small-only" style="margin-left: 79%; font-size: 12px"
-             href="javascript:{}" onclick="searchBreackfast(this.id)">Editar plato</a> <a
-             th:attr="id=${lineOfP.breakfastId}" class="show-on-small hide-on-med-and-up"
+            <a th:attr="id=${lineOfP.id}+'|'+${lineOfP.breakfastId}" class="hide-on-small-only"
+             style="margin-left: 79%; font-size: 12px" href="javascript:{}" onclick="searchBreackfast(this.id)">Editar
+             plato</a> <a th:attr="id=${lineOfP.id}+'|'+${lineOfP.breakfastId}" class="show-on-small hide-on-med-and-up"
              style="margin-left: 72%; font-size: 12px" href="javascript:{}" onclick="searchBreackfast(this.id)">Editar
              plato</a>
            </div>
@@ -164,6 +164,11 @@
            </div>
            <div class="collapsible-body grey lighten-5 p-2">
             <p th:utext="${lineOfP.msnackDescription}" style="font-size: 12px;" />
+            <a th:attr="id=${lineOfP.id}+'|'+${lineOfP.msnackId}" class="hide-on-small-only"
+             style="margin-left: 79%; font-size: 12px" href="javascript:{}" onclick="searchMsnack(this.id)">Editar
+             plato</a> <a th:attr="id=${lineOfP.id}+'|'+${lineOfP.msnackId}" class="show-on-small hide-on-med-and-up"
+             style="margin-left: 72%; font-size: 12px" href="javascript:{}" onclick="searchMsnack(this.id)">Editar
+             plato</a>
            </div>
           </li>
           <li>
@@ -172,6 +177,11 @@
            </div>
            <div class="collapsible-body grey lighten-5 p-2">
             <p th:utext="${lineOfP.lunchDescription}" style="font-size: 12px;" />
+            <a th:attr="id=${lineOfP.id}+'|'+${lineOfP.lunchId}" class="hide-on-small-only"
+             style="margin-left: 79%; font-size: 12px" href="javascript:{}" onclick="searchLunch(this.id)">Editar
+             plato</a> <a th:attr="id=${lineOfP.id}+'|'+${lineOfP.lunchId}" class="show-on-small hide-on-med-and-up"
+             style="margin-left: 72%; font-size: 12px" href="javascript:{}" onclick="searchLunch(this.id)">Editar
+             plato</a>
            </div>
           </li>
           <li>
@@ -180,22 +190,40 @@
            </div>
            <div class="collapsible-body grey lighten-5 p-2">
             <p th:utext="${lineOfP.asnackDescription}" style="font-size: 12px;" />
+            <a th:attr="id=${lineOfP.id}+'|'+${lineOfP.asnackId}" class="hide-on-small-only"
+             style="margin-left: 79%; font-size: 12px" href="javascript:{}" onclick="searchAsnack(this.id)">Editar
+             plato</a> <a th:attr="id=${lineOfP.id}+'|'+${lineOfP.asnackId}" class="show-on-small hide-on-med-and-up"
+             style="margin-left: 72%; font-size: 12px" href="javascript:{}" onclick="searchAsnack(this.id)">Editar
+             plato</a>
            </div>
           </li>
-          <li><span th:if="${lineOfP.pdsnackId != NULL}">
-            <div class="collapsible-header p-2 ps-3 align-items-center">
-             <img src="/assets/dailyMealIcons/snack-1.png" style="width: 30px;" /> <span class="ms-3 pt-2">Tentempié</span>
-            </div>
-            <div class="collapsible-body grey lighten-5 p-2">
-             <p th:utext="${lineOfP.pdsnackDescription}" style="font-size: 12px;" />
-            </div>
-          </span></li>
+          <li>
+           <th:block th:if="${lineOfP.pdsnackId != NULL}">
+             <div class="collapsible-header p-2 ps-3 align-items-center">
+              <img src="/assets/dailyMealIcons/snack-1.png" style="width: 30px;" /> <span class="ms-3 pt-2">Tentempié</span>
+             </div>
+             <div class="collapsible-body grey lighten-5 p-2">
+              <p th:utext="${lineOfP.pdsnackDescription}" style="font-size: 12px;" />
+              <a th:attr="id=${lineOfP.id}+'|'+${lineOfP.pdsnackId}" class="hide-on-small-only"
+               style="margin-left: 79%; font-size: 12px" href="javascript:{}" onclick="searchPdsnack(this.id)">Editar
+               plato</a> 
+               <a th:attr="id=${lineOfP.id}+'|'+${lineOfP.pdsnackId}" class="show-on-small hide-on-med-and-up"
+               style="margin-left: 72%; font-size: 12px" href="javascript:{}" onclick="searchPdsnack(this.id)">Editar
+               plato</a>
+             </div>
+           </th:block>
+          </li>
           <li>
            <div class="collapsible-header p-2 ps-3 align-items-center" style="border-radius: 0 0 10px 10px;">
             <img src="/assets/dailyMealIcons/meal-1.png" style="width: 30px;" /> <span class="ms-3 pt-2">Cena</span>
            </div>
            <div class="collapsible-body grey lighten-5 p-2" style="border-radius: 0 0 10px 10px;">
             <p th:utext="${lineOfP.dinnerDescription}" style="font-size: 12px;" />
+            <a th:attr="id=${lineOfP.id}+'|'+${lineOfP.dinnerId}" class="hide-on-small-only"
+             style="margin-left: 79%; font-size: 12px" href="javascript:{}" onclick="searchDinner(this.id)">Editar
+             plato</a> <a th:attr="id=${lineOfP.id}+'|'+${lineOfP.dinnerId}" class="show-on-small hide-on-med-and-up"
+             style="margin-left: 72%; font-size: 12px" href="javascript:{}" onclick="searchDinner(this.id)">Editar
+             plato</a>
            </div>
           </li>
          </ul>

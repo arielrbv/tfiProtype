@@ -55,7 +55,7 @@ public class Pdsnack {
 	public void setDescription(String description) {
 		this.description = description;
 	}
-	public Set<Pdsvariant> getMsVariant() {
+	public Set<Pdsvariant> getPdsVariant() {
 		return pdsVariant;
 	}
 	public void setPdsVariant(Set<Pdsvariant> pdsv) {

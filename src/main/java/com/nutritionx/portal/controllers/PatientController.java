@@ -63,25 +63,18 @@ public class PatientController {
 
 	@Autowired
 	private PatientService patServ;
-
 	@Autowired
 	private PatientRepository patRep;
-
 	@Autowired
 	private PatologyRepository patoRep;
-
 	@Autowired
 	private PreferenceRepository prefRep;
-
 	@Autowired
 	private PatientNutriPlanRepository patNutriPRepo;
-	
 	@Autowired
 	private ProfessionalRepository proRepo;
-	
 	@Autowired
 	private KieSession session;
-	
 	@Autowired
 	private NutritionalPlanRepository nutriPlanRepo;
 
@@ -106,21 +99,12 @@ public class PatientController {
 	// GET to load the home View
 	@GetMapping("/home")
 	public String showHome(Model m) {
-		//
-		// GET RID OFF This when /home be complete
-		//
-		Patient p = new Patient();
-		p = patRep.findByEmail("ariel.rbv@gmail.com");
 		
-		//System.out.println(p.getProfessional());
-		List<PatientNutriPlan> pnp = patNutriPRepo.findByPatientOrderByDayAsc(p);
+		Patient p = (Patient) m.getAttribute("patient");
+		p = patRep.findByEmail(p.getEmail());
 		m.addAttribute("patient", p);
 		m.addAttribute("plan", patNutriPRepo.findByPatientOrderByDayAsc(p));
 		
-//		for (Professional prof : p.getProfessional()) {
-//			m.addAttribute("prof", prof);
-//		}
-
 		return "home";
 	}
 
@@ -198,7 +182,7 @@ public class PatientController {
 	@RequestMapping(value = "/login", method = RequestMethod.POST, consumes = MediaType.APPLICATION_FORM_URLENCODED_VALUE, produces = "application/json")
 	public ModelAndView userAuthentication(@ModelAttribute("patient") Patient p) {
 		ModelAndView m = new ModelAndView();
-
+		//Patient p2=p;
 		try {
 			//
 			// GET RID OFF THE COMMENTS AT THE FINAL VERSION OF THE PROTOTYPE TO TRIGGER THE

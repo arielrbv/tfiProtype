@@ -55,7 +55,7 @@ public class Asnack {
 	public void setDescription(String description) {
 		this.description = description;
 	}
-	public Set<Asvariant> getMsVariant() {
+	public Set<Asvariant> getAsVariant() {
 		return asVariant;
 	}
 	public void setAsVariant(Set<Asvariant> asVariant) {
