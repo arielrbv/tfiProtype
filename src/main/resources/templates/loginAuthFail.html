@@ -2,74 +2,82 @@
 <html xmlns:th="http://www.thymeleaf.org">
 
 <head>
-    <meta charset="utf-8" />
+    <link rel="shortcut icon" type="" href="/assets/favicon.ico" />
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet" />
+    <link href="https://fonts.googleapis.com/css2?family=Spartan:wght@300;600&display=swap" rel="stylesheet" />
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css" />
-    <title>Login</title>
+    <link rel="stylesheet" href="/css/loginStyle.css" />
+    <script src="https://kit.fontawesome.com/6b18f74cf6.js" crossorigin="anonymous"></script>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <title>NutritionX - Login</title>
 </head>
 
 <body>
-    <div clas="container">
-        <div class="row">
-            <div class="">
-                <nav>
-                    <div class="nav-wrapper ">
-                        <a href="#" class="brand-logo">Logo</a>
-                        <ul id="nav-mobile" class="right hide-on-med-and-down">
-                            <li>
-                                <a href="sass.html">Sass</a>
-                            </li>
-                            <li>
-                                <a href="badges.html">Components</a>
-                            </li>
-                            <li>
-                                <a href="collapsible.html">JavaScript</a>
-                            </li>
-                        </ul>
+    <section>
+        <div class="row g-0" style="margin-bottom: 0px;">
+            <div class="col l7 m7 black" style="padding: 0">
+                <div class="carousel carousel-slider" style="height: 100vh;">
+                    <div class="carousel-fixed-item center">
+                        <h5 class="white-text" style="font-weight: 600;">Accede ahora</h5>
+                        <p class="white-text">Y obten un plan nutricional recomendado para ti</p>
                     </div>
-                </nav>
+                    <a class="carousel-item"><img src="/assets/login/deva-darshan-F0ot6ma5Fdo-unsplash.jpg" style="position: absolute;margin: auto; top: 0; bottom: 0;"></a>
+                    <a class="carousel-item"><img src="/assets/login/hisu-lee-bQLCyj-9-tk-unsplash.jpg" style="position: absolute;margin: auto; top: 0; bottom: 0;"></a>
+                    <a class="carousel-item"><img src="/assets/login/joseph-gonzalez-fdlZBWIP0aM-unsplash.jpg" style="position: absolute;margin: auto; top: 0; bottom: 0;"></a>
+                    <a class="carousel-item"><img src="/assets/login/joseph-gonzalez-jc1-8bAvlOk-unsplash.jpg" style="position: absolute;margin: auto; top: 0; bottom: 0;"></a>
+                    <a class="carousel-item"><img src="/assets/login/photo-1541921671-aef0a20d0787.jpg" style="position: absolute;margin: auto; top: 0; bottom: 0;"></a>
+                </div>
+            </div>
+            <div class="col l5 m3">
+                <div class="row" style="margin-bottom: 0px;">
+                    <div class=" col l12 white" style="height: 100vh;">
+                        <div style="padding: 5%; padding-bottom: 0px;">
+                            <img class="img-fluid" width="60%" style="height: auto; margin-top: 5%; " src="/assets/logo-color.png" />
+                            <h4 style="font-weight: 600;">Bienvenido de vuelta</h4>
+                            <form th:object="${patient}" action="/login" method="post">
+                                <div class="input-field col l12 m12 s12" style="margin-bottom: 0px;">
+                                    <i class="material-icons prefix">account_circle</i>
+                                    <input class="validate" th:field="*{email}" id="email" type="email" />
+                                    <label style="margin-left: 35px;">Email</label>
+                                    <span class="helper-text" data-error="Email invalido"></span>
+                                </div>
+                                <div class="input-field col l12 m12 s12" style="margin-bottom: 0px;">
+                                    <i class="material-icons prefix">vpn_key</i>
+                                    <input class="validate" th:field="*{password}" id="pass" type="password" />
+                                    <label style="margin-left: 35px;">Contraseña</label>
+                                    <span id="validationMsg" class="red-text " style="margin-left: 45px; font-weight: 600; font-size: 12px;">Email y contraseña invalidos</span>
+                                </div>
+                                <a href="/forgotPassword" style="margin-left:45px; color: #9e9e9e;">¿Olvidaste tu contraseña?</a>
+                                <div class="row" style="margin-bottom:10px">
+                                    <div class="col l12 m12 s12 center" style="margin-top: 28px;">
+                                        <button type="submit" class="btn" style="width: 100%; background-color: #83b271; font-size: 18px;">Iniciar sesión</button>
+                                    </div>
+                                </div>
+                            </form>
+                            <div class="row">
+                                <div class="col l12 m12 s12 center" style="margin-top: 0px;">
+                                    <p style="margin-top:0px; color: #9e9e9e;">O inicia sesion con</p>
+                                    <div class="row">
+                                        <div class="col l6 m6 s6"><button class="btn" style="width: 100%; background-color:#83b27154; color:#9e9e9e; font-size: 16px;"><i class="fab fa-google lead m-2"></i> Google</button>
+                                        </div>
+                                        <div class="col l6 m6 s6"><button class="btn" style="width: 100%; background-color:#83b27154; color:#9e9e9e; font-size: 16px;"><i class="fab fa-facebook-f lead m-2"></i> Facebook</button>
+                                        </div>
+                                    </div> <a href="/selfRegistration" style="margin-top: 32px;color: #9e9e9e;">¿Aun tienes
+                                                                                    una cuenta? Registrate ahora</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
-    </div>
-    <div class="container">
-        <form th:object="${patient}" action="/login" method="post">
-            <div class="row">
-                <div class="col s5 offset-m3">
-                    <div class="row">
-                        <div class="input-field col s12">
-                            <i class="material-icons prefix">account_circle</i>
-                            <input th:field="*{email}" id="email" type="email" class="validate" />
-                            <label for="icon_prefix">Email</label>
-                            <span class="helper-text" data-error="Email invalido"></span>
-                        </div>
-                        <div class="input-field col s12">
-                            <i class="material-icons prefix">phone</i>
-                            <input th:field="*{password}" id="icon_telephone" type="tel" class="validate" />
-                            <label for="icon_telephone">Contraseña</label>
-                        </div>
-                        <p class="red-text " style="text-align:center;"> <b>Usuario o contraseña invalida, vuelva a intentarlo</b></p>
-                    </div>
-                </div>
-            </div>
-            <div class="row">
-                <div class="col s5 offset-m3 center">
-                    <button type="submit" class="btn btn-primary">Iniciar sesión</button>
-                    <br />
-                    <a href="/forgotPassword">¿Olvidaste tu contraseña?</a>
-                    <br />
-                    <a href="/selfRegistration">¿Aun tienes
-              una cuenta? Registrate ahora</a>
-                </div>
-            </div>
-        </form>
-    </div>
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-    <!--script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js "></script-->
-    <!--  script type="text/javascript" src="/js/materialize.min.js"></script>-->
-    <!--script type="text/javascript" src="/js/popup.js"></script-->
+    </section>
+    <script src="/js/jquery-3.6.0.min.js "></script>
+    <script src="/js/matminjs.js"></script>
+    <script src="/js/login.js"></script>
 
-    <script type="text/javascript" src="/js/matminjs.js"></script>
-    <script type="text/javascript" src="/js/general.js"></script>
 </body>
 
 </html>

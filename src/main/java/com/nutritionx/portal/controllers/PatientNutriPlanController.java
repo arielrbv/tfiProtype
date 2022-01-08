@@ -70,7 +70,7 @@ public class PatientNutriPlanController {
 			});
 			m.addAttribute("patient", patRep.findByPatientId(pn2.getPatient().getPatientId()));
 		} );
-		return "home2";
+		return "z";
 	}
 	
 	
@@ -98,7 +98,7 @@ public class PatientNutriPlanController {
 			});
 			m.addAttribute("patient", patRep.findByPatientId(pn2.getPatient().getPatientId()));
 		} );
-		return "home2";
+		return "z";
 	}
 	
 	
@@ -126,7 +126,7 @@ public class PatientNutriPlanController {
 			});
 			m.addAttribute("patient", patRep.findByPatientId(pn2.getPatient().getPatientId()));
 		} );
-		return "home2";
+		return "z";
 	}
 	
 	
@@ -154,7 +154,7 @@ public class PatientNutriPlanController {
 			});
 			m.addAttribute("patient", patRep.findByPatientId(pn2.getPatient().getPatientId()));
 		} );
-		return "home2";
+		return "z";
 	}
 	
 	
@@ -182,7 +182,7 @@ public class PatientNutriPlanController {
 			});
 			m.addAttribute("patient", patRep.findByPatientId(pn2.getPatient().getPatientId()));
 		} );
-		return "home2";
+		return "z";
 	}
 	
 	
@@ -210,7 +210,7 @@ public class PatientNutriPlanController {
 			});
 			m.addAttribute("patient", patRep.findByPatientId(pn2.getPatient().getPatientId()));
 		} );
-		return "home2";
+		return "z";
 	}
 	
 }

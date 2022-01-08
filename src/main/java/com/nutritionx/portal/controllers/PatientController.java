@@ -99,12 +99,12 @@ public class PatientController {
 	// GET to load the home View
 	@GetMapping("/home")
 	public String showHome(Model m) {
-		
+
 		Patient p = (Patient) m.getAttribute("patient");
 		p = patRep.findByEmail(p.getEmail());
 		m.addAttribute("patient", p);
 		m.addAttribute("plan", patNutriPRepo.findByPatientOrderByDayAsc(p));
-		
+
 		return "home";
 	}
 
@@ -145,6 +145,33 @@ public class PatientController {
 		return "patientUpdatePassword";
 	}
 
+
+
+	// GET to activate account
+	@GetMapping("/userAccountActivation")
+	public ModelAndView accountActivation(@RequestParam("user") String email, @RequestParam("token") String token) {
+		System.out.println("\n\nuser: "+email +"- token:"+ token);
+		Patient p = patRep.findByEmailAndToken(email, token);
+		if (p != null) {
+			p.setToken(null);
+			patRep.save(p);
+			//return "accountActivation";
+			return new ModelAndView("redirect:/accountActivation",HttpStatus.OK);
+		}else {
+			System.out.println("no se pudo activar");
+			p=new Patient();
+			//return "redirect:/login";
+			return new ModelAndView("redirect:/login",HttpStatus.FORBIDDEN);
+			
+		}
+	}
+	
+	@GetMapping("/accountActivation")
+	public String accountActivationSuccess() {
+		return"/accountActivation";
+	}
+	
+	
 	// POST Patient Account Creation from AJAX
 	@ResponseBody
 	@RequestMapping(value = "/selfRegistration", method = RequestMethod.POST, consumes = MediaType.APPLICATION_JSON_VALUE, produces = "application/json")
@@ -182,7 +209,7 @@ public class PatientController {
 	@RequestMapping(value = "/login", method = RequestMethod.POST, consumes = MediaType.APPLICATION_FORM_URLENCODED_VALUE, produces = "application/json")
 	public ModelAndView userAuthentication(@ModelAttribute("patient") Patient p) {
 		ModelAndView m = new ModelAndView();
-		//Patient p2=p;
+		// Patient p2=p;
 		try {
 			//
 			// GET RID OFF THE COMMENTS AT THE FINAL VERSION OF THE PROTOTYPE TO TRIGGER THE
@@ -196,8 +223,15 @@ public class PatientController {
 
 			p = patRep.findByEmailAndPassword(p.getEmail(), p.getPassword());
 			if (p != null) {
-				m.setViewName("redirect:/home");
-				m.addObject("patient", p);
+				if(p.getToken() == null) {
+					m.setViewName("redirect:/home");
+					m.addObject("patient", p);
+				}else {
+					m.setViewName("loginAuthFailInactive");
+					m.setStatus(HttpStatus.UNAUTHORIZED);
+					p = new Patient();
+					m.addObject("patient", p);
+				}
 			} else {
 				m.setViewName("loginAuthFail");
 				m.setStatus(HttpStatus.UNAUTHORIZED);
@@ -257,9 +291,12 @@ public class PatientController {
 			@RequestParam(value = "prefs", required = false) List<Preference> prefs, Model m) {
 		Timestamp ts = new Timestamp(System.currentTimeMillis());
 		Patient p = (Patient) m.getAttribute("patient");
-		PlanAssignment pa = new PlanAssignment(p.getGender(),Period.between(p.getBirthdate().toInstant().atZone(ZoneId.systemDefault()).toLocalDate(), ts.toLocalDateTime().toLocalDate()).getYears(),p.getWeight(),p.getHeight(),"",null);
+		PlanAssignment pa = new PlanAssignment(p.getGender(),
+				Period.between(p.getBirthdate().toInstant().atZone(ZoneId.systemDefault()).toLocalDate(),
+						ts.toLocalDateTime().toLocalDate()).getYears(),
+				p.getWeight(), p.getHeight(), "", null);
 		Set<Patology> setPat = new HashSet<Patology>(pat);
-				
+
 		p.setPatologies(setPat);
 
 		for (Preference pr : prefs) {
@@ -283,40 +320,35 @@ public class PatientController {
 			break;
 		}
 
-		//trigger the SE and plan assignment
+		// trigger the SE and plan assignment
 		session.insert(pa);
 		session.fireAllRules();
-		
+
 		p.setPlanType(pa.getAssigment());
 		p.addPreference(pref1);
-		
-		//create patientNutriPlan Lines
-		
+
+		// create patientNutriPlan Lines
+
 		for (Meals meal : nutriPlanRepo.findByNutriPlanId(p.getPlanType()).getMealsOfplan()) {
-				p.addLinesOfPlan(new PatientNutriPlan(
-						null, p.getPlanType(), p ,meal.getDay(),
-						meal.getBreakfastId(),meal.getBreakfastDescription()
-						,meal.getMsnackId(),meal.getMsnackDescription()
-						,meal.getLunchId(),meal.getLunchDescription()
-						,meal.getAsnackId(),meal.getAsnackDescription()
-						,meal.getPdsnackId(),meal.getPdsnackDescription()
-						,meal.getDinnerId(),meal.getDinnerDescription()));
+			p.addLinesOfPlan(new PatientNutriPlan(null, p.getPlanType(), p, meal.getDay(), meal.getBreakfastId(),
+					meal.getBreakfastDescription(), meal.getMsnackId(), meal.getMsnackDescription(), meal.getLunchId(),
+					meal.getLunchDescription(), meal.getAsnackId(), meal.getAsnackDescription(), meal.getPdsnackId(),
+					meal.getPdsnackDescription(), meal.getDinnerId(), meal.getDinnerDescription()));
 		}
-		
-		//assign professional
+
+		// assign professional
 		assingProfessional(p);
-		
+
 		m.addAttribute("patient", p);
 		return new ResponseEntity<HttpStatus>(HttpStatus.OK);
 	}
-	
-	
 
 	@RequestMapping(value = "/profile/update", method = RequestMethod.POST, consumes = MediaType.APPLICATION_FORM_URLENCODED_VALUE, produces = "application/json")
-	public ResponseEntity<HttpStatus> profileUpdate(@ModelAttribute("patient") Patient p, @ModelAttribute("aux") DateAux d, Model m) {
+	public ResponseEntity<HttpStatus> profileUpdate(@ModelAttribute("patient") Patient p,
+			@ModelAttribute("aux") DateAux d, Model m) {
 
 		try {
-			Date date1=new SimpleDateFormat("dd/MM/yyyy").parse(d.getDate());
+			Date date1 = new SimpleDateFormat("dd/MM/yyyy").parse(d.getDate());
 			p.setBirthdate(date1);
 			patServ.updatePatient(p);
 			return new ResponseEntity<HttpStatus>(HttpStatus.OK);
@@ -324,13 +356,14 @@ public class PatientController {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 			return new ResponseEntity<HttpStatus>(HttpStatus.INTERNAL_SERVER_ERROR);
-		}  
+		}
 
 	}
-	
+
 	@RequestMapping(value = "/password/update", method = RequestMethod.POST, consumes = MediaType.APPLICATION_FORM_URLENCODED_VALUE, produces = "application/json")
-	public ResponseEntity<HttpStatus> passwordUpdate(@ModelAttribute("patient") Patient p, @ModelAttribute("genericuser") GenericUser u, Model m) {
-		
+	public ResponseEntity<HttpStatus> passwordUpdate(@ModelAttribute("patient") Patient p,
+			@ModelAttribute("genericuser") GenericUser u, Model m) {
+
 		//
 		// GET RID OFF THE COMMENTS AT THE FINAL VERSION OF THE PROTOTYPE TO TRIGGER THE
 		// SECURE PASS
@@ -340,8 +373,7 @@ public class PatientController {
 //		byte[] hash = digest.digest((p.getEmail() + u.getcPass()).getBytes(StandardCharsets.UTF_8));
 //		String secureAux = Base64.getEncoder().encodeToString(hash);
 
-
-		//p = patRep.findByEmailAndPassword(p.getEmail(), secureAux);
+		// p = patRep.findByEmailAndPassword(p.getEmail(), secureAux);
 //		if (p != null) {
 //			//actualizar pass
 //			return new ResponseEntity(HttpStatus.OK);
@@ -349,32 +381,25 @@ public class PatientController {
 //			//no actualizar pass y mandar error
 //			return new ResponseEntity(HttpStatus.INTERNAL_SERVER_ERROR);
 //		}
-		
-		if(p.getPassword().equals(u.getcPass())) {
-			if(u.getnPass().equals(u.getnPassC())) {
+
+		if (p.getPassword().equals(u.getcPass())) {
+			if (u.getnPass().equals(u.getnPassC())) {
 				p.setPassword(u.getnPass());
 				patServ.updatePatient(p);
 				return new ResponseEntity<HttpStatus>(HttpStatus.OK);
-			}else {
+			} else {
 				return new ResponseEntity<HttpStatus>(HttpStatus.UNAUTHORIZED);
 			}
-		}else {
+		} else {
 			return new ResponseEntity<HttpStatus>(HttpStatus.UNAUTHORIZED);
 		}
 	}
-	
-	
+
 	public void assingProfessional(Patient p) {
 		Professional pr = proRepo.findByProfessionalId("880be7ec-1e1c-4aba-83b0-47de14c6222d");
 		p.addProfessional(pr);
-		patServ.updatePatient(p);	
+		patServ.updatePatient(p);
 	}
-	
-//	public void assingLinesOfPlan(Patient p) {
-//		
-//		patServ.updatePatient(p);	
-//	}
-	
-	
-	
+
+
 }

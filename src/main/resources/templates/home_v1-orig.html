@@ -71,7 +71,7 @@
    <!--################################### USER CARD #################################### -->
 
    <div class="row g-0 d-flex align-items-stretch justify-content-center">
-    <div class="col col-12 d-flex col-lg-2 d-flex col-md-4 d-none d-md-block ">
+    <div class="col col-12 col-lg-2 d-flex col-md-4 d-none d-md-block ">
      <div class="card zcard z-depth-2 hoverable d-flex align-items-stretch">
       <div class="card-image">
        <img class="zimg" style="border-radius: 10px 10px 0 0;"
@@ -197,22 +197,19 @@
              plato</a>
            </div>
           </li>
-          <li>
-           <th:block th:if="${lineOfP.pdsnackId != NULL}">
-             <div class="collapsible-header p-2 ps-3 align-items-center">
-              <img src="/assets/dailyMealIcons/snack-1.png" style="width: 30px;" /> <span class="ms-3 pt-2">Tentempié</span>
-             </div>
-             <div class="collapsible-body grey lighten-5 p-2">
-              <p th:utext="${lineOfP.pdsnackDescription}" style="font-size: 12px;" />
-              <a th:attr="id=${lineOfP.id}+'|'+${lineOfP.pdsnackId}" class="hide-on-small-only"
-               style="margin-left: 79%; font-size: 12px" href="javascript:{}" onclick="searchPdsnack(this.id)">Editar
-               plato</a> 
-               <a th:attr="id=${lineOfP.id}+'|'+${lineOfP.pdsnackId}" class="show-on-small hide-on-med-and-up"
-               style="margin-left: 72%; font-size: 12px" href="javascript:{}" onclick="searchPdsnack(this.id)">Editar
-               plato</a>
-             </div>
-           </th:block>
-          </li>
+          <li><th:block th:if="${lineOfP.pdsnackId != NULL}">
+            <div class="collapsible-header p-2 ps-3 align-items-center">
+             <img src="/assets/dailyMealIcons/snack-1.png" style="width: 30px;" /> <span class="ms-3 pt-2">Tentempié</span>
+            </div>
+            <div class="collapsible-body grey lighten-5 p-2">
+             <p th:utext="${lineOfP.pdsnackDescription}" style="font-size: 12px;" />
+             <a th:attr="id=${lineOfP.id}+'|'+${lineOfP.pdsnackId}" class="hide-on-small-only"
+              style="margin-left: 79%; font-size: 12px" href="javascript:{}" onclick="searchPdsnack(this.id)">Editar
+              plato</a> <a th:attr="id=${lineOfP.id}+'|'+${lineOfP.pdsnackId}" class="show-on-small hide-on-med-and-up"
+              style="margin-left: 72%; font-size: 12px" href="javascript:{}" onclick="searchPdsnack(this.id)">Editar
+              plato</a>
+            </div>
+           </th:block></li>
           <li>
            <div class="collapsible-header p-2 ps-3 align-items-center" style="border-radius: 0 0 10px 10px;">
             <img src="/assets/dailyMealIcons/meal-1.png" style="width: 30px;" /> <span class="ms-3 pt-2">Cena</span>
@@ -290,8 +287,8 @@
             <img style="width: 30px;" src="/assets/nutritionistCard/video-conference.png" />
             <p class="hide-on-small-only" style="font-weight: 500; margin-top: 5px; margin-bottom: 0px;">Programar
              videollamada</p>
-            <p class="show-on-small hide-on-med-and-up" style="font-weight: 500; margin-top: 5px; margin-bottom: 0px;">Programar
-             video...</p>
+            <p class="show-on-small hide-on-med-and-up" style="font-weight: 500; margin-top: 5px; margin-bottom: 0px;">
+             Programar video...</p>
            </div>
           </div>
          </div>
