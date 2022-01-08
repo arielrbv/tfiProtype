@@ -1,0 +1,29 @@
+.modal.zopen {
+    position: absolute;
+    margin: auto;
+    top: 0%;
+    bottom: 20%;
+    height: 180px;
+    width: 300px;
+    text-align: center
+}
+
+.modal .modal-footer {
+    text-align: center
+}
+
+.btn-small.zbtn2 {
+    height: 20px;
+    line-height: 20px;
+}
+
+.flexbox {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.flexbox div {
+    width: 100px;
+    height: 100px;
+}
