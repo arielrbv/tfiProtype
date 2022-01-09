@@ -32,6 +32,7 @@ public class Professional {
 	private String firstName;
 	@Column (name="last_name")
 	private String lastName;
+	private char gender;
 	private String email;
 	@Column(length = 45)
 	private String phone;
@@ -107,6 +108,12 @@ public class Professional {
 	public void setLastName(String lastName) {
 		this.lastName = lastName;
 	}
+	public char getGender() {
+		return gender;
+	}
+	public void setGender(char gender) {
+		this.gender = gender;
+	}
 	public String getEmail() {
 		return email;
 	}
@@ -169,13 +176,17 @@ public class Professional {
 	}
 	
 	
+	
 	@Override
 	public String toString() {
 		return "Professional [professionalId=" + professionalId + ", dni=" + dni + ", licenseId=" + licenseId
-				+ ", firstName=" + firstName + ", lastName=" + lastName + ", email=" + email + ", phone=" + phone
-				+ ", address=" + address + ", postalCode=" + postalCode + ", status=" + status + ", created=" + created
-				+ ", lastLogin=" + lastLogin + ", password=" + password + ", token=" + token + "]";
+				+ ", firstName=" + firstName + ", lastName=" + lastName + ", gender=" + gender + ", email=" + email
+				+ ", phone=" + phone + ", address=" + address + ", postalCode=" + postalCode + ", status=" + status
+				+ ", created=" + created + ", lastLogin=" + lastLogin + ", password=" + password + ", token=" + token + "]";
 	}
+	
+	
+
 	
 	
 }

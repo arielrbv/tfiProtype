@@ -246,7 +246,7 @@ public class PatientController {
 
 	// POST Patient LOGOUT Attempt from VIEW
 	@RequestMapping(value = "/logout")
-	public String logout(HttpServletRequest request, Model m) {
+	public String patientLogout(HttpServletRequest request, Model m) {
 		HttpSession session = request.getSession(false);
 		if (session != null) {
 			session.invalidate();

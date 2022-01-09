@@ -8,4 +8,6 @@ public interface ProfessionalRepository extends JpaRepository<Professional, Stri
 	
 	Professional findByProfessionalId(String id);
 	
+	Professional findByEmailAndPassword(String email, String pass);
+	
 }

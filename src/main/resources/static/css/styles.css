@@ -392,3 +392,16 @@ POPUP
 .input-field {
     font-weight: 500;
 }
+
+
+.flexbox{
+	display:flex;
+}
+
+.cvalign{
+	display: flex;
+    align-content: center;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+}
