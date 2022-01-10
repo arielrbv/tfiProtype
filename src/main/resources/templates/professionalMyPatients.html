@@ -6,6 +6,7 @@
 <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet" />
 <link href="https://fonts.googleapis.com/css2?family=Spartan:wght@300;400;500;600&display=swap" rel="stylesheet" />
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css" />
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css" />
 <link type="text/css" href="/css/styles.css" rel="stylesheet" />
 <link type="text/css" href="/css/myPatients.css" rel="stylesheet" />
 
@@ -67,13 +68,15 @@
      <h5 class="title">Mis Pacientes</h5>
      <a href="/professional/home"><i class="tiny material-icons" style="vertical-align: -2px;">keyboard_arrow_left</i>Menu principal</a>
     </div>
-    <div class="col l5 m7 s12" style="border: 1px solid #4e66f0;">
-      <div class="input-field inline" style="width:90%; height: 38px; margin-bottom: 0px;">
-          <!--input th:field="*{pat.weight}" id="weight" type="text" class="validate" -->
-          <input id="search" type="text" >
-          <label for="search" style="top: 8px !important;">Buscar por apellido</label>
+    <form action="/professional/mypatients/search" method="get">
+      <div class="col l3 m7 s12 input-field">
+         <input id="patient" name="pLastName" type="text" th:value="${pLastName}" style="width:100%; height:40px; font-size:13px; margin-bottom: 0px;"/>
+         <label for="patient">Buscar por apellido</label>
       </div>
-    </div>
+      <div class="col l3 m7 s12 input-field" style="padding:0px; margin-top: 22px;">
+        <button class="btn-small" type="submit">Buscar</button>
+      </div>
+    </form>
    </div>
 
    <div class="row flexbox" style="border: 1px solid #4e66f0;">
@@ -82,36 +85,76 @@
     <!--        <td th:text="${pat.lastName}"/> -->
     <!--        <td th:text="${pat.dni}"/> --> 
     
-    <!--div class="col s12 m12 l6 flexbox" style="margin: 0px;" th:each="pat, stats : ${#lists.sort(professional.patients, byLastName)}">
-     <a href="#" class="flexbox" style="width:100%; color: inherit;">
-       <div class="card horizontal flexbox hoverable" style="width:100%;">
-        <div class="card-image hide-on-small-only">
-         <img class="imgpatient" src="https://github.com/arielrbv/universidadutiles/blob/main/sample-1.png?raw=true">
-        </div>
-        <div class="card-image show-on-small hide-on-med-and-up">
-         <img class="imgpatient small" src="https://github.com/arielrbv/universidadutiles/blob/main/sample-1.png?raw=true">
-        </div>
-        <div class="card-stacked">
-         <div class="card-content">
-          <div class="col s12 m6 l6" style="margin: 0px; padding: 0px;">
-           <p th:utext="'&lt;b&gt;Apellido: &lt;/b&gt;' + ${pat.lastName}" style="font-size: 12px;"/>
-           <p th:utext="'&lt;b&gt;Edad: &lt;/b&gt;'" style="font-size: 12px;"/>
-           <p th:utext="'&lt;b&gt;Peso: &lt;/b&gt;' + ${pat.weight} + ' Kgs'" style="font-size: 12px;"/>
-          </div>
-          <div class="col s12 m6 l6" style="margin: 0px; padding: 0px;">
-           <p th:utext="'&lt;b&gt;Nombre: &lt;/b&gt;' + ${pat.firstName}" style="font-size: 12px;"/>
-           <p th:utext="'&lt;b&gt;Altura: &lt;/b&gt;' + ${pat.height} + ' Mts'" style="font-size: 12px;"/>
-           <p th:utext="'&lt;b&gt;Plan A.: &lt;/b&gt;' + ${pat.planType}" style="font-size: 12px;"/>
-          </div>
+    <th:block th:if="${#lists.isEmpty(patPag.content)}">
+     <div class="col s12 m12 l12 flexbox cvalign" style="margin: 0px;">
+      <h5 style="font-weight:400;">No se han encontrado pacientes</h5>
+      <img class="animate__animated animate__pulse animate__infinite" style="height:120px;" src="/assets/others/noResultsFound.png"/>
+     </div>
+    </th:block>
+    
+    <th:block th:if="${not #lists.isEmpty(patPag.content)}">
+         <div class="col s12 m12 l6 flexbox" style="margin: 0px;" th:each="pat, stats : ${patPag.content}">
+          <a href="#" class="flexbox" style="width:100%; color: inherit;">
+            <div class="card horizontal flexbox hoverable" style="width:100%;">
+             <div class="card-image hide-on-small-only">
+              <img class="imgpatient" src="https://github.com/arielrbv/universidadutiles/blob/main/sample-1.png?raw=true">
+             </div>
+             <div class="card-image show-on-small hide-on-med-and-up">
+              <img class="imgpatient small" src="https://github.com/arielrbv/universidadutiles/blob/main/sample-1.png?raw=true">
+             </div>
+             <div class="card-stacked">
+              <div class="card-content">
+               <div class="col s12 m6 l6" style="margin: 0px; padding: 0px;">
+                <p th:utext="'&lt;b&gt;Apellido: &lt;/b&gt;' + ${pat.lastName}" style="font-size: 12px;"/>
+                <p th:utext="'&lt;b&gt;Edad: &lt;/b&gt;' + ${pat.age}" style="font-size: 12px;"/>
+                <p th:utext="'&lt;b&gt;Peso: &lt;/b&gt;' + ${pat.weight} + ' Kgs'" style="font-size: 12px;"/>
+               </div>
+               <div class="col s12 m6 l6" style="margin: 0px; padding: 0px;">
+                <p th:utext="'&lt;b&gt;Nombre: &lt;/b&gt;' + ${pat.firstName}" style="font-size: 12px;"/>
+                <p th:utext="'&lt;b&gt;Altura: &lt;/b&gt;' + ${pat.height} + ' Mts'" style="font-size: 12px;"/>
+                <p th:utext="'&lt;b&gt;Plan: &lt;/b&gt;' + ${pat.planType}" style="font-size: 12px;"/>
+               </div>
+              </div>
+             </div>
+            </div>
+          </a>
          </div>
+       <!-- ### PAGINATION START -->
+       <div class="col s12 m12 l12 flexbox cvalign" style="margin: 0px;">
+         <ul class="pagination">
+            <li class="disabled" th:if="${currentPage} == 1"><a style="padding:0px;"><i class="material-icons">chevron_left</i></a></li>
+            <li class="waves-effect" th:if="${currentPage} > 1">
+            <a th:if="${pLastName} == NULL" th:href="'/professional/mypatients?page='+(${currentPage}-1)" style="padding:0px;"><i class="material-icons">chevron_left</i></a>
+            <a th:if="${pLastName} != NULL" th:href="'/professional/mypatients/search?page='+(${currentPage}-1)+'&pLastName='+${pLastName}" style="padding:0px;"><i class="material-icons">chevron_left</i></a>
+            </li>
+            
+            <th:block th:if="${patPag.totalPages == 1}" th:each="pageNumber : ${pageNumbers}">
+            <li class="waves-effect" th:classappend="${pageNumber==patPag.number + 1} ? active">
+                 <a th:text=${pageNumber} style="font-size:12px; min-width:28.91px;"/>
+              </li>
+            </th:block>
+            <th:block th:if="${patPag.totalPages > 1}" th:each="pageNumber : ${pageNumbers}">
+              <li class="waves-effect" th:classappend="${pageNumber==patPag.number + 1} ? active">
+                 <a th:if="${pLastName} == NULL" th:href="@{/professional/mypatients(page=${pageNumber})}" th:text=${pageNumber} style="font-size:12px; min-width:28.91px;"/>
+                 <a th:if="${pLastName} != NULL" th:href="@{/professional/mypatients/search(page=${pageNumber}, pLastName=${pLastName})}" th:text=${pageNumber} style="font-size:12px; min-width:28.91px;"/>
+              </li>
+            </th:block>
+           <li class="waves-effect" th:if="${currentPage} < ${#lists.size(pageNumbers)}">
+           <a th:if="${pLastName} == NULL" th:href="'/professional/mypatients?page='+(${currentPage}+1)" style="padding:0px;"><i class="material-icons">chevron_right</i></a>
+           <a th:if="${pLastName} != NULL" th:href="'/professional/mypatients/search?page='+(${currentPage}+1)+'&pLastName='+${pLastName}" style="padding:0px;"><i class="material-icons">chevron_right</i></a>
+           </li>
+           <li class="disabled" th:if="${currentPage} == ${#lists.size(pageNumbers)}"><a style="padding:0px;"><i class="material-icons">chevron_right</i></a></li>
+          </ul>
         </div>
-       </div>
-     </a>
-    </div-->
+       <!-- ### PAGINATION END -->
+    </th:block>
+
+
 
 
     <!--#### END OF ROW### -->
    </div>
+   
 
 
 

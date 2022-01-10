@@ -34,21 +34,21 @@
                 <div class="col l4 offset-l4" style="padding:0px; border: 1px solid #4e66f000">
                     <form th:object="${professional}" action="/loginP" method="post">
                         <div class="input-field col l10 offset-l1 m10 offset-m1 s10 offset-s1" style="padding-left:0px; margin-bottom: 0px;">
-                            <i class="material-icons prefix">account_circle</i>
+                            <i class="material-icons prefix" style="margin-top:5px;">account_circle</i>
                             <input class="validate" th:field="*{email}"  id="email" type="email" />
-                            <label style="margin-left: 35px;">Email</label>
+                            <label style="margin-left: 35px; font-size: 14px;">Email</label>
                             <span class="helper-text" data-error="Email invalido"></span>
                         </div>
                         <div class="input-field col l10 offset-l1 m10 offset-m1 s10 offset-s1" style="padding-left:0px; margin-bottom: 0px;">
-                            <i class="material-icons prefix">vpn_key</i>
+                            <i class="material-icons prefix" style="margin-top:5px;">vpn_key</i>
                             <input class="validate" th:field="*{password}" id="icon_telephone" type="password" />
-                            <label style="margin-left: 35px;">Contraseña</label>
+                            <label style="margin-left: 35px; font-size: 14px;">Contraseña</label>
                             <a class="center" href="/forgotPassword" style="color: #9e9e9e;">¿Olvidaste tu contraseña?</a>
                             
                         </div>
                         <div class="row">
                             <div class="col l10 offset-l1 m10 offset-m1 s10 offset-s1" style="margin-top: 28px;">
-                                <button type="submit" class="btn center" style="width: 95%; background-color: #83b271; font-size: 18px;">Iniciar
+                                <button type="submit" class="btn center" style="width: 95%; background-color: #83b271; font-size: 15px;">Iniciar
                   sesión</button>
                             </div>
                         </div>

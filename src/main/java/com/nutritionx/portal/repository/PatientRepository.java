@@ -1,5 +1,7 @@
 package com.nutritionx.portal.repository;
 
+import java.util.Set;
+
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
@@ -15,5 +17,10 @@ public interface PatientRepository extends JpaRepository<Patient, String>{
 	Patient findByEmailAndPassword(String email, String Password);
 	
 	Patient findByEmailAndToken(String email, String token);
+	
+	Set<Patient> findByLastName(String lastName);
+	
+	
+	
 	
 }

@@ -393,6 +393,11 @@ POPUP
     font-weight: 500;
 }
 
+.input-field > label {
+    top: 9px;
+    font-size: 12px;
+}
+
 
 .flexbox{
 	display:flex;
@@ -417,4 +422,9 @@ POPUP
     justify-content: center;
     align-items: center;
     flex-direction:row;
+}
+
+
+.pagination li.active {
+    background-color: #59a52c;
 }

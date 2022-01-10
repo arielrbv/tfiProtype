@@ -1,5 +1,8 @@
 package com.nutritionx.portal.model;
 
+import java.sql.Timestamp;
+import java.time.Period;
+import java.time.ZoneId;
 import java.util.Date;
 import java.util.HashSet;
 import java.util.Set;
@@ -262,6 +265,11 @@ public class Patient {
 	}
 	public Set<Preference> getPreferences() {
 		return preferences;
+	}
+	public int getAge() {
+		Timestamp ts = new Timestamp(System.currentTimeMillis());		
+		return Period.between(this.getBirthdate().toInstant().atZone(ZoneId.systemDefault()).toLocalDate(),
+				ts.toLocalDateTime().toLocalDate()).getYears();
 	}
 	
 	@Override
