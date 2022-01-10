@@ -7,6 +7,7 @@ import java.util.Set;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.ManyToMany;
@@ -50,7 +51,7 @@ public class Professional {
 	
 	
 	//RELATIONS WITH TABLES
-	@ManyToMany(mappedBy = "professional", cascade = CascadeType.ALL)
+	@ManyToMany(mappedBy = "professional", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
 	private Set<Patient> patients = new HashSet<>();
 	
 	
@@ -173,6 +174,9 @@ public class Professional {
 	}
 	public Set<Patient> getPatients() {
 		return patients;
+	}
+	public void setPatients(Set<Patient> patients) {
+		this.patients = patients;
 	}
 	
 	

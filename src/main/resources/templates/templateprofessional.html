@@ -12,7 +12,7 @@
 <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
-<title>NutritionX -</title>
+<title>NutritionX - Home</title>
 </head>
 
 <body>
@@ -58,14 +58,23 @@
    </a></li>
   </ul>
  </header>
- <!--################################### WELCOME BANNER #################################### -->
- <main>
-  <div class="container">
-   <div class="row" style="border: 1px solid #4e66f0">
-    <th:block th:switch="${professional.gender}">
-     <h5 th:case="'M'" class="title" th:text=" 'Bienvenido ' + ${professional.firstName} "></h5>
-     <h5 th:case="'F'" class="title" th:text=" 'Bienvenida ' + ${professional.firstName} "></h5>
-    </th:block>
+ <main class="flexbox">
+  <div class="container cvalign">
+   <!--################################### WELCOME BANNER #################################### -->
+   <div class="row" style="margin-left: 0px; margin-bottom: 0px; padding-left: 11.250px;">
+    <div class="col l12 m12 s12">
+     <th:block th:switch="${professional.gender}">
+      <h5 th:case="'M'" class="title" th:text=" 'Bienvenido ' + ${professional.firstName} "></h5>
+      <h5 th:case="'F'" class="title" th:text=" 'Bienvenida ' + ${professional.firstName} "></h5>
+     </th:block>
+    </div>
+   </div>
+
+   <div class="row flexbox">
+    <!--################################### USER CARD #################################### -->
+ 
+
+
    </div>
   </div>
 
@@ -74,13 +83,13 @@
    <a class="btn-floating btn-large " style="background-color: #0b423d;"> <i class="material-icons">menu</i>
    </a>
    <ul>
-    <li>
-    <a href="/professional/profile/update" class="btn-floating blue-grey darken-4 tooltipped" data-position="left"
-     data-tooltip="Actualizar perfil" style="opacity: 0; transform: scale(0.4) translateY(40px) translateX(0px);">
-     <i class="material-icons">person</i>
+    <li><a href="/professional/profile/update" class="btn-floating blue-grey darken-4 tooltipped"
+     data-position="left" data-tooltip="Actualizar perfil"
+     style="opacity: 0; transform: scale(0.4) translateY(40px) translateX(0px);"> <i class="material-icons">person</i>
     </a></li>
-    <li><a href="/professional/password/update" class="btn-floating deep-orange tooltipped" data-position="left" data-tooltip="Actualizar contraseña"
-     style="opacity: 0; transform: scale(0.4) translateY(40px) translateX(0px);"> <i class="material-icons">vpn_key</i>
+    <li><a href="/professional/password/update" class="btn-floating deep-orange tooltipped" data-position="left"
+     data-tooltip="Actualizar contraseña" style="opacity: 0; transform: scale(0.4) translateY(40px) translateX(0px);">
+      <i class="material-icons">vpn_key</i>
     </a></li>
    </ul>
   </div>

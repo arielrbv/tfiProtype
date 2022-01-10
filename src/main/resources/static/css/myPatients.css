@@ -1,0 +1,12 @@
+.imgpatient{
+	height: 78px;
+	width: 78px;
+}
+.imgpatient.small{
+	height: 141px;
+	width: 141px;
+}
+
+.card-content{
+	padding:7.5px !important;
+}

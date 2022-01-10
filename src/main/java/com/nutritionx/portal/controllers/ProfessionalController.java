@@ -1,6 +1,8 @@
 package com.nutritionx.portal.controllers;
 
+import java.util.Comparator;
 import java.util.Map;
+import java.util.Set;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
@@ -39,7 +41,7 @@ public class ProfessionalController {
 		return new ModelAndView("professionalLogin", "professional", new Professional()); // other way
 	}
 	
-
+	// POST for Professional's login 
 	@PostMapping("/loginP")
 	public ModelAndView loginProfessional(@ModelAttribute("professional") Professional p, Model m) {
 		try {
@@ -59,15 +61,12 @@ public class ProfessionalController {
 		}
 	}
 	
+	// GET show the home
 	@GetMapping("/professional/home")
 	public ModelAndView showProfessionalHome(Model m) {
 		return new ModelAndView("professionalHome"/*,"professional",(Professional) m.getAttribute("professional")*/);
 	}
 
-	
-	
-	
-	
 	// POST Patient LOGOUT Attempt from VIEW
 	@PostMapping(value = "/professional/logout")
 	public String professionalLogout(HttpServletRequest request, Model m) {
@@ -78,4 +77,16 @@ public class ProfessionalController {
 		m.addAttribute("professional", newProfessional());
 		return "redirect:/professional/login";
 	}
+	
+	// GET show the "MyPatients" module
+	@GetMapping("/professional/mypatients")	
+	public ModelAndView showMyPatientsDash(@ModelAttribute("professional") Professional p, Model m) {
+		//Professional p = (Professional) m.getAttribute("professional");
+		p=profRepo.findByProfessionalId(p.getProfessionalId());
+		p.getPatients(); //initialize the lazy fetch
+		m.addAttribute("professional", p);
+		m.addAttribute("byLastName", Comparator.comparing(Patient::getLastName));
+		return new ModelAndView("professionalMyPatients");
+	}
+	
 }

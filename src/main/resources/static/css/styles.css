@@ -396,6 +396,11 @@ POPUP
 
 .flexbox{
 	display:flex;
+    flex-wrap: wrap;
+}
+.flexboxnowrap{
+	display:flex;
+    flex-wrap: nowrap;
 }
 
 .cvalign{
@@ -403,5 +408,13 @@ POPUP
     align-content: center;
     justify-content: center;
     align-items: center;
-    flex-direction: column;
+    flex-direction:column;
+}
+
+.cvalign2{
+	display: flex;
+    align-content: center;
+    justify-content: center;
+    align-items: center;
+    flex-direction:row;
 }

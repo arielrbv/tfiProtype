@@ -7,6 +7,7 @@
 <link href="https://fonts.googleapis.com/css2?family=Spartan:wght@300;400;500;600&display=swap" rel="stylesheet" />
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css" />
 <link type="text/css" href="/css/styles.css" rel="stylesheet" />
+<link type="text/css" href="/css/myPatients.css" rel="stylesheet" />
 
 <script src="https://kit.fontawesome.com/6b18f74cf6.js" crossorigin="anonymous"></script>
 <meta charset="utf-8" />
@@ -58,67 +59,63 @@
    </a></li>
   </ul>
  </header>
- <main class="flexbox">
-  <div class="container cvalign">
+ <main>
+  <div class="container">
    <!--################################### WELCOME BANNER #################################### -->
-   <div class="row" style="margin-left: 0px; margin-bottom: 0px; padding-left: 11.250px;">
+   <div class="row" style="margin-left: 0px; margin-bottom: 0px; padding-left: 0px;">
     <div class="col l12 m12 s12">
-     <th:block th:switch="${professional.gender}">
-      <h5 th:case="'M'" class="title" th:text=" 'Bienvenido ' + ${professional.firstName} "></h5>
-      <h5 th:case="'F'" class="title" th:text=" 'Bienvenida ' + ${professional.firstName} "></h5>
-     </th:block>
+     <h5 class="title">Mis Pacientes</h5>
+     <a href="/professional/home"><i class="tiny material-icons" style="vertical-align: -2px;">keyboard_arrow_left</i>Menu principal</a>
+    </div>
+    <div class="col l5 m7 s12" style="border: 1px solid #4e66f0;">
+      <div class="input-field inline" style="width:90%; height: 38px; margin-bottom: 0px;">
+          <!--input th:field="*{pat.weight}" id="weight" type="text" class="validate" -->
+          <input id="search" type="text" >
+          <label for="search" style="top: 8px !important;">Buscar por apellido</label>
+      </div>
     </div>
    </div>
 
-   <div class="row flexbox">
-    <!--################################### USER CARD #################################### -->
-    <div class="col l2 m3 hide-on-small-only" style="margin: 0px;">
-     <div id="ani3" class="card zcard z-depth-2 hoverable">
-      <div class="card-image">
-       <img class="zimg" style="border-radius: 10px 10px 0 0;"
-        src="https://github.com/arielrbv/universidadutiles/blob/main/sample-1.png?raw=true" /> <span class="card-title"
-        style="padding-left: 7.5px; padding-right: 7.5px;">
-        <p th:text="${professional.firstName}+ ' '+${professional.lastName} "
-         style="font-size: 13px; font-weight: 500; margin-top: 0px; margin-bottom: 0px;" />
-       </span> <a href="/professional/profile/update"
-        class="btn-floating halfway-fab waves-effect waves-light blue-grey darken-4" style="right: 10px;"> <i
-        class="material-icons">edit</i>
-       </a>
-      </div>
-      <div class="card-content zcard" style="padding-left: 7.5px; padding-right: 7.5px;">asdad</div>
-      <div class="card-action cvalign" style="margin-right: 0px; border-radius: 0px 0px 10px 10px;">
-       <a class="me-0 tooltipped" style="margin-right: 0px;" data-position="right" data-tooltip="Funcionalidad aún no disponible">Soporte</a>
-      </div>
-     </div>
-    </div>
-
-    <!--################################### MY PATIENTS #################################### -->
-    <div class="col l5 m9 s12 flexbox" style="margin: 0px;">
-     <a href="/professional/mypatients" class="flexbox" style="width: 100%; color: inherit;">
-      <div class="card-panel zcard green lighten-5 z-depth-2 hoverable flexbox" style="width: 100%">
-       <!--div class="card-panel zcard green lighten-5 z-depth-2 hoverable flexbox" style="width: 100%"-->
-       <div class="card-body cvalign center" style="width: 100%">
-        <i class="large material-icons">contacts</i>
-        <p class="center" style="margin-top: 5%;">Mis Pacientes</p>
+   <div class="row flexbox" style="border: 1px solid #4e66f0;">
+    <!--       <tr th:each="pat, stats : ${#lists.sort(professional.patients, byLastName)}"> -->
+    <!--        <td th:text="${pat.firstName}"/> -->
+    <!--        <td th:text="${pat.lastName}"/> -->
+    <!--        <td th:text="${pat.dni}"/> --> 
+    
+    <!--div class="col s12 m12 l6 flexbox" style="margin: 0px;" th:each="pat, stats : ${#lists.sort(professional.patients, byLastName)}">
+     <a href="#" class="flexbox" style="width:100%; color: inherit;">
+       <div class="card horizontal flexbox hoverable" style="width:100%;">
+        <div class="card-image hide-on-small-only">
+         <img class="imgpatient" src="https://github.com/arielrbv/universidadutiles/blob/main/sample-1.png?raw=true">
+        </div>
+        <div class="card-image show-on-small hide-on-med-and-up">
+         <img class="imgpatient small" src="https://github.com/arielrbv/universidadutiles/blob/main/sample-1.png?raw=true">
+        </div>
+        <div class="card-stacked">
+         <div class="card-content">
+          <div class="col s12 m6 l6" style="margin: 0px; padding: 0px;">
+           <p th:utext="'&lt;b&gt;Apellido: &lt;/b&gt;' + ${pat.lastName}" style="font-size: 12px;"/>
+           <p th:utext="'&lt;b&gt;Edad: &lt;/b&gt;'" style="font-size: 12px;"/>
+           <p th:utext="'&lt;b&gt;Peso: &lt;/b&gt;' + ${pat.weight} + ' Kgs'" style="font-size: 12px;"/>
+          </div>
+          <div class="col s12 m6 l6" style="margin: 0px; padding: 0px;">
+           <p th:utext="'&lt;b&gt;Nombre: &lt;/b&gt;' + ${pat.firstName}" style="font-size: 12px;"/>
+           <p th:utext="'&lt;b&gt;Altura: &lt;/b&gt;' + ${pat.height} + ' Mts'" style="font-size: 12px;"/>
+           <p th:utext="'&lt;b&gt;Plan A.: &lt;/b&gt;' + ${pat.planType}" style="font-size: 12px;"/>
+          </div>
+         </div>
+        </div>
        </div>
-      </div>
      </a>
-    </div>
-
-    <!--################################### PLAN AND FOOD ADMIN #################################### -->
-    <div class="col l5 m12 s12 flexbox" style="margin: 0px;">
-     <a href="#" class="flexbox" style="width: 100%; color: inherit;">
-      <div class="card-panel zcard green lighten-5 z-depth-2 hoverable flexbox" style="width: 100%">
-       <div class="card-body cvalign" style="width: 100%">
-        <i class="large material-icons">contacts</i>
-        <p class="center" style="margin-top: 5%;">Administración de planes y recetario.</p>
-       </div>
-      </div>
-     </a>
-    </div>
+    </div-->
 
 
+    <!--#### END OF ROW### -->
    </div>
+
+
+
+   <!--#### END OF CONTAINER### -->
   </div>
 
   <!--################################### FIXED BUTTON #################################### -->
