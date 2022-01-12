@@ -79,7 +79,7 @@
     </form>
    </div>
 
-   <div class="row flexbox" style="border: 1px solid #4e66f0;">
+   <div class="row flexbox">
     <!--       <tr th:each="pat, stats : ${#lists.sort(professional.patients, byLastName)}"> -->
     <!--        <td th:text="${pat.firstName}"/> -->
     <!--        <td th:text="${pat.lastName}"/> -->
@@ -94,7 +94,7 @@
     
     <th:block th:if="${not #lists.isEmpty(patPag.content)}">
          <div class="col s12 m12 l6 flexbox" style="margin: 0px;" th:each="pat, stats : ${patPag.content}">
-          <a href="#" class="flexbox" style="width:100%; color: inherit;">
+          <a th:href="@{/professional/mypatients/patient(patientId=${pat.patientId})}" class="flexbox" style="width:100%; color: inherit;">
             <div class="card horizontal flexbox hoverable" style="width:100%;">
              <div class="card-image hide-on-small-only">
               <img class="imgpatient" src="https://github.com/arielrbv/universidadutiles/blob/main/sample-1.png?raw=true">
@@ -127,7 +127,6 @@
             <a th:if="${pLastName} == NULL" th:href="'/professional/mypatients?page='+(${currentPage}-1)" style="padding:0px;"><i class="material-icons">chevron_left</i></a>
             <a th:if="${pLastName} != NULL" th:href="'/professional/mypatients/search?page='+(${currentPage}-1)+'&pLastName='+${pLastName}" style="padding:0px;"><i class="material-icons">chevron_left</i></a>
             </li>
-            
             <th:block th:if="${patPag.totalPages == 1}" th:each="pageNumber : ${pageNumbers}">
             <li class="waves-effect" th:classappend="${pageNumber==patPag.number + 1} ? active">
                  <a th:text=${pageNumber} style="font-size:12px; min-width:28.91px;"/>
@@ -148,16 +147,8 @@
         </div>
        <!-- ### PAGINATION END -->
     </th:block>
-
-
-
-
     <!--#### END OF ROW### -->
    </div>
-   
-
-
-
    <!--#### END OF CONTAINER### -->
   </div>
 

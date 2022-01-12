@@ -32,3 +32,34 @@ function createPopUP() {
 
 
 }
+
+function animate(elems) {
+	elems.classList.add('animate__animated', 'animate__fadeIn')
+}
+function unHide(elems) {
+	elems.classList.remove('hide')
+}
+function unAnimate(elems) {
+	elems.classList.remove('animate__animated', 'animate__fadeIn')
+}
+
+
+window.addEventListener('load', () => {
+
+	setTimeout(carga, 1000);
+	function carga() {
+		var elems = document.querySelectorAll('.hide');
+		document.getElementById('preloader').classList.add('hide')
+		elems.forEach(animate)
+		elems.forEach(unHide)
+	}
+	
+	setTimeout(carga2, 6000);
+	function carga2() {
+		var elems = document.querySelectorAll('.animate__animated')
+		elems.forEach(unAnimate)
+	}
+	
+})
+
+

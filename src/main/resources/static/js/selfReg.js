@@ -21,6 +21,7 @@ document.addEventListener('DOMContentLoaded', function() {
     var elems = document.querySelectorAll('.datepicker');
     var instances = M.Datepicker.init(elems, {
         autoClose: true,
+        yearRange: [new Date().getFullYear()-90,new Date().getFullYear()-18],
         format: "dd/mm/yyyy",
         i18n: {
             months: ["Enero", "Febrero", "Marzo", "Abril", "Mayo", "Junio", "Julio", "Agosto", "Septiembre", "Octubre", "Noviembre", "Diciembre"],

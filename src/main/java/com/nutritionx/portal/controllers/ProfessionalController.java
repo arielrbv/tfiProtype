@@ -1,11 +1,13 @@
 package com.nutritionx.portal.controllers;
 
+import java.sql.Timestamp;
+import java.text.SimpleDateFormat;
+import java.time.Period;
+import java.time.ZoneId;
 import java.util.ArrayList;
 import java.util.Comparator;
-import java.util.HashSet;
 import java.util.List;
 import java.util.Optional;
-import java.util.Set;
 import java.util.stream.Collectors;
 import java.util.stream.IntStream;
 
@@ -25,11 +27,22 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.nutritionx.portal.model.Meals;
 import com.nutritionx.portal.model.Patient;
+import com.nutritionx.portal.model.PatientNutriPlan;
+import com.nutritionx.portal.model.Patology;
+import com.nutritionx.portal.model.Preference;
 import com.nutritionx.portal.model.Professional;
+import com.nutritionx.portal.repository.NutritionalPlanRepository;
+import com.nutritionx.portal.repository.PatientNutriPlanRepository;
 import com.nutritionx.portal.repository.PatientRepository;
+import com.nutritionx.portal.repository.PatologyRepository;
+import com.nutritionx.portal.repository.PreferenceRepository;
 import com.nutritionx.portal.repository.ProfessionalRepository;
 import com.nutritionx.portal.service.PatientService;
+import com.nutritionx.portal.util.DateAux;
+import com.nutritionx.portal.util.PatientPatologiesSelected;
+import com.nutritionx.portal.util.PatientPreferencesSelected;
 
 @Controller
 @SessionAttributes("professional")
@@ -39,8 +52,17 @@ public class ProfessionalController {
 	@Autowired
 	private PatientRepository patRep;
 	@Autowired
-	private PatientService patSer;
-
+	private PatientService patSer;	
+	@Autowired
+	private PatologyRepository patoRep;
+	@Autowired
+	private PreferenceRepository prefRep;
+	@Autowired
+	private PatientNutriPlanRepository patNutriPRepo;
+	@Autowired
+	private NutritionalPlanRepository nutriPlanRepo;
+	
+	
 	@ModelAttribute("professional")
 	public Professional newProfessional() {
 		return new Professional();
@@ -95,11 +117,7 @@ public class ProfessionalController {
 	@GetMapping("/professional/mypatients")
 	public ModelAndView showMyPatientsDash(@ModelAttribute("professional") Professional p, Model m,
 			@RequestParam("page") Optional<Integer> page) {
-//		p = profRepo.findByProfessionalId(p.getProfessionalId());
-//		p.getPatients(); // initialize the lazy fetch
-//		m.addAttribute("professional", p);
-//		m.addAttribute("byLastName", Comparator.comparing(Patient::getLastName));
-//		return new ModelAndView("professionalMyPatients");
+
 
 		int currentPage = page.orElse(1);
 		final int pageSize = 6;
@@ -122,41 +140,14 @@ public class ProfessionalController {
 		m.addAttribute("currentPage", currentPage);
 		m.addAttribute("patPag", patPag);
 		m.addAttribute("professional", p);
-		// m.addAttribute("byLastName", Comparator.comparing(Patient::getLastName));
 		return new ModelAndView("professionalMyPatients");
 
 	}
 
-	// GET show the "MyPatients" module
+	// GET show the "MyPatients" module usig the Search
 	@GetMapping("/professional/mypatients/search")
-	public ModelAndView searchPatient(@RequestParam("pLastName") String pLastName,
+	public ModelAndView searchInMyPatients(@RequestParam("pLastName") String pLastName,
 			@ModelAttribute("professional") Professional p, Model m, @RequestParam("page") Optional<Integer> page) {
-
-//		p = profRepo.findByProfessionalId(p.getProfessionalId());
-//		p.getPatients(); // initialize the lazy fetch
-//		if (!lastName.isBlank()) {
-//			Set<Patient> pat2 = new HashSet<>();
-//			for (Patient pat : p.getPatients()) {
-//				if (pat.getLastName().toLowerCase().contains(lastName.toLowerCase())) {
-//					pat2.add(pat);
-//				}
-//			}
-//			p.setPatients(pat2);
-//			if (pat2.isEmpty()) {
-//				m.addAttribute("professional", p);
-//				m.addAttribute("lastName", lastName);
-//				m.addAttribute("byLastName", Comparator.comparing(Patient::getLastName));
-//				return new ModelAndView("professionalMyPatients");
-//			} else {
-//				m.addAttribute("professional", p);
-//				m.addAttribute("lastName", lastName);
-//				m.addAttribute("byLastName", Comparator.comparing(Patient::getLastName));
-//				return new ModelAndView("professionalMyPatients");
-//			}
-//		}else {
-//			return new ModelAndView("redirect:/professional/mypatients");
-//		}
-//	}
 
 		int currentPage = page.orElse(1);
 		final int pageSize = 6;
@@ -175,41 +166,8 @@ public class ProfessionalController {
 				if (pat.getLastName().toLowerCase().contains(pLastName.toLowerCase())) {
 					listAux.add(pat);
 				}
-
 			}
-			
-			/*if (!listAux.isEmpty()) {
-				Page<Patient> patPag = patSer.findPaginated(listAux ,PageRequest.of(currentPage-1, pageSize));
-				totalPages = patPag.getTotalPages();
-				
-				if (totalPages > 0) {
-		            List<Integer> pageNumbers = IntStream.rangeClosed(1, totalPages)
-		                .boxed()
-		                .collect(Collectors.toList());
-		            m.addAttribute("pageNumbers", pageNumbers);
-		        }
-				m.addAttribute("currentPage", currentPage);
-		        m.addAttribute("patPag",patPag);
-				m.addAttribute("professional", p);
-				m.addAttribute("lastName", lastName);
-				return new ModelAndView("professionalMyPatients");
-			} else {
-				Page<Patient> patPag = patSer.findPaginated(listAux ,PageRequest.of(currentPage-1, pageSize));
-				totalPages = patPag.getTotalPages();
-				
-				if (totalPages > 0) {
-		            List<Integer> pageNumbers = IntStream.rangeClosed(1, totalPages)
-		                .boxed()
-		                .collect(Collectors.toList());
-		            m.addAttribute("pageNumbers", pageNumbers);
-		        }
-				m.addAttribute("currentPage", currentPage);
-				Page<Patient> patPag=null;
-		        m.addAttribute("patPag",patPag);
-				m.addAttribute("professional", p);
-				m.addAttribute("lastName", lastName);
-				return new ModelAndView("professionalMyPatients");
-			}*/
+
 			Page<Patient> patPag = patSer.findPaginated(listAux ,PageRequest.of(currentPage-1, pageSize));
 			totalPages = patPag.getTotalPages();
 			
@@ -219,6 +177,7 @@ public class ProfessionalController {
 	                .collect(Collectors.toList());
 	            m.addAttribute("pageNumbers", pageNumbers);
 	        }
+					
 			m.addAttribute("currentPage", currentPage);
 	        m.addAttribute("patPag",patPag);
 			m.addAttribute("professional", p);
@@ -228,5 +187,101 @@ public class ProfessionalController {
 			return new ModelAndView("redirect:/professional/mypatients");
 		}
 	}
+	
+	// GET show the "MyPatients" module usig the Search
+		@GetMapping("/professional/mypatients/patient")
+		public ModelAndView searchPatient(@RequestParam("patientId") String pId, Model m) {
+			Patient p = patRep.findByPatientId(pId);
+			
+			if(p != null) {
+				DateAux d = new DateAux();
+				SimpleDateFormat format = new SimpleDateFormat("dd/MM/yyyy");
+				Timestamp ts = new Timestamp(System.currentTimeMillis());
+				d.setDate(format.format(p.getBirthdate()));
+				d.setDate(d.getDate()+" ("+ Integer.toString(Period.between(p.getBirthdate().toInstant().atZone(ZoneId.systemDefault()).toLocalDate(),
+						ts.toLocalDateTime().toLocalDate()).getYears())+" años)");
+				
+				m.addAttribute("aux", d);
+				
+				//analize preferences:
+				List<PatientPreferencesSelected> prefAux = new ArrayList<>();
+				if(p.getPreferences() != null) {
+					for(Preference p1 : prefRep.findAll()) {
+						if(p.getPreferences().contains(p1)) {
+							prefAux.add(new PatientPreferencesSelected(p1.getName(),p1.getType(),true));
+						}else {
+							prefAux.add(new PatientPreferencesSelected(p1.getName(),p1.getType(),false));
+						}
+					}
+				}
+				//analize patology:
+				List<PatientPatologiesSelected> patAux = new ArrayList<>();
+				if(p.getPatologies() != null) {
+					for(Patology p1 : patoRep.findAll()) {
+						if(p.getPatologies().contains(p1)) {
+							patAux.add(new PatientPatologiesSelected(p1.getName(),true));
+						}else {
+							patAux.add(new PatientPatologiesSelected(p1.getName(),false));
+						}
+					}
+				}
+				
+				
+				m.addAttribute("plan", patNutriPRepo.findByPatientOrderByDayAsc(p));
+				m.addAttribute("nutriPlan", nutriPlanRepo.findAll());	
+				m.addAttribute("patient", p);
+				m.addAttribute("preference", prefAux);
+				m.addAttribute("patology", patAux);
+				return new ModelAndView("professionalShowPatient");
+			}else {
+				return new ModelAndView("redirect:/professional/mypatients"); //back to patient view
+			}
+		}
+		
+		//POST for professional to change the plan
+		@PostMapping("/professional/mypatients/patient/changeplan")
+		public ModelAndView changePlan(@RequestParam("patientId") String pId ,@RequestParam("nutriPlanId") String nPId, Model m) {
+			Patient p = patRep.findByPatientId(pId);
+			p.getLinesOfPlan();
+			patNutriPRepo.deleteAllInBatch(p.getLinesOfPlan());
+			
+			
+			p.setPlanType(nPId);
+			
+			for (Meals meal : nutriPlanRepo.findByNutriPlanId(p.getPlanType()).getMealsOfplan()) {
+				p.addLinesOfPlan(new PatientNutriPlan(null, p.getPlanType(), p, meal.getDay(), meal.getBreakfastId(),
+						meal.getBreakfastDescription(), meal.getMsnackId(), meal.getMsnackDescription(), meal.getLunchId(),
+						meal.getLunchDescription(), meal.getAsnackId(), meal.getAsnackDescription(), meal.getPdsnackId(),
+						meal.getPdsnackDescription(), meal.getDinnerId(), meal.getDinnerDescription()));
+			}
 
+			patRep.save(p);
+
+			return new ModelAndView("redirect:/professional/mypatients/patient?patientId="+pId);
+		}
+		
+		
+		
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

@@ -80,23 +80,23 @@
                 </div>
 
             </div>
-            <div class="row">
-                <div class="col l3 m3">
-                    <div class="card z-depth-0">
-                        <div class="card-image">
+            <div class="row flexbox">
+                <div class="col l3 m3 flexbox">
+                    <div class="card z-depth-0" style="margin-top: 0px;">
+                        <div class="card-image cvalign" style="justify-content: flex-start !important;">
                             <img style="width: 100%;" src="https://github.com/arielrbv/universidadutiles/blob/main/sample-1.png?raw=true" />
                             <span class="card-title"></span>
                             <a class="btn-floating halfway-fab waves-effect waves-light red"><i class="material-icons">add</i></a>
                         </div>
-                        <div class="card-content" style="margin-top: 0%; padding-top:5%; padding:5%;">
-                            <div class="row" style="margin-top: 0%; margin-bottom: 0px;">
-                                <div class="col l12">
+                        <div class="card-content" style="margin-top: 0%; padding:0%; padding-top:5%">
+                            <div class="row" style="margin:0px; width:100%;">
+                                <div class="col l12" style="padding:0px; width: 100%;">
                                     <a href="/password/update" class="btn waves-effect waves-light btn-small grey" style="width: 100%; font-size:12px;">Actualizar contraseña</a>
                                 </div>
                             </div>
-                            <div class="row" style="margin-top: 4%;">
-                                <div class="col l12">
-                                    <a class="btn waves-effect waves-light btn-small grey" style="width: 100%; font-size:12px;">Eliminar contraseña</a>
+                            <div class="row" style="margin-top: 4%;width: 100%;margin-left: 0px;margin-right: 0px;">
+                                <div class="col l12" style="padding: 0px;width: 100%;">
+                                    <a class="btn waves-effect waves-light btn-small grey" style="width: 100%; font-size:12px;">Eliminar cuenta</a>
                                 </div>
                             </div>
                         </div>
@@ -105,7 +105,7 @@
 
                 </div>
                 <div class="col l9 m9">
-                    <h6 class="title">Datos personales</h6>
+                    <h6 class="title" style="margin-top: 0px;">Datos personales</h6>
                     <form id="theForm" action="/profile/update" method="post">
                         <div class="row">
                             <div class="col l4 m5 s12">
@@ -147,19 +147,27 @@
                         </div>
                         <h6 class="title">Características físicas</h6>
                         <div class="row">
-                            <div class="col l3 m5 s12">
+                            <div class="col l4 m6 s6">
                                 <div class="zheight input-field inline zpadding0" style="margin-left: 0px;">
                                     <input id="height" type="text" th:field="${patient.height}" class="validate">
                                     <label for="heigth">Altura</label>
                                 </div>
                                 Mts
                             </div>
-                            <div class="col l3 m5 s12">
-                                <div class="zheight input-field inline">
+                            <div class="col l4 m6 s6">
+                                <div class="zheight input-field inline zpadding0" style="margin-left: 0px;">
                                     <input id="weight" type="text" th:field="${patient.weight}" class="validate">
                                     <label for="weight">Peso</label>
                                 </div>
                                 Kgs
+                            </div>
+                            <div class="col l4 m12 s6 input-field">
+                                <select th:field="${patient.gender}">
+                                  <option th:value="N" th:text="'Sin indicar'" />
+                                  <option th:value="F" th:text="Femenino" />
+                                  <option th:value="M" th:text="Masculino" />
+                                </select>
+                                <label class="active">Genero Biológico</label>
                             </div>
                         </div>
                         <div class="row">
@@ -250,7 +258,7 @@
     <script src="/js/jquery-3.6.0.min.js "></script>
     <script src="/js/matminjs.js"></script>
     <script src="/js/general.js"></script>
-    <script type="text/javascript" src="/js/patientUpdateProfile.js"></script>
+    <script src="/js/patientUpdateProfile.js"></script>
 
 </body>
 

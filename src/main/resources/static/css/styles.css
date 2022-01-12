@@ -395,9 +395,14 @@ POPUP
 
 .input-field > label {
     top: 9px;
-    font-size: 12px;
+    font-size: 16px;
+    color: rgb(0,0,0);
+    font-weight:600;
 }
 
+input[type=text]:not(.browser-default):disabled+label,input[type=number]:not(.browser-default):disabled+label{
+    color: rgba(0,0,0);
+}
 
 .flexbox{
 	display:flex;
@@ -428,3 +433,4 @@ POPUP
 .pagination li.active {
     background-color: #59a52c;
 }
+

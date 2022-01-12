@@ -6,7 +6,6 @@ import java.util.Set;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.FetchType;
 import javax.persistence.Id;
 import javax.persistence.ManyToMany;
 import javax.persistence.Table;
@@ -20,6 +19,7 @@ public class Preference{
 	@Column(name = "preference_id")
 	private String preferenceId;
 	private String name;
+	private String type;
 	private String description;
 	
 
@@ -33,9 +33,10 @@ public class Preference{
 		// TODO Auto-generated constructor stub
 	}
 
-	public Preference(String preferenceId, String name, String description) {
+	public Preference(String preferenceId, String name, String type, String description) {
 		this.preferenceId = preferenceId;
 		this.name = name;
+		this.type = type;
 		this.description = description;
 	}
 
@@ -50,6 +51,12 @@ public class Preference{
 	}
 	public void setName(String name) {
 		this.name = name;
+	}
+	public String getType() {
+		return type;
+	}
+	public void setType(String type) {
+		this.type = type;
 	}
 	public String getDescription() {
 		return description;
@@ -70,7 +77,7 @@ public class Preference{
 	
 	@Override
 	public String toString() {
-		return "Preference [preferenceId=" + preferenceId + ", name=" + name + ", description=" + description
+		return "Preference [preferenceId=" + preferenceId + ", name=" + name + ", type=" + type + ", description=" + description
 				+ "]";
 	}
 

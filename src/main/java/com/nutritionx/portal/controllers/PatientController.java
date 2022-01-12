@@ -6,7 +6,6 @@ import java.security.SecureRandom;
 import java.sql.Timestamp;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.time.LocalDate;
 import java.time.Period;
 import java.time.ZoneId;
 import java.util.Base64;
@@ -33,12 +32,10 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
-import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.nutritionx.portal.model.Meals;
-import com.nutritionx.portal.model.NutritionalPlan;
 import com.nutritionx.portal.model.Patient;
 import com.nutritionx.portal.model.PatientNutriPlan;
 import com.nutritionx.portal.model.Patology;
@@ -150,19 +147,14 @@ public class PatientController {
 	// GET to activate account
 	@GetMapping("/userAccountActivation")
 	public ModelAndView accountActivation(@RequestParam("user") String email, @RequestParam("token") String token) {
-		System.out.println("\n\nuser: "+email +"- token:"+ token);
 		Patient p = patRep.findByEmailAndToken(email, token);
 		if (p != null) {
 			p.setToken(null);
 			patRep.save(p);
-			//return "accountActivation";
 			return new ModelAndView("redirect:/accountActivation",HttpStatus.OK);
-		}else {
-			System.out.println("no se pudo activar");
+		}else {//accountAlreadyActivated or incorrect data combination 
 			p=new Patient();
-			//return "redirect:/login";
 			return new ModelAndView("redirect:/login",HttpStatus.FORBIDDEN);
-			
 		}
 	}
 	
@@ -215,11 +207,10 @@ public class PatientController {
 			// GET RID OFF THE COMMENTS AT THE FINAL VERSION OF THE PROTOTYPE TO TRIGGER THE
 			// SECURE PASS
 			//
-//			MessageDigest digest = MessageDigest.getInstance("SHA-256");
-//			SecureRandom secureRandom = new SecureRandom(); // Hash Randombytes as token
-//			byte[] hash = digest.digest((p.getEmail() + p.getPassword()).getBytes(StandardCharsets.UTF_8));
-//			String secureAux = Base64.getEncoder().encodeToString(hash);
-//			p.setPassword(secureAux);
+			MessageDigest digest = MessageDigest.getInstance("SHA-256");
+			byte[] hash = digest.digest((p.getEmail() + p.getPassword()).getBytes(StandardCharsets.UTF_8));
+			String secureAux = Base64.getEncoder().encodeToString(hash);
+			p.setPassword(secureAux);
 
 			p = patRep.findByEmailAndPassword(p.getEmail(), p.getPassword());
 			if (p != null) {
