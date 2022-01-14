@@ -18,7 +18,7 @@
 </head>
 
 <body>
- <header>
+ <header class="animate__animated animate__fadeIn">
   <nav>
    <div class="nav-wrapper" style="background-color: #59a52c;">
     <a href="#" data-target="slide-out" class="sidenav-trigger text-decoration-none"> <i class="material-icons">menu</i>
@@ -48,6 +48,8 @@
      </a> <span class="white-text" th:text="${professional.firstName}+' '+${professional.lastName}" />
     </div>
    </li>
+   <li><a href="/professional/home"><i class="material-icons">home</i>Volver al inicio
+   </a></li>
    <li><a href="/professional/profile/update"> <i class="material-icons">person</i> Actualizar perfil
    </a></li>
    <li><a href="/professional/password/update"> <i class="material-icons">vpn_key</i> Actualizar contraseña
@@ -60,7 +62,7 @@
    </a></li>
   </ul>
  </header>
- <main>
+ <main class="animate__animated animate__fadeIn">
   <div class="container">
    <!--################################### WELCOME BANNER #################################### -->
    <div class="row" style="margin-left: 0px; margin-bottom: 0px; padding-left: 0px;">
@@ -71,7 +73,7 @@
     <form action="/professional/mypatients/search" method="get">
       <div class="col l3 m7 s12 input-field">
          <input id="patient" name="pLastName" type="text" th:value="${pLastName}" style="width:100%; height:40px; font-size:13px; margin-bottom: 0px;"/>
-         <label for="patient">Buscar por apellido</label>
+         <label for="patient" style="bottom: 15px; top: 4px;">Buscar por apellido</label>
       </div>
       <div class="col l3 m7 s12 input-field" style="padding:0px; margin-top: 22px;">
         <button class="btn-small" type="submit">Buscar</button>
@@ -153,25 +155,43 @@
   </div>
 
   <!--################################### FIXED BUTTON #################################### -->
-  <div class="fixed-action-btn direction-top hide-on-small-only hide-on-med-only" style="bottom: 45px; right: 24px;">
-   <a class="btn-floating btn-large " style="background-color: #0b423d;"> <i class="material-icons">menu</i>
+  <div class="fixed-action-btn direction-top hide-on-small-only hide-on-med-only animate__animated animate__bounceInDown"  style="bottom: 30%; right: 24px;">
+   <a class="btn-floating btn-large green darken-4"> <i class="material-icons light-green-text text-lighten-1">menu</i>
    </a>
    <ul>
-    <li><a href="/professional/profile/update" class="btn-floating blue-grey darken-4 tooltipped"
-     data-position="left" data-tooltip="Actualizar perfil"
-     style="opacity: 0; transform: scale(0.4) translateY(40px) translateX(0px);"> <i class="material-icons">person</i>
+    <li><a href="/professional/home" class="btn-floating blue-grey tooltipped" data-position="left"
+     data-tooltip="Volver al inicio" style="opacity: 0; transform: scale(0.4) translateY(40px) translateX(0px);"> <i
+      class="material-icons light-green-text text-lighten-1">home</i>
     </a></li>
-    <li><a href="/professional/password/update" class="btn-floating deep-orange tooltipped" data-position="left"
-     data-tooltip="Actualizar contraseña" style="opacity: 0; transform: scale(0.4) translateY(40px) translateX(0px);">
-      <i class="material-icons">vpn_key</i>
+    <li><a href="/profile/update" class="btn-floating blue-grey tooltipped" data-position="left"
+     data-tooltip="Actualizar perfil" style="opacity: 0; transform: scale(0.4) translateY(40px) translateX(0px);"> <i
+      class="material-icons light-green-text text-lighten-1">person</i>
+    </a></li>
+
+    <li><a class="btn-floating blue-grey tooltipped" data-position="left"
+     data-tooltip="Programar próximos eventos" style="opacity: 0; transform: scale(0.4) translateY(40px) translateX(0px);"> <i
+      class="material-icons light-green-text text-lighten-1">event</i>
+    </a></li>
+    
+    <li><a class="btn-floating blue-grey tooltipped" data-position="left"
+     data-tooltip="Consultas recibidas" style="opacity: 0; transform: scale(0.4) translateY(40px) translateX(0px);"> <i
+      class="material-icons light-green-text text-lighten-1">question_answer</i>
+    </a></li>
+
+    <li><a class="btn-floating blue-grey tooltipped" data-position="left"
+     data-tooltip="Planes y recetario" style="opacity: 0; transform: scale(0.4) translateY(40px) translateX(0px);"> <i
+      class="material-icons light-green-text text-lighten-1">library_books</i>
     </a></li>
    </ul>
   </div>
+  
+  
+  
  </main>
 
 
  <!--################################### FOOTER #################################### -->
- <footer class="page-footer" style="background-color: #59a52c;">
+ <footer class="page-footer animate__animated animate__fadeIn" style="background-color: #59a52c;">
   <div class="container">
    <div class="row g-0 ">
     <div class="col l4 m12 s12">
@@ -203,7 +223,7 @@
 
  <script src="/js/jquery-3.6.0.min.js "></script>
  <script src="/js/matminjs.js"></script>
- <script src="/js/general.js"></script>
+ <script>  M.AutoInit(); </script>
 
 </body>
 

@@ -6,6 +6,7 @@
 <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet" />
 <link href="https://fonts.googleapis.com/css2?family=Spartan:wght@300;400;500;600&display=swap" rel="stylesheet" />
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css" />
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css" />
 <link type="text/css" href="/css/styles.css" rel="stylesheet" />
 
 <script src="https://kit.fontawesome.com/6b18f74cf6.js" crossorigin="anonymous"></script>
@@ -16,6 +17,24 @@
 </head>
 
 <body>
+
+ <div id="preloader" class="center cvalign" style="height: 100vh;">
+  <div class="preloader-wrapper big active">
+   <div class="spinner-layer spinner-green-only ">
+    <div class="circle-clipper left">
+     <div class="circle"></div>
+    </div>
+    <div class="gap-patch">
+     <div class="circle"></div>
+    </div>
+    <div class="circle-clipper right">
+     <div class="circle"></div>
+    </div>
+   </div>
+  </div>
+  <p style="margin-top: 20px;">Cargando...</p>
+ </div>
+
  <header>
   <nav>
    <div class="nav-wrapper" style="background-color: #59a52c;">
@@ -46,6 +65,7 @@
      </a> <span class="white-text" th:text="${professional.firstName}+' '+${professional.lastName}" />
     </div>
    </li>
+   <li><a href="/professional/home"><i class="material-icons">home</i>Volver al inicio </a></li>
    <li><a href="/professional/profile/update"> <i class="material-icons">person</i> Actualizar perfil
    </a></li>
    <li><a href="/professional/password/update"> <i class="material-icons">vpn_key</i> Actualizar contraseña
@@ -58,14 +78,14 @@
    </a></li>
   </ul>
  </header>
- <main class="flexbox">
+ <main class="flexbox hide">
   <div class="container cvalign">
    <!--################################### WELCOME BANNER #################################### -->
    <div class="row" style="margin-left: 0px; margin-bottom: 0px; padding-left: 11.250px;">
-    <div class="col l12 m12 s12">
+    <div class="col l12 m12 s12" style="padding: 0px;">
      <th:block th:switch="${professional.gender}">
-      <h5 th:case="'M'" class="title" th:text=" 'Bienvenido ' + ${professional.firstName} "></h5>
-      <h5 th:case="'F'" class="title" th:text=" 'Bienvenida ' + ${professional.firstName} "></h5>
+      <h5 th:case="'M'" class="title" th:text=" 'Bienvenido Dr.' + ${professional.lastName} "></h5>
+      <h5 th:case="'F'" class="title" th:text=" 'Bienvenida Dra.' + ${professional.lastName} "></h5>
      </th:block>
     </div>
    </div>
@@ -77,75 +97,104 @@
       <div class="card-image">
        <img class="zimg" style="border-radius: 10px 10px 0 0;"
         src="https://github.com/arielrbv/universidadutiles/blob/main/sample-1.png?raw=true" /> <span class="card-title"
-        style="padding-left: 7.5px; padding-right: 7.5px;">
-        <p th:text="${professional.firstName}+ ' '+${professional.lastName} "
-         style="font-size: 13px; font-weight: 500; margin-top: 0px; margin-bottom: 0px;" />
+        style="padding-left: 7.5px; padding-right: 7.5px;"> <th:block th:switch="${professional.gender}">
+         <p th:case="'M'" class="title" th:text=" 'Dr ' + ${professional.lastName}"
+          style="font-size: 14px; font-weight: 500; margin-top: 0px; margin-bottom: 0px;"></p>
+         <p th:case="'F'" class="title" th:text=" 'Dra ' + ${professional.lastName}"
+          style="font-size: 14px; font-weight: 500; margin-top: 0px; margin-bottom: 0px;"></p>
+        </th:block>
        </span> <a href="/professional/profile/update"
         class="btn-floating halfway-fab waves-effect waves-light blue-grey darken-4" style="right: 10px;"> <i
         class="material-icons">edit</i>
        </a>
       </div>
-      <div class="card-content zcard" style="padding-left: 7.5px; padding-right: 7.5px;">asdad</div>
+      <div class="card-content zcard tooltipped" style="padding-left: 7.5px; padding-right: 7.5px;"
+       data-position="right" data-tooltip="Funcionalidad aún no disponible">Mensajes pendientes: 0/0</div>
       <div class="card-action cvalign" style="margin-right: 0px; border-radius: 0px 0px 10px 10px;">
-       <a class="me-0 tooltipped" style="margin-right: 0px;" data-position="right" data-tooltip="Funcionalidad aún no disponible">Soporte</a>
+       <a class="me-0 tooltipped" style="margin-right: 0px;" data-position="right"
+        data-tooltip="Funcionalidad aún no disponible">Soporte</a>
       </div>
      </div>
     </div>
 
     <!--################################### MY PATIENTS #################################### -->
-    <div class="col l5 m9 s12 flexbox" style="margin: 0px;">
-     <a href="/professional/mypatients" class="flexbox" style="width: 100%; color: inherit;">
-      <div class="card-panel zcard green lighten-5 z-depth-2 hoverable flexbox" style="width: 100%">
-       <!--div class="card-panel zcard green lighten-5 z-depth-2 hoverable flexbox" style="width: 100%"-->
-       <div class="card-body cvalign center" style="width: 100%">
-        <i class="large material-icons">contacts</i>
-        <p class="center" style="margin-top: 5%;">Mis Pacientes</p>
-       </div>
-      </div>
-     </a>
-    </div>
+    <div class="col l10" style="margin: 0px; padding:0px;">
 
     <!--################################### PLAN AND FOOD ADMIN #################################### -->
-    <div class="col l5 m12 s12 flexbox" style="margin: 0px;">
-     <a href="#" class="flexbox" style="width: 100%; color: inherit;">
+    <div class="col l6 m6 s12 flexbox" style="margin: 0px;">
+     <a href="/professional/mypatients" class="flexbox" style="width: 100%; color: inherit;">
       <div class="card-panel zcard green lighten-5 z-depth-2 hoverable flexbox" style="width: 100%">
        <div class="card-body cvalign" style="width: 100%">
-        <i class="large material-icons">contacts</i>
-        <p class="center" style="margin-top: 5%;">Administración de planes y recetario.</p>
+        <img height="100" src="/assets/professionalSections/advice.png">
+        <p class="center" style="font-weight:600; margin-top: 5%;">Mis pacientes</p>
+       </div>
+      </div>
+     </a>
+    </div>
+    
+    <div class="col l6 m6 s12 flexbox" style="margin: 0px;">
+     <a class="flexbox tooltipped" style="width: 100%; color: inherit;" data-position="top " data-tooltip="Funcionalidad aún no disponible">
+      <div class="card-panel zcard green lighten-5 z-depth-2 hoverable flexbox" style="width: 100%">
+       <div class="card-body cvalign" style="width: 100%">
+        <img height="100" src="/assets/professionalSections/diet.png">
+        <p class="center" style="font-weight:600; margin-top: 5%;">Planes y recetario</p>
        </div>
       </div>
      </a>
     </div>
 
+    <div class="col l6 m6 s12 flexbox" style="margin: 0px;">
+     <a  class="flexbox tooltipped" style="width: 100%; color: inherit;" data-position="top " data-tooltip="Funcionalidad aún no disponible">
+      <div class="card-panel zcard green lighten-5 z-depth-2 hoverable flexbox" style="width: 100%">
+       <div class="card-body cvalign" style="width: 100%">
+        <img height="100" src="/assets/professionalSections/online.png">
+        <p class="center" style="font-weight:600; margin-top: 5%;">Consultas de recibidas</p>
+       </div>
+      </div>
+     </a>
+    </div>
+    
+    <div class="col l6 m6 s12 flexbox" style="margin: 0px;">
+     <a  class="flexbox tooltipped" style="width: 100%; color: inherit;" data-position="top " data-tooltip="Funcionalidad aún no disponible">
+      <div class="card-panel zcard green lighten-5 z-depth-2 hoverable flexbox" style="width: 100%">
+       <div class="card-body cvalign" style="width: 100%">
+        <img height="100" src="/assets/professionalSections/schedule.png">
+        <p class="center" style="font-weight:600; margin-top: 5%;">Programar próximos eventos</p>
+       </div>
+      </div>
+     </a>
+    </div>
 
+</div>
    </div>
   </div>
 
   <!--################################### FIXED BUTTON #################################### -->
-  <div class="fixed-action-btn direction-top hide-on-small-only hide-on-med-only" style="bottom: 45px; right: 24px;">
-   <a class="btn-floating btn-large " style="background-color: #0b423d;"> <i class="material-icons">menu</i>
+  <div class="fixed-action-btn direction-top hide-on-small-only hide-on-med-only animate__animated animate__bounceInDown"  style="bottom: 30%; right: 24px;">
+   <a class="btn-floating btn-large green darken-4"> <i class="material-icons light-green-text text-lighten-1">menu</i>
    </a>
    <ul>
-    <li><a href="/professional/profile/update" class="btn-floating blue-grey darken-4 tooltipped"
-     data-position="left" data-tooltip="Actualizar perfil"
-     style="opacity: 0; transform: scale(0.4) translateY(40px) translateX(0px);"> <i class="material-icons">person</i>
+    <li><a href="/profile/update" class="btn-floating blue-grey tooltipped" data-position="left"
+     data-tooltip="Actualizar perfil" style="opacity: 0; transform: scale(0.4) translateY(40px) translateX(0px);"> <i
+      class="material-icons light-green-text text-lighten-1">person</i>
     </a></li>
-    <li><a href="/professional/password/update" class="btn-floating deep-orange tooltipped" data-position="left"
+    <li><a href="/professional/password/update" class="btn-floating blue-grey tooltipped" data-position="left"
      data-tooltip="Actualizar contraseña" style="opacity: 0; transform: scale(0.4) translateY(40px) translateX(0px);">
-      <i class="material-icons">vpn_key</i>
+      <i class="material-icons light-green-text text-lighten-1">vpn_key</i>
     </a></li>
    </ul>
   </div>
+  
  </main>
 
 
  <!--################################### FOOTER #################################### -->
- <footer class="page-footer" style="background-color: #59a52c;">
+ <footer class="page-footer hide" style="background-color: #59a52c;">
   <div class="container">
    <div class="row g-0 ">
     <div class="col l4 m12 s12">
      <h5 class="white-text ">NutritionX vAlfa</h5>
-     <a class=" tooltipped text-decoration-none " data-position="right " data-tooltip="Funcionalidad aún no disponible ">
+     <a class=" tooltipped text-decoration-none " data-position="right " data-tooltip="Funcionalidad aún no disponible">
       <p class="grey-text text-lighten-4 ">Terminos y Condiciones</p>
      </a>
     </div>

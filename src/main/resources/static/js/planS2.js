@@ -37,6 +37,15 @@ function openModal(){
     $('#modal1').modal('open'); 
  };
 
+
+function hideall(){
+	document.getElementById('preloader').classList.remove('hide')
+	document.getElementById('header').classList.add('hide')
+	document.getElementById('main').classList.add('hide')
+	document.getElementById('footer').classList.add('hide')
+}
+
+
 $('#theForm').submit(function(e) {
 	e.preventDefault();
 
@@ -47,11 +56,14 @@ $('#theForm').submit(function(e) {
 		type: "POST",
 		url: url,
 		data: form.serialize(),
-		//beforeSend: openModal()
-		//console.log('openSpinner')
+		beforeSend: hideall()
 	})
 		.done(function() {
 			// Por ejemplo removemos la imagen "cargando..."
+			document.getElementById('preloader').classList.add('hide')
+			document.getElementById('header').classList.remove('hide')
+			document.getElementById('main').classList.remove('hide')
+			document.getElementById('footer').classList.remove('hide')
 			console.log('allgood')
 			openModal()
 			//	openPopUp();

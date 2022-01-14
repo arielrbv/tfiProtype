@@ -18,7 +18,7 @@
 
 <body>
 
-<div id="preloader" class="center cvalign" style="height: 100vh;">
+ <div id="preloader" class="center cvalign" style="height: 100vh;">
   <div class="preloader-wrapper big active">
    <div class="spinner-layer spinner-green-only ">
     <div class="circle-clipper left">
@@ -32,10 +32,10 @@
     </div>
    </div>
   </div>
-  <p style="margin-top:20px;">Cargando...</p>
+  <p style="margin-top: 20px;">Cargando...</p>
  </div>
- 
- 
+
+
  <header class="hide">
   <nav>
    <div class="nav-wrapper" style="background-color: #59a52c;">
@@ -66,6 +66,8 @@
      </a> <span class="white-text" th:text="${patient.firstName}+' '+${patient.lastName}" />
     </div>
    </li>
+   <li><a href="/home"><i class="material-icons">home</i>Volver al inicio
+   </a></li>
    <li><a href="/profile/update"> <i class="material-icons">person</i> Actualizar perfil
    </a></li>
    <li><a href="/password/update"> <i class="material-icons">vpn_key</i> Actualizar contraseña
@@ -79,19 +81,22 @@
   </ul>
  </header>
 
- <main class="flexbox hide" >
+ <main class="flexbox hide">
   <div class="container-fluid">
    <!--################################### WELCOME BANNER #################################### -->
    <div class="row" style="margin-bottom: 0px; margin-top: 15px;">
     <div class="col offset-l1 l10 m10 s10">
-     <h5 class="title" th:text=" 'Bienvenido ' + ${patient.firstName} "></h5>
+    <th:block th:switch="${patient.gender}">
+      <h5 th:case="'M'" class="title" th:text=" 'Bienvenido ' + ${patient.firstName} "></h5>
+      <h5 th:case="'F'" class="title" th:text=" 'Bienvenida ' + ${patient.firstName} "></h5>
+     </th:block>
     </div>
    </div>
 
    <div class="row flexbox">
     <!--################################### USER CARD #################################### -->
     <div class="col offset-l1 l2 m3 hide-on-small-only">
-     <div  class="card zcard z-depth-2 hoverable">
+     <div class="card zcard z-depth-2 hoverable">
       <div class="card-image">
        <img class="zimg" style="border-radius: 10px 10px 0 0;"
         src="https://github.com/arielrbv/universidadutiles/blob/main/sample-1.png?raw=true" /> <span class="card-title"
@@ -123,7 +128,7 @@
      <!--##### if you don't have a menu ######## -->
      <th:block th:if="${patient.planType == NULL}">
       <a href="/planprep/step-1" class="flexbox" style="width: 100%; color: inherit;">
-       <div class="card-panel zcard green lighten-5 z-depth-2 hoverable" style="width: 100%">
+       <div class="card-panel zcard green lighten-5 z-depth-2 hoverable cvalign" style="width: 100%;">
         <div class="card-body center">
          <span class="btn-floating pulse zbtn waves-effect waves-light green lighten-1"> <i
           class="large material-icons" style="margin-top: 17%;">touch_app</i>
@@ -132,6 +137,8 @@
         </div>
        </div>
       </a>
+      
+      
 
      </th:block>
      <!--##### if you have a menu ######## -->
@@ -253,7 +260,7 @@
     <div class="col l4 m12 s12 flexbox" style="margin: 0px;">
      <!--      ##### if you have a menu, you do have a doctor ######## -->
      <th:block th:if="${patient.planType == NULL}">
-      <div  class="card-panel zcard green lighten-5 z-depth-2 hoverable center flexbox">
+      <div class="card-panel zcard green lighten-5 z-depth-2 hoverable center flexbox">
        <div class="card-body cvalign">
         <i class="large material-icons">person_pin</i>
         <p class="center">Solicita un Plan Nutricional para conocer a tu Nutricionista</p>
@@ -349,17 +356,19 @@
 
 
   <!--################################### Fixed menu Button #################################### -->
-  <div class="fixed-action-btn direction-top hide-on-small-only hide-on-med-only animate__animated animate__bounceInDown" style="bottom: 23%; right: 24px;">
-   <a class="btn-floating btn-large blue-grey darken-1 "> <i class="material-icons amber-text text-darken-3">menu</i>
+  <div
+   class="fixed-action-btn direction-top hide-on-small-only hide-on-med-only animate__animated animate__bounceInDown"
+   style="bottom: 23%; right: 24px;">
+   <a class="btn-floating btn-large green darken-4"> <i class="material-icons light-green-text text-lighten-1">menu</i>
    </a>
    <ul>
-    <li><a href="/profile/update" class="btn-floating blue-grey darken-4 tooltipped" data-position="left"
+    <li><a href="/profile/update" class="btn-floating blue-grey tooltipped" data-position="left"
      data-tooltip="Actualizar perfil" style="opacity: 0; transform: scale(0.4) translateY(40px) translateX(0px);"> <i
-      class="material-icons">person</i>
+      class="material-icons light-green-text text-lighten-1">person</i>
     </a></li>
-    <li><a href="/password/update" class="btn-floating deep-orange tooltipped" data-position="left"
+    <li><a href="/password/update" class="btn-floating blue-grey tooltipped" data-position="left"
      data-tooltip="Actualizar contraseña" style="opacity: 0; transform: scale(0.4) translateY(40px) translateX(0px);">
-      <i class="material-icons">vpn_key</i>
+      <i class="material-icons light-green-text text-lighten-1">vpn_key</i>
     </a></li>
    </ul>
   </div>
@@ -380,7 +389,7 @@
      </a>
     </div>
     <div class="col l4 offset-l2 offset-m1 m6 s12">
-     <h5>Siguenos</h5>
+     <h5 class="white-text">Siguenos</h5>
      <ul>
       <li><a class="btn-floating btn-large waves-effect waves-light " style="background-color: #354a63;"> <i
         class="fab fa-instagram"></i>
@@ -396,7 +405,7 @@
    </div>
   </div>
   <div class="footer-copyright ">
-   <div class="container center ">© 2021 Copyright - TFI Ariel Romero</div>
+   <div class="container center white-text ">© 2021 Copyright - TFI Ariel Romero</div>
   </div>
  </footer>
 

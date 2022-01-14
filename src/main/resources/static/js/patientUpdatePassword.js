@@ -1,4 +1,5 @@
 M.AutoInit();
+
 var nPass = document.getElementById('newPass'),
     cnPass = document.getElementById('confirmPass'),
     newPassMsg = document.getElementById('newPassMsg'),

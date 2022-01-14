@@ -76,7 +76,7 @@ function changeBreakfast(breakfastId) {
 		.done(function() {
 			// Por ejemplo removemos la imagen "cargando..."
 			console.log("allgood");
-			M.toast({ html: 'Actualizando Plato...', classes: 'rounded', completeCallback: function() { window.location.replace("/home") } })
+			M.toast({ html: '<b>Actualizando Plato...</b>', classes: 'rounded top green darken-1', completeCallback: function() { window.location.reload() } })
 
 		})
 		.fail(function() {
@@ -163,7 +163,7 @@ function changeMsnack(msnackId) {
 		.done(function() {
 			// Por ejemplo removemos la imagen "cargando..."
 			console.log("allgood");
-			M.toast({ html: 'Actualizando Plato...', classes: 'rounded', completeCallback: function() { window.location.replace("/home") } })
+			M.toast({ html: '<b>Actualizando Plato...</b>', classes: 'rounded top green darken-1', completeCallback: function() { window.location.reload() } })
 
 		})
 		.fail(function() {
@@ -250,7 +250,7 @@ function changeLunch(lunchId) {
 		.done(function() {
 			// Por ejemplo removemos la imagen "cargando..."
 			console.log("allgood");
-			M.toast({ html: 'Actualizando Plato...', classes: 'rounded', completeCallback: function() { window.location.replace("/home") } })
+			M.toast({ html: '<b>Actualizando Plato...</b>', classes: 'rounded top green darken-1', completeCallback: function() { window.location.reload() } })
 
 		})
 		.fail(function() {
@@ -335,7 +335,7 @@ function changeAsnack(asnackId) {
 	})
 		.done(function() {
 			console.log("allgood");
-			M.toast({ html: 'Actualizando Plato...', classes: 'rounded', completeCallback: function() { window.location.replace("/home") } })
+			M.toast({ html: '<b>Actualizando Plato...</b>', classes: 'rounded top green darken-1', completeCallback: function() { window.location.reload() } })
 		})
 		.fail(function() {
 			// Manejar errores
@@ -421,7 +421,7 @@ function changePdsnack(pdsnackId) {
 	})
 		.done(function() {
 			console.log("allgood");
-			M.toast({ html: 'Actualizando Plato...', classes: 'rounded', completeCallback: function() { window.location.replace("/home") } })
+			M.toast({ html: '<b>Actualizando Plato...</b>', classes: 'rounded top green darken-1', completeCallback: function() { window.location.reload() } })
 		})
 		.fail(function() {
 			// Manejar errores
@@ -505,7 +505,7 @@ function changeDinner(dinnerId) {
 	})
 		.done(function() {
 			console.log("allgood");
-			M.toast({ html: 'Actualizando Plato...', classes: 'rounded', completeCallback: function() { window.location.replace("/home") } })
+			M.toast({ html: '<b>Actualizando Plato...</b>', classes: 'rounded top green darken-1', completeCallback: function() { window.location.reload() } })
 		})
 		.fail(function() {
 			// Manejar errores

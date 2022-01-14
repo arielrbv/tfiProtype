@@ -64,7 +64,7 @@ public class Patient {
 	
 	/**RELATIONS WITH TABLES*/
 	//WITH PROFESSIONAL
-	@ManyToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL )
+	@ManyToMany(fetch = FetchType.EAGER, cascade = CascadeType.MERGE )
 	@JoinTable(
 			  name = "patient_professional", 
 			  joinColumns = @JoinColumn(name = "patient_id"), 
@@ -77,7 +77,7 @@ public class Patient {
 	private Set<PatientNutriPlan> linesOfPlan = new HashSet<>();
 	
 	//WITH PREFERENCES BYPASSING  PATIENT_PREFERENCES
-	@ManyToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+	@ManyToMany(fetch = FetchType.EAGER, cascade = CascadeType.MERGE)
 	@JoinTable(
 			  name = "patient_preferences", 
 			  joinColumns = @JoinColumn(name = "patient_id"), 
@@ -86,7 +86,7 @@ public class Patient {
 	Set<Preference> preferences = new HashSet<>();
 	
 	//WITH PATOLOGIES BYPASSING  PATIENT_PATOLOGIES
-	@ManyToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+	@ManyToMany(fetch = FetchType.EAGER, cascade = CascadeType.MERGE)
 	@JoinTable(
 			  name = "patient_patologies", 
 			  joinColumns = @JoinColumn(name = "patient_id"), 

@@ -6,6 +6,7 @@
 <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet" />
 <link href="https://fonts.googleapis.com/css2?family=Spartan:wght@300;600&display=swap" rel="stylesheet" />
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css" />
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css" />
 <link rel="stylesheet" href="/css/loginStyle.css" />
 <script src="https://kit.fontawesome.com/6b18f74cf6.js" crossorigin="anonymous"></script>
 <meta charset="utf-8" />
@@ -15,8 +16,10 @@
 </head>
 
 <body>
+
+
  <section>
-  <div class="row g-0" style="margin-bottom: 0px;">
+  <div class="row" style="margin-bottom: 0px;">
    <div class="col l7 m7 black" style="padding: 0">
     <div class="carousel carousel-slider" style="height: 100vh;">
      <div class="carousel-fixed-item center">
@@ -33,11 +36,11 @@
       src="/assets/login/photo-1541921671-aef0a20d0787.jpg" style="position: absolute; margin: auto; top: 0; bottom: 0;"></a>
     </div>
    </div>
-   <div class="col l5 m3">
+   <div class="col l5 animate__animated animate__fadeIn">
     <div class="row" style="margin-bottom: 0px;">
      <div class=" col l12 white" style="padding:30px; padding-top:10px; height: 100vh;">
       <img class="img-fluid" width="60%" style="height: auto; margin-top: 5%;" src="/assets/logo-color.png" />
-      <h4 style="font-weight: 600;">Bienvenido de vuelta</h4>
+      <h4 style="font-weight: 600;">Bienvenido una vez más...</h4>
       <form th:object="${patient}" action="/login" method="post">
        <div class="input-field col l12 m12 s12" style="margin-bottom: 0px;">
         <i class="material-icons prefix">account_circle</i> <input class="validate" th:field="*{email}" id="email"
@@ -62,12 +65,12 @@
         <div class="row">
          <div class="col l6 m6 s6">
           <button class="btn" style="width: 100%; background-color: #83b27154; color: #9e9e9e; font-size: 16px;">
-           <i class="fab fa-google lead m-2"></i> Google
+           <i class="fab fa-google lead"></i> Google
           </button>
          </div>
          <div class="col l6 m6 s6">
           <button class="btn" style="width: 100%; background-color: #83b27154; color: #9e9e9e; font-size: 16px;">
-           <i class="fab fa-facebook-f lead m-2"></i> Facebook
+           <i class="fab fa-facebook-f lead"></i> Facebook
           </button>
          </div>
         </div>

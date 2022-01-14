@@ -6,6 +6,7 @@
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet" />
     <link href="https://fonts.googleapis.com/css2?family=Spartan:wght@300;400;500;600&display=swap" rel="stylesheet" />
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css" />
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css" />
     <link type="text/css" href="/css/styles.css" rel="stylesheet" />
 
     <script src="https://kit.fontawesome.com/6b18f74cf6.js" crossorigin="anonymous"></script>
@@ -15,7 +16,7 @@
     <title>NutritionX - Login</title>
 </head>
 
-<body>
+<body class="animate__animated animate__fadeIn">
     <header>
         <nav>
             <div class="nav-wrapper" style="background-color: #59a52c;">
@@ -30,9 +31,9 @@
     <!--################################### WELCOME BANNER #################################### -->
     <main>
         <div class="container-fluid">
-            <div class="row center" style="border: 1px solid #4e66f000; margin-top: 40px;">
-                <div class="col l4 offset-l4" style="padding:0px; border: 1px solid #4e66f000">
-                    <form th:object="${professional}" action="/loginP" method="post">
+            <div class="row center" style="margin-top: 40px;">
+                <div class="col l4 offset-l4 m6 offset-m3 s12" style="padding:0px; border: 1px solid #4e66f000">
+                    <form th:object="${professional}" action="/professional/login" method="post">
                         <div class="input-field col l10 offset-l1 m10 offset-m1 s10 offset-s1" style="padding-left:0px; margin-bottom: 0px;">
                             <i class="material-icons prefix" style="margin-top:5px;">account_circle</i>
                             <input class="validate" th:field="*{email}"  id="email" type="email" />

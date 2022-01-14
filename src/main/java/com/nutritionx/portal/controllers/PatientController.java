@@ -83,13 +83,15 @@ public class PatientController {
 
 	// GET to load the Login View
 	@GetMapping("/login")
-	public String showLogin() {
+	public String showLogin(Model m) {
+		m.addAttribute("patient", newPatient());
 		return "login";
 	}
 
 	// GET to load the selfReg View
 	@GetMapping("/selfRegistration")
-	public String showSelfRegForm() {
+	public String showSelfRegForm(Model m) {
+		m.addAttribute("patient", newPatient());
 		return "selfRegistration";//
 	}
 
@@ -142,8 +144,6 @@ public class PatientController {
 		return "patientUpdatePassword";
 	}
 
-
-
 	// GET to activate account
 	@GetMapping("/userAccountActivation")
 	public ModelAndView accountActivation(@RequestParam("user") String email, @RequestParam("token") String token) {
@@ -151,19 +151,18 @@ public class PatientController {
 		if (p != null) {
 			p.setToken(null);
 			patRep.save(p);
-			return new ModelAndView("redirect:/accountActivation",HttpStatus.OK);
-		}else {//accountAlreadyActivated or incorrect data combination 
-			p=new Patient();
-			return new ModelAndView("redirect:/login",HttpStatus.FORBIDDEN);
+			return new ModelAndView("redirect:/accountActivation", HttpStatus.OK);
+		} else {// accountAlreadyActivated or incorrect data combination
+			p = new Patient();
+			return new ModelAndView("redirect:/login", HttpStatus.FORBIDDEN);
 		}
 	}
-	
+
 	@GetMapping("/accountActivation")
 	public String accountActivationSuccess() {
-		return"/accountActivation";
+		return "/accountActivation";
 	}
-	
-	
+
 	// POST Patient Account Creation from AJAX
 	@ResponseBody
 	@RequestMapping(value = "/selfRegistration", method = RequestMethod.POST, consumes = MediaType.APPLICATION_JSON_VALUE, produces = "application/json")
@@ -201,12 +200,9 @@ public class PatientController {
 	@RequestMapping(value = "/login", method = RequestMethod.POST, consumes = MediaType.APPLICATION_FORM_URLENCODED_VALUE, produces = "application/json")
 	public ModelAndView userAuthentication(@ModelAttribute("patient") Patient p) {
 		ModelAndView m = new ModelAndView();
-		// Patient p2=p;
+
 		try {
-			//
-			// GET RID OFF THE COMMENTS AT THE FINAL VERSION OF THE PROTOTYPE TO TRIGGER THE
-			// SECURE PASS
-			//
+
 			MessageDigest digest = MessageDigest.getInstance("SHA-256");
 			byte[] hash = digest.digest((p.getEmail() + p.getPassword()).getBytes(StandardCharsets.UTF_8));
 			String secureAux = Base64.getEncoder().encodeToString(hash);
@@ -214,10 +210,10 @@ public class PatientController {
 
 			p = patRep.findByEmailAndPassword(p.getEmail(), p.getPassword());
 			if (p != null) {
-				if(p.getToken() == null) {
+				if (p.getToken() == null) {
 					m.setViewName("redirect:/home");
 					m.addObject("patient", p);
-				}else {
+				} else {
 					m.setViewName("loginAuthFailInactive");
 					m.setStatus(HttpStatus.UNAUTHORIZED);
 					p = new Patient();
@@ -286,12 +282,19 @@ public class PatientController {
 				Period.between(p.getBirthdate().toInstant().atZone(ZoneId.systemDefault()).toLocalDate(),
 						ts.toLocalDateTime().toLocalDate()).getYears(),
 				p.getWeight(), p.getHeight(), "", null);
-		Set<Patology> setPat = new HashSet<Patology>(pat);
 
-		p.setPatologies(setPat);
+		if (pat == null) {
+			Set<Patology> setPat = new HashSet<Patology>();
+			p.setPatologies(setPat);
+		} else {
+			Set<Patology> setPat = new HashSet<Patology>(pat);
+			p.setPatologies(setPat);
+		}
 
-		for (Preference pr : prefs) {
-			p.addPreference(pr);
+		if (prefs != null) {
+			for (Preference pr : prefs) {
+				p.addPreference(pr);
+			}
 		}
 
 		switch (pref1.getPreferenceId()) {
@@ -359,38 +362,33 @@ public class PatientController {
 		// GET RID OFF THE COMMENTS AT THE FINAL VERSION OF THE PROTOTYPE TO TRIGGER THE
 		// SECURE PASS
 		//
-//		MessageDigest digest = MessageDigest.getInstance("SHA-256");
-//		SecureRandom secureRandom = new SecureRandom(); // Hash Randombytes as token
-//		byte[] hash = digest.digest((p.getEmail() + u.getcPass()).getBytes(StandardCharsets.UTF_8));
-//		String secureAux = Base64.getEncoder().encodeToString(hash);
+		try {
+			MessageDigest digest = MessageDigest.getInstance("SHA-256");
+			// SecureRandom secureRandom = new SecureRandom(); // Hash Randombytes as token
+			byte[] hash = digest.digest((p.getEmail() + u.getcPass()).getBytes(StandardCharsets.UTF_8));
+			String secureAux = Base64.getEncoder().encodeToString(hash);
 
-		// p = patRep.findByEmailAndPassword(p.getEmail(), secureAux);
-//		if (p != null) {
-//			//actualizar pass
-//			return new ResponseEntity(HttpStatus.OK);
-//		}else {
-//			//no actualizar pass y mandar error
-//			return new ResponseEntity(HttpStatus.INTERNAL_SERVER_ERROR);
-//		}
-
-		if (p.getPassword().equals(u.getcPass())) {
-			if (u.getnPass().equals(u.getnPassC())) {
-				p.setPassword(u.getnPass());
+			p = patRep.findByEmailAndPassword(p.getEmail(), secureAux);
+			if (p != null) { /// update pass
+				hash = digest.digest((p.getEmail() + u.getnPass()).getBytes(StandardCharsets.UTF_8));
+				secureAux = Base64.getEncoder().encodeToString(hash);
+				p.setPassword(secureAux);
 				patServ.updatePatient(p);
 				return new ResponseEntity<HttpStatus>(HttpStatus.OK);
 			} else {
-				return new ResponseEntity<HttpStatus>(HttpStatus.UNAUTHORIZED);
+				return new ResponseEntity<HttpStatus>(HttpStatus.INTERNAL_SERVER_ERROR);
 			}
-		} else {
-			return new ResponseEntity<HttpStatus>(HttpStatus.UNAUTHORIZED);
+		} catch (Exception e) {
+			return new ResponseEntity<HttpStatus>(HttpStatus.INTERNAL_SERVER_ERROR);
 		}
+
 	}
 
 	public void assingProfessional(Patient p) {
 		Professional pr = proRepo.findByProfessionalId("880be7ec-1e1c-4aba-83b0-47de14c6222d");
 		p.addProfessional(pr);
-		patServ.updatePatient(p);
+		// patServ.updatePatient(p);
+		patRep.save(p);
 	}
-
 
 }

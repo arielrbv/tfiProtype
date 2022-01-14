@@ -12,7 +12,7 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
-    <title>NutritionX -</title>
+    <title>NutritionX - Login</title>
 </head>
 
 <body>
@@ -30,24 +30,27 @@
     <!--################################### WELCOME BANNER #################################### -->
     <main>
         <div class="container-fluid">
-            <div class="row center" style="border: 1px solid #4e66f000; margin-top: 40px;">
+            <div class="row center" style="margin-top: 40px;">
                 <div class="col l4 offset-l4" style="padding:0px; border: 1px solid #4e66f000">
-                    <form th:object="${professional}" action="/loginP" method="post">
-                        <div class="input-field col l12 m12 s12" style="padding-left:0px; margin-bottom: 0px;">
-                            <i class="material-icons prefix">account_circle</i>
+                    <form th:object="${professional}" action="/professional/login" method="post">
+                        <div class="input-field col l10 offset-l1 m10 offset-m1 s10 offset-s1" style="padding-left:0px; margin-bottom: 0px;">
+                            <i class="material-icons prefix" style="margin-top:5px;">account_circle</i>
                             <input class="validate" th:field="*{email}"  id="email" type="email" />
-                            <label style="margin-left: 35px;">Email</label>
+                            <label style="margin-left: 35px; font-size: 14px;">Email</label>
                             <span class="helper-text" data-error="Email invalido"></span>
                         </div>
-                        <div class="input-field col l12 m12 s12" style="padding-left:0px; margin-bottom: 0px;">
-                            <i class="material-icons prefix">vpn_key</i>
+                        <div class="input-field col l10 offset-l1 m10 offset-m1 s10 offset-s1" style="padding-left:0px; margin-bottom: 0px;">
+                            <i class="material-icons prefix" style="margin-top:5px;">vpn_key</i>
                             <input class="validate" th:field="*{password}" id="icon_telephone" type="password" />
-                            <label style="margin-left: 35px;">Contraseña</label>
+                            <label style="margin-left: 35px; font-size: 14px;">Contraseña</label>
+         <span id="validationMsg"
+          class="red-text " style="font-weight: 600; font-size: 12px;">Email o contraseña invalidos</span><br/>
+                            <a class="center" href="/forgotPassword" style="color: #9e9e9e;">¿Olvidaste tu contraseña?</a>
+                            
                         </div>
-                        <a class="center" href="/forgotPassword" style="color: #9e9e9e;">¿Olvidaste tu contraseña?</a>
                         <div class="row">
-                            <div class="col l12 m12 s12 center" style="margin-top: 28px;">
-                                <button type="submit" class="btn center" style="width: 95%; background-color: #83b271; font-size: 18px;">Iniciar
+                            <div class="col l10 offset-l1 m10 offset-m1 s10 offset-s1" style="margin-top: 28px;">
+                                <button type="submit" class="btn center" style="width: 95%; background-color: #83b271; font-size: 15px;">Iniciar
                   sesión</button>
                             </div>
                         </div>

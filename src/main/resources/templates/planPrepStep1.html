@@ -7,6 +7,7 @@
 <link href="https://fonts.googleapis.com/css2?family=Spartan:wght@300;400;500;600&display=swap" rel="stylesheet" />
 <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.5.0/css/all.css" />
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css" />
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css" />
 <link type="text/css" href="/css/styles.css" rel="stylesheet" />
 
 <meta charset="utf-8" />
@@ -14,7 +15,7 @@
 <title>NutritionX-PlanS1</title>
 </head>
 
-<body>
+<body class="animate__animated animate__fadeIn">
  <header>
   <nav>
    <div class="nav-wrapper" style="background-color: #59a52c;">
@@ -46,6 +47,8 @@
      </a> <span class="white-text" th:text="${patient.firstName}+' '+${patient.lastName}" />
     </div>
    </li>
+   <li><a href="/home"><i class="material-icons">home</i>Volver al inicio
+   </a></li>
    <li><a href="/profile/update"> <i class="material-icons">person</i> Actualizar perfil
    </a></li>
    <li><a href="/password/update"> <i class="material-icons">vpn_key</i> Actualizar contraseña
@@ -77,13 +80,13 @@
     <div class="row flexbox" style="margin-bottom: 0px;">
      <div class="col l2 m6 s6" style="margin-left: 0px;">
       <div class="zheight input-field inline zpadding0" style="margin-left: 0px;">
-       <input id="height" type="text" th:field="${patient.height}" class="validate"> <label for="heigth">Altura</label>
+       <input id="height" type="text" th:field="${patient.height}" class="validate"> <label class="active" for="heigth">Altura</label>
       </div>
       Mts
      </div>
      <div class="col l2 m6 s6" style="margin-left: 0px;">
       <div class="zheight input-field inline zpadding0" style="margin-left: 0px;">
-       <input id="weight" type="text" th:field="${patient.weight}" class="validate"> <label for="weight">Peso</label>
+       <input id="weight" type="text" th:field="${patient.weight}" class="validate"> <label class="active" for="weight">Peso</label>
       </div>
       Kgs
      </div>
@@ -164,17 +167,23 @@
   </div>
 
   <!--################################### FIXED BUTTON #################################### -->
-  <div class="fixed-action-btn direction-top hide-on-small-only hide-on-med-only" style="bottom: 23%; right: 24px;">
-   <a class="btn-floating btn-large " style="background-color: #0b423d;"> <i class="material-icons">menu</i>
+  <div
+   class="fixed-action-btn direction-top hide-on-small-only hide-on-med-only animate__animated animate__bounceInDown"
+   style="bottom: 23%; right: 24px;">
+   <a class="btn-floating btn-large green darken-4"> <i class="material-icons light-green-text text-lighten-1">menu</i>
    </a>
    <ul>
-    <li><a href="/profile/update" class="btn-floating blue-grey darken-4 tooltipped" data-position="left"
-     data-tooltip="Actualizar perfil" style="opacity: 0; transform: scale(0.4) translateY(40px) translateX(0px);"> <i
-      class="material-icons">person</i>
+    <li><a href="/home" class="btn-floating blue-grey tooltipped" data-position="left"
+     data-tooltip="Volver al inicio" style="opacity: 0; transform: scale(0.4) translateY(40px) translateX(0px);">
+      <i class="material-icons light-green-text text-lighten-1">home</i>
     </a></li>
-    <li><a href="/password/update" class="btn-floating deep-orange tooltipped" data-position="left"
+    <li><a href="/profile/update" class="btn-floating blue-grey tooltipped" data-position="left"
+     data-tooltip="Actualizar perfil" style="opacity: 0; transform: scale(0.4) translateY(40px) translateX(0px);"> <i
+      class="material-icons light-green-text text-lighten-1">person</i>
+    </a></li>
+    <li><a href="/password/update" class="btn-floating blue-grey tooltipped" data-position="left"
      data-tooltip="Actualizar contraseña" style="opacity: 0; transform: scale(0.4) translateY(40px) translateX(0px);">
-      <i class="material-icons">vpn_key</i>
+      <i class="material-icons light-green-text text-lighten-1">vpn_key</i>
     </a></li>
    </ul>
   </div>

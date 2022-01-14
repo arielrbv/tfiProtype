@@ -70,14 +70,11 @@ public class ProfessionalController {
 
 	@GetMapping("/professional/login")
 	public ModelAndView showProfessionalLogin() {
-		// return new ModelAndView("professionalLogin"); --> just view
-		// return new ModelAndView("professionalLogin").addObject("professional", new
-		// Professional()); --> one way to send the object;
 		return new ModelAndView("professionalLogin", "professional", new Professional()); // other way
 	}
 
 	// POST for Professional's login
-	@PostMapping("/loginP")
+	@PostMapping("/professional/login")
 	public ModelAndView loginProfessional(@ModelAttribute("professional") Professional p, Model m) {
 		try {
 			p = profRepo.findByEmailAndPassword(p.getEmail(), p.getPassword());
@@ -127,7 +124,7 @@ public class ProfessionalController {
 		List<Patient> listAux = new ArrayList<>(p.getPatients());
 		Comparator<Patient> compareByLastName = (Patient p1, Patient p2) -> p1.getLastName()
 				.compareTo(p2.getLastName());
-		listAux.sort(compareByLastName.reversed());
+		listAux.sort(compareByLastName);
 
 		Page<Patient> patPag = patSer.findPaginated(listAux, PageRequest.of(currentPage - 1, pageSize));
 		totalPages = patPag.getTotalPages();
@@ -225,8 +222,7 @@ public class ProfessionalController {
 						}
 					}
 				}
-				
-				
+
 				m.addAttribute("plan", patNutriPRepo.findByPatientOrderByDayAsc(p));
 				m.addAttribute("nutriPlan", nutriPlanRepo.findAll());	
 				m.addAttribute("patient", p);
