@@ -26,11 +26,9 @@ import com.nutritionx.portal.model.Breakfast;
 import com.nutritionx.portal.model.Meals;
 import com.nutritionx.portal.model.NutritionalPlan;
 import com.nutritionx.portal.model.Patient;
-import com.nutritionx.portal.model.PatientNutriPlan;
 import com.nutritionx.portal.repository.BreakfastRepository;
 import com.nutritionx.portal.repository.MealsRepository;
 import com.nutritionx.portal.repository.NutritionalPlanRepository;
-import com.nutritionx.portal.repository.PatientNutriPlanRepository;
 import com.nutritionx.portal.repository.PatientRepository;
 import com.nutritionx.portal.service.PatientService;
 import com.nutritionx.portal.util.PlanAssignment;
@@ -44,8 +42,7 @@ public class TestControllers {
 	@Autowired
 	private PatientService patServ;
 
-	@Autowired
-	private PatientNutriPlanRepository patNutriPRepo;
+	
 
 
 //	@ResponseBody
