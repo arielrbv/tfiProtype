@@ -1,0 +1,52 @@
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+<meta charset="utf-8" />
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css" />
+<title>JS Bin</title>
+</head>
+
+<body>
+ <a href="#modal2" class="btn-small waves-effect waves-light modal-trigger" style="width: 100%;">Change Image</a>
+
+ <div id="modal2" class="modal" style="width: 300px !important;">
+  <form id="thisForm" action="/test/profile/update/avatar" method="post" th:object="${patient}" enctype="multipart/form-data">
+   <input type="hidden" th:value="asd"/>
+   <div class="modal-content" style="padding-bottom: 0px;">
+    <h5>Edita tu foto de perfil</h5>
+
+    <div class="row cvalign" style="margin: 0px;">
+     <div class="file-field input-field center">
+      <div class="btn-small">
+       <span>Cambia tu foto actual</span> 
+       <input type="file" name="avatar" onchange="readURL(this);"  >
+      </div>
+      <div class="file-path-wrapper" style="visibility: hidden;">
+       <input class="file-path validate" type="text">
+      </div>
+     </div>
+     <div class="col l12 m12 s12 center" style="margin-left: 0px; padding: 0px;">
+      <img id="blah" height="100" th:src="'data:image/png;base64,' + ${avatar}"  />
+     </div>
+    </div>
+
+   </div>
+   <div class="modal-footer">
+    <a class="modal-close waves-effect waves-green btn-flat" onclick="document.getElementById('thisForm').submit();">Guardar</a> 
+    <a class="modal-close waves-effect waves-green btn-flat">Cancelar</a>
+   </div>
+  </form>
+ </div>
+
+
+
+ <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+ <script src="/js/matminjs.js"></script>
+ <script src="/js/test.js"></script>
+ <script>
+		M.AutoInit();
+	</script>
+
+</body>
+
+</html>

@@ -5,6 +5,7 @@ import java.text.SimpleDateFormat;
 import java.time.Period;
 import java.time.ZoneId;
 import java.util.ArrayList;
+import java.util.Base64;
 import java.util.Comparator;
 import java.util.List;
 import java.util.Optional;
@@ -41,6 +42,7 @@ import com.nutritionx.portal.repository.PreferenceRepository;
 import com.nutritionx.portal.repository.ProfessionalRepository;
 import com.nutritionx.portal.service.PatientService;
 import com.nutritionx.portal.util.DateAux;
+import com.nutritionx.portal.util.PatientForList;
 import com.nutritionx.portal.util.PatientPatologiesSelected;
 import com.nutritionx.portal.util.PatientPreferencesSelected;
 
@@ -110,23 +112,36 @@ public class ProfessionalController {
 		return "redirect:/professional/login";
 	}
 
+
+
 	// GET show the "MyPatients" module
 	@GetMapping("/professional/mypatients")
-	public ModelAndView showMyPatientsDash(@ModelAttribute("professional") Professional p, Model m,
+	public ModelAndView showMyPatientsDash2(@ModelAttribute("professional") Professional p, Model m,
 			@RequestParam("page") Optional<Integer> page) {
-
-
+		
 		int currentPage = page.orElse(1);
 		final int pageSize = 6;
 		int totalPages = 0;
 
 		p = profRepo.findByProfessionalId(p.getProfessionalId());
-		List<Patient> listAux = new ArrayList<>(p.getPatients());
 		Comparator<Patient> compareByLastName = (Patient p1, Patient p2) -> p1.getLastName()
 				.compareTo(p2.getLastName());
-		listAux.sort(compareByLastName);
-
-		Page<Patient> patPag = patSer.findPaginated(listAux, PageRequest.of(currentPage - 1, pageSize));
+		
+		List<Patient> listPat = new ArrayList<>(p.getPatients());
+		listPat.sort(compareByLastName);
+		
+		List<PatientForList> listAux = new ArrayList<>();
+		
+		for (Patient pfl : listPat) {
+			if (pfl.getAvatar() != null) {
+				listAux.add(new PatientForList(pfl, Base64.getEncoder().encodeToString(pfl.getAvatar())));
+			}else {
+				listAux.add(new PatientForList(pfl, null));
+			}
+			
+		}
+		
+		Page<PatientForList> patPag = patSer.findPaginated(listAux, PageRequest.of(currentPage - 1, pageSize));
 		totalPages = patPag.getTotalPages();
 
 		if (totalPages > 0) {
@@ -140,7 +155,8 @@ public class ProfessionalController {
 		return new ModelAndView("professionalMyPatients");
 
 	}
-
+	
+	
 	// GET show the "MyPatients" module usig the Search
 	@GetMapping("/professional/mypatients/search")
 	public ModelAndView searchInMyPatients(@RequestParam("pLastName") String pLastName,
@@ -154,18 +170,23 @@ public class ProfessionalController {
 		List<Patient> listPat = new ArrayList<>(p.getPatients());
 		Comparator<Patient> compareByLastName = (Patient p1, Patient p2) -> p1.getLastName()
 				.compareTo(p2.getLastName());
-		listPat.sort(compareByLastName.reversed());
-
-		List<Patient> listAux = new ArrayList<>();
+		listPat.sort(compareByLastName);
+		
+		
+		List<PatientForList> listAux = new ArrayList<>();
+		
 		if (!pLastName.isBlank()) {
-
 			for (Patient pat : listPat) {
 				if (pat.getLastName().toLowerCase().contains(pLastName.toLowerCase())) {
-					listAux.add(pat);
+					if (pat.getAvatar() != null) {
+						listAux.add(new PatientForList(pat, Base64.getEncoder().encodeToString(pat.getAvatar())));
+					}else {
+						listAux.add(new PatientForList(pat, null));
+					}
 				}
 			}
 
-			Page<Patient> patPag = patSer.findPaginated(listAux ,PageRequest.of(currentPage-1, pageSize));
+			Page<PatientForList> patPag = patSer.findPaginated(listAux, PageRequest.of(currentPage - 1, pageSize));
 			totalPages = patPag.getTotalPages();
 			
 			if (totalPages > 0) {

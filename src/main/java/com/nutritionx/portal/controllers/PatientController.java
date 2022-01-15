@@ -1,5 +1,6 @@
 package com.nutritionx.portal.controllers;
 
+import java.io.IOException;
 import java.nio.charset.StandardCharsets;
 import java.security.MessageDigest;
 import java.security.SecureRandom;
@@ -14,10 +15,14 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
+import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import org.hibernate.annotations.common.util.impl.LoggerFactory;
 import org.kie.api.runtime.KieSession;
+import org.slf4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
@@ -33,8 +38,8 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.SessionAttributes;
+import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
-
 import com.nutritionx.portal.model.Meals;
 import com.nutritionx.portal.model.Patient;
 import com.nutritionx.portal.model.PatientNutriPlan;
@@ -57,7 +62,9 @@ import com.nutritionx.portal.util.PlanAssignment;
 @Controller
 @SessionAttributes("patient")
 public class PatientController {
-
+	
+	//private final Logger LOGGER = org.slf4j.LoggerFactory.getLogger(PatientController.class);
+	
 	@Autowired
 	private PatientService patServ;
 	@Autowired
@@ -102,6 +109,11 @@ public class PatientController {
 		Patient p = (Patient) m.getAttribute("patient");
 		p = patRep.findByEmail(p.getEmail());
 		m.addAttribute("patient", p);
+		
+		if(p.getAvatar() != null) {
+			m.addAttribute("avatar", Base64.getEncoder().encodeToString(p.getAvatar()));
+		}
+		
 		m.addAttribute("plan", patNutriPRepo.findByPatientOrderByDayAsc(p));
 
 		return "home";
@@ -133,6 +145,9 @@ public class PatientController {
 		DateAux d = new DateAux();
 		SimpleDateFormat format = new SimpleDateFormat("dd/MM/yyyy");
 		d.setDate(format.format(p.getBirthdate()));
+		if(p.getAvatar() != null) {
+			m.addAttribute("avatar", Base64.getEncoder().encodeToString(p.getAvatar()));
+		}
 		m.addAttribute("aux", d);
 		return "patientUpdateProfile";
 	}
@@ -387,8 +402,34 @@ public class PatientController {
 	public void assingProfessional(Patient p) {
 		Professional pr = proRepo.findByProfessionalId("880be7ec-1e1c-4aba-83b0-47de14c6222d");
 		p.addProfessional(pr);
-		// patServ.updatePatient(p);
 		patRep.save(p);
 	}
+	
+	@PostMapping("/profile/update/avatar")
+	public ModelAndView updateAvatar(@RequestParam("avatar") MultipartFile file, Model m) {
+		Patient p = (Patient) m.getAttribute("patient");
+		try {
+			p.setAvatar(file.getBytes());
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+		patRep.save(p);
+		m.addAttribute("patient", p);
+		return new ModelAndView("redirect:/profile/update");
+	}
+	
 
+	@GetMapping("/z2")
+	public ModelAndView testphoto(Model m) {
+		
+		Patient p = patRep.findByEmail("patient6@gmail.com");
+		m.addAttribute("patient",p);
+		m.addAttribute("image2", Base64.getEncoder().encodeToString(p.getAvatar()));
+
+		
+	    return new ModelAndView("z2");
+	}
+	
+	
+	
 }

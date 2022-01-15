@@ -61,7 +61,7 @@
      <div class="background">
       <img src="https://github.com/arielrbv/universidadutiles/blob/main/sample-1.png?raw=true" />
      </div>
-     <a href="/professional/profile/update"> <img class="circle" src="" />
+     <a href="/professional/profile/update"> <img class="circle" src="/assets/nutritionistCard/nutritionist.png" />
      </a> <span class="white-text" th:text="${professional.firstName}+' '+${professional.lastName}" />
     </div>
    </li>
@@ -96,15 +96,15 @@
      <div id="ani3" class="card zcard z-depth-2 hoverable">
       <div class="card-image">
        <img class="zimg" style="border-radius: 10px 10px 0 0;"
-        src="https://github.com/arielrbv/universidadutiles/blob/main/sample-1.png?raw=true" /> <span class="card-title"
-        style="padding-left: 7.5px; padding-right: 7.5px;"> <th:block th:switch="${professional.gender}">
+        src="/assets/nutritionistCard/nutritionist.png" /> <span class="card-title"
+        style="padding-left: 7.5px; padding-right: 7.5px;top: 75px;" > <th:block th:switch="${professional.gender}">
          <p th:case="'M'" class="title" th:text=" 'Dr ' + ${professional.lastName}"
-          style="font-size: 14px; font-weight: 500; margin-top: 0px; margin-bottom: 0px;"></p>
+          style="font-size: 14px; font-weight: 500; margin-top: 0px; margin-bottom: 0px; background-color: #0000008f; line-height: 18px; padding-top: 4px;"></p>
          <p th:case="'F'" class="title" th:text=" 'Dra ' + ${professional.lastName}"
-          style="font-size: 14px; font-weight: 500; margin-top: 0px; margin-bottom: 0px;"></p>
+          style="font-size: 14px; font-weight: 500; margin-top: 0px; margin-bottom: 0px; background-color: #0000008f; line-height: 18px; padding-top: 4px;"></p>
         </th:block>
        </span> <a href="/professional/profile/update"
-        class="btn-floating halfway-fab waves-effect waves-light blue-grey darken-4" style="right: 10px;"> <i
+        class="btn-floating halfway-fab waves-effect waves-light blue-grey darken-4" style="right: 5px;"> <i
         class="material-icons">edit</i>
        </a>
       </div>

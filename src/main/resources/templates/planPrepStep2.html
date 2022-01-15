@@ -34,7 +34,7 @@
   </div>
   <p style="margin-top: 20px;">Creando tu plan...</p>
  </div>
- 
+
  <header id="header">
   <nav>
    <div class="nav-wrapper" style="background-color: #59a52c;">
@@ -62,12 +62,15 @@
      <div class="background">
       <img src="https://github.com/arielrbv/universidadutiles/blob/main/sample-1.png?raw=true" />
      </div>
-     <a href="#user"> <img class="circle" src="" />
+     <a href="#user"> <th:block th:if="${avatar} == NULL">
+       <img class="circle" src="https://github.com/arielrbv/universidadutiles/blob/main/sample-1.png?raw=true" />
+      </th:block> <th:block th:if="${avatar} != NULL">
+       <img class="circle" th:src="'data:image/png;base64,' + ${avatar}" />
+      </th:block>
      </a> <span class="white-text" th:text="${patient.firstName}+' '+${patient.lastName}" />
     </div>
    </li>
-   <li><a href="/home"><i class="material-icons">home</i>Volver al inicio
-   </a></li>
+   <li><a href="/home"><i class="material-icons">home</i>Volver al inicio </a></li>
    <li><a href="/profile/update"> <i class="material-icons">person</i> Actualizar perfil
    </a></li>
    <li><a href="/password/update"> <i class="material-icons">vpn_key</i> Actualizar contraseña
@@ -79,8 +82,8 @@
    </a></li>
   </ul>
  </header>
- 
- 
+
+
  <main id="main">
   <div class=" container ">
    <div class="row" style="margin-top: 20px; margin-bottom: 0px;">
@@ -131,8 +134,8 @@
       <div class="card hoverable waves-effect waves-light z-depth-1 zcard zcardcolor flexbox" id="card1">
        <div class="card-body">
         <h5 class="card-ztitle" style="margin: 7.5px;">Menos de 30 minutos</h5>
-        <p class="card-text" style="margin: 7.5px;">Según la OMS, 30 minutos de actividad física moderada casi todos los días son
-         suficientes para mejorar la salud y prevenir enfermedades.</p>
+        <p class="card-text" style="margin: 7.5px;">Según la OMS, 30 minutos de actividad física moderada casi todos
+         los días son suficientes para mejorar la salud y prevenir enfermedades.</p>
        </div>
       </div>
      </div>
@@ -140,8 +143,8 @@
       <div class="card hoverable waves-effect waves-light z-depth-1 zcard zcardcolor flexbox" id="card2">
        <div class="card-body">
         <h5 class="card-ztitle" style="margin: 7.5px;">Entre 30 y 60 minutos</h5>
-        <p class="card-text" style="margin: 7.5px;">Se considerará una consumo calorica moderada para la creación de tu plan nutricional.
-        </p>
+        <p class="card-text" style="margin: 7.5px;">Se considerará una consumo calorica moderada para la creación de
+         tu plan nutricional.</p>
        </div>
       </div>
      </div>
@@ -149,13 +152,14 @@
       <div class="card hoverable waves-effect waves-light z-depth-1 zcard zcardcolor flexbox" id="card3">
        <div class="card-body">
         <h5 class="card-ztitle" style="margin: 7.5px;">Más de 60 minutos</h5>
-        <p class="card-text" style="margin: 7.5px;">Se considerará una consumo calórica elevado para la creación de tu plan nutricional.</p>
+        <p class="card-text" style="margin: 7.5px;">Se considerará una consumo calórica elevado para la creación de
+         tu plan nutricional.</p>
        </div>
       </div>
      </div>
     </div>
     <input id="selectedCard" type="hidden" th:field="${preference.preferenceId}">
-    
+
     <div class="row g-0 mb-2">
      <div class="col">
       <h6 class="title">¿Deseas evitar alguno de los siguientes alimentos?</h6>
@@ -194,14 +198,15 @@
 
 
   <!--################################### FIXED BUTTON #################################### -->
-  <div   class="fixed-action-btn direction-top hide-on-small-only hide-on-med-only animate__animated animate__bounceInDown"
+  <div
+   class="fixed-action-btn direction-top hide-on-small-only hide-on-med-only animate__animated animate__bounceInDown"
    style="bottom: 23%; right: 24px;">
    <a class="btn-floating btn-large green darken-4"> <i class="material-icons light-green-text text-lighten-1">menu</i>
    </a>
    <ul>
     <li><a href="/home" class="btn-floating blue-grey tooltipped" data-position="left"
-     data-tooltip="Volver al inicio" style="opacity: 0; transform: scale(0.4) translateY(40px) translateX(0px);">
-      <i class="material-icons light-green-text text-lighten-1">home</i>
+     data-tooltip="Volver al inicio" style="opacity: 0; transform: scale(0.4) translateY(40px) translateX(0px);"> <i
+      class="material-icons light-green-text text-lighten-1">home</i>
     </a></li>
     <li><a href="/profile/update" class="btn-floating blue-grey tooltipped" data-position="left"
      data-tooltip="Actualizar perfil" style="opacity: 0; transform: scale(0.4) translateY(40px) translateX(0px);"> <i
@@ -227,12 +232,12 @@
      </b> lo que indica que:
     </p>
     <p class="center">
-     <span th:if="${imc <= 18.5}"> <br/>Tienes un <b>Peso Insuficiente para tu talla</b>.
-     </span> <span th:if="${imc >= 18.5 and imc <= 24.9}"><br/>Tu peso es <b>Normal</b>.
-     </span> <span th:if="${imc >= 25 and imc <= 29.9}"><br/>Padeces <b>Sobrepeso</b>.
-     </span> <span th:if="${imc >= 30}"><br/>Padeces <b>Obesidad</b>.
-     </span>
-    </p><br/>
+     <span th:if="${imc <= 18.5}"> <br />Tienes un <b>Peso Insuficiente para tu talla</b>.
+     </span> <span th:if="${imc >= 18.5 and imc <= 24.9}"><br />Tu peso es <b>Normal</b>. </span> <span
+      th:if="${imc >= 25 and imc <= 29.9}"><br />Padeces <b>Sobrepeso</b>. </span> <span th:if="${imc >= 30}"><br />Padeces
+      <b>Obesidad</b>. </span>
+    </p>
+    <br />
 
     <p>Estos datos tambien seran incluidos en el sistema de forma que pueda proporcionarte el Plan Nutricional
      adecuado.</p>

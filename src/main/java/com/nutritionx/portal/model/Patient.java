@@ -3,6 +3,7 @@ package com.nutritionx.portal.model;
 import java.sql.Timestamp;
 import java.time.Period;
 import java.time.ZoneId;
+import java.util.Arrays;
 import java.util.Date;
 import java.util.HashSet;
 import java.util.Set;
@@ -15,6 +16,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
+import javax.persistence.Lob;
 import javax.persistence.ManyToMany;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
@@ -59,6 +61,9 @@ public class Patient {
 	private Date lastLogin;
 	private String password;
 	private String token;
+	@Lob
+	@Column(name = "avatar", columnDefinition="LONGBLOB")
+	private byte[] avatar;
 	
 	
 	
@@ -100,9 +105,12 @@ public class Patient {
 	public Patient() {
 		// TODO Auto-generated constructor stub
 	}
+
 	public Patient(String patientId, String dni, String firstName, String lastName, String email, String phone,
 			String address, String postalCode, Date birthdate, String gender, float weight, float height,
-			String plan_type, Integer status, Date created, Date lastLogin, String password, String token) {
+			String planType, Integer status, Date created, Date lastLogin, String password, String token,
+			byte[] avatar) {
+		super();
 		this.patientId = patientId;
 		this.dni = dni;
 		this.firstName = firstName;
@@ -115,16 +123,18 @@ public class Patient {
 		this.gender = gender;
 		this.weight = weight;
 		this.height = height;
-		this.planType = plan_type;
+		this.planType = planType;
 		this.status = status;
 		this.created = created;
 		this.lastLogin = lastLogin;
 		this.password = password;
 		this.token = token;
+		this.avatar = avatar;
 	}
-	
-	
-	
+
+
+
+
 	public String getPatientId() {
 		return patientId;
 	}
@@ -233,6 +243,12 @@ public class Patient {
 	public void setToken(String token) {
 		this.token = token;
 	}
+	public byte[] getAvatar() {
+		return avatar;
+	}
+	public void setAvatar(byte[] avatar) {
+		this.avatar = avatar;
+	}
 	public void addProfessional(Professional p) {
 		this.professional.add(p);
 	}
@@ -271,26 +287,19 @@ public class Patient {
 		return Period.between(this.getBirthdate().toInstant().atZone(ZoneId.systemDefault()).toLocalDate(),
 				ts.toLocalDateTime().toLocalDate()).getYears();
 	}
-	
+
 	@Override
 	public String toString() {
 		return "Patient [patientId=" + patientId + ", dni=" + dni + ", firstName=" + firstName + ", lastName="
 				+ lastName + ", email=" + email + ", phone=" + phone + ", address=" + address + ", postalCode="
 				+ postalCode + ", birthdate=" + birthdate + ", gender=" + gender + ", weight=" + weight + ", height="
 				+ height + ", planType=" + planType + ", status=" + status + ", created=" + created + ", lastLogin="
-				+ lastLogin + ", password=" + password + ", token=" + token + "]";
+				+ lastLogin + ", password=" + password + ", token=" + token + ", avatar=" + Arrays.toString(avatar)
+				+ "]";
 	}
+	
 
-	
-	
-//	@Override
-//	public String toString() {
-//		return "Patient [patientId=" + patientId + ", dni=" + dni + ", firstName=" + firstName + ", lasttName="
-//				+ lastName + ", email=" + email + ", phone=" + phone + ", address=" + address + ", postalCode="
-//				+ postalCode + ", birthdate=" + birthdate + ", gender=" + gender + ", weight=" + weight + ", height="
-//				+ height + ", plan_type=" + planType + ", status=" + status + ", created=" + created + ", lastLogin="
-//				+ lastLogin + ", password=" + password + ", token=" + token + "]";
-//	}
+
 	
 	
 	

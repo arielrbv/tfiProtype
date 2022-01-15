@@ -43,12 +43,15 @@
      <div class="background">
       <img src="https://github.com/arielrbv/universidadutiles/blob/main/sample-1.png?raw=true" />
      </div>
-     <a href="#user"> <img class="circle" src="" />
+     <a href="#user"> <th:block th:if="${avatar} == NULL">
+       <img class="circle" src="https://github.com/arielrbv/universidadutiles/blob/main/sample-1.png?raw=true" />
+      </th:block> <th:block th:if="${avatar} != NULL">
+       <img class="circle" th:src="'data:image/png;base64,' + ${avatar}" />
+      </th:block>
      </a> <span class="white-text" th:text="${patient.firstName}+' '+${patient.lastName}" />
     </div>
    </li>
-   <li><a href="/home"><i class="material-icons">home</i>Volver al inicio
-   </a></li>
+   <li><a href="/home"><i class="material-icons">home</i>Volver al inicio </a></li>
    <li><a href="/profile/update"> <i class="material-icons">person</i> Actualizar perfil
    </a></li>
    <li><a href="/password/update"> <i class="material-icons">vpn_key</i> Actualizar contraseña
@@ -80,13 +83,15 @@
     <div class="row flexbox" style="margin-bottom: 0px;">
      <div class="col l2 m6 s6" style="margin-left: 0px;">
       <div class="zheight input-field inline zpadding0" style="margin-left: 0px;">
-       <input id="height" type="text" th:field="${patient.height}" class="validate"> <label class="active" for="heigth">Altura</label>
+       <input id="height" type="text" th:field="${patient.height}" class="validate"> <label class="active"
+        for="heigth">Altura</label>
       </div>
       Mts
      </div>
      <div class="col l2 m6 s6" style="margin-left: 0px;">
       <div class="zheight input-field inline zpadding0" style="margin-left: 0px;">
-       <input id="weight" type="text" th:field="${patient.weight}" class="validate"> <label class="active" for="weight">Peso</label>
+       <input id="weight" type="text" th:field="${patient.weight}" class="validate"> <label class="active"
+        for="weight">Peso</label>
       </div>
       Kgs
      </div>
@@ -174,8 +179,8 @@
    </a>
    <ul>
     <li><a href="/home" class="btn-floating blue-grey tooltipped" data-position="left"
-     data-tooltip="Volver al inicio" style="opacity: 0; transform: scale(0.4) translateY(40px) translateX(0px);">
-      <i class="material-icons light-green-text text-lighten-1">home</i>
+     data-tooltip="Volver al inicio" style="opacity: 0; transform: scale(0.4) translateY(40px) translateX(0px);"> <i
+      class="material-icons light-green-text text-lighten-1">home</i>
     </a></li>
     <li><a href="/profile/update" class="btn-floating blue-grey tooltipped" data-position="left"
      data-tooltip="Actualizar perfil" style="opacity: 0; transform: scale(0.4) translateY(40px) translateX(0px);"> <i

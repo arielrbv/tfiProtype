@@ -62,12 +62,15 @@
      <div class="background">
       <img src="https://github.com/arielrbv/universidadutiles/blob/main/sample-1.png?raw=true" />
      </div>
-     <a href="#user"> <img class="circle" src="" />
+     <a href="#user"> <th:block th:if="${avatar} == NULL">
+       <img class="circle" src="https://github.com/arielrbv/universidadutiles/blob/main/sample-1.png?raw=true" />
+      </th:block> <th:block th:if="${avatar} != NULL">
+       <img class="circle" th:src="'data:image/png;base64,' + ${avatar}" />
+      </th:block>
      </a> <span class="white-text" th:text="${patient.firstName}+' '+${patient.lastName}" />
     </div>
    </li>
-   <li><a href="/home"><i class="material-icons">home</i>Volver al inicio
-   </a></li>
+   <li><a href="/home"><i class="material-icons">home</i>Volver al inicio </a></li>
    <li><a href="/profile/update"> <i class="material-icons">person</i> Actualizar perfil
    </a></li>
    <li><a href="/password/update"> <i class="material-icons">vpn_key</i> Actualizar contraseña
@@ -86,22 +89,30 @@
    <!--################################### WELCOME BANNER #################################### -->
    <div class="row" style="margin-bottom: 0px; margin-top: 15px;">
     <div class="col offset-l1 l10 m10 s10">
-    <th:block th:switch="${patient.gender}">
+     <th:block th:switch="${patient.gender}">
       <h5 th:case="'M'" class="title" th:text=" 'Bienvenido ' + ${patient.firstName} "></h5>
       <h5 th:case="'F'" class="title" th:text=" 'Bienvenida ' + ${patient.firstName} "></h5>
      </th:block>
     </div>
    </div>
 
+
+
    <div class="row flexbox">
     <!--################################### USER CARD #################################### -->
     <div class="col offset-l1 l2 m3 hide-on-small-only">
      <div class="card zcard z-depth-2 hoverable">
       <div class="card-image">
-       <img class="zimg" style="border-radius: 10px 10px 0 0;"
-        src="https://github.com/arielrbv/universidadutiles/blob/main/sample-1.png?raw=true" /> <span class="card-title"
-        style="padding-left: 7.5px; padding-right: 7.5px;"><b>
-         <p th:text="${patient.firstName}+ ' '+${patient.lastName} " style="margin-top: 0px; margin-bottom: 0px;" />
+       <th:block th:if="${avatar} == NULL">
+        <img class="zimg" style="border-radius: 10px 10px 0 0;"
+         src="https://github.com/arielrbv/universidadutiles/blob/main/sample-1.png?raw=true" />
+       </th:block>
+       <th:block th:if="${avatar} != NULL">
+        <img class="zimg" style="border-radius: 10px 10px 0 0;" th:src="'data:image/png;base64,' + ${avatar}" />
+       </th:block>
+       <span class="card-title" style="padding-left: 7.5px; padding-right: 7.5px; top: 140px;"><b>
+         <p th:text="${patient.firstName}+ ' '+${patient.lastName} "
+          style="margin-top: 0px; margin-bottom: 0px; font-size: 18px; background-color: #0000008f; line-height: 18px; padding-top: 4px;" />
        </b> </span> <a href="/profile/update" class="btn-floating halfway-fab waves-effect waves-light blue-grey darken-4"
         style="right: 10px;"> <i class="material-icons">edit</i>
        </a>
@@ -137,8 +148,8 @@
         </div>
        </div>
       </a>
-      
-      
+
+
 
      </th:block>
      <!--##### if you have a menu ######## -->

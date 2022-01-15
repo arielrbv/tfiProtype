@@ -43,12 +43,18 @@
      <div class="background">
       <img src="https://github.com/arielrbv/universidadutiles/blob/main/sample-1.png?raw=true" />
      </div>
-     <a href="#user"> <img class="circle" src="" />
+     <a href="#user"> 
+     <th:block th:if="${avatar} == NULL">
+      <img class="circle" src="https://github.com/arielrbv/universidadutiles/blob/main/sample-1.png?raw=true" />
+     </th:block>
+     <th:block th:if="${avatar} != NULL">
+      <img class="circle" th:src="'data:image/png;base64,' + ${avatar}" />
+     </th:block>
+     
      </a> <span class="white-text" th:text="${patient.firstName}+' '+${patient.lastName}" />
     </div>
    </li>
-   <li><a href="/home"><i class="material-icons">home</i>Volver al inicio
-   </a></li>
+   <li><a href="/home"><i class="material-icons">home</i>Volver al inicio </a></li>
    <li><a href="/profile/update"> <i class="material-icons">person</i> Actualizar perfil
    </a></li>
    <li><a href="/password/update"> <i class="material-icons">vpn_key</i> Actualizar contraseña
@@ -74,9 +80,20 @@
     <div class="col l3 m3 flexbox">
      <div class="card z-depth-0" style="margin-top: 0px;">
       <div class="card-image cvalign" style="justify-content: flex-start !important;">
-       <img style="width: 100%;" src="https://github.com/arielrbv/universidadutiles/blob/main/sample-1.png?raw=true" />
-       <span class="card-title"></span> <a class="btn-floating halfway-fab waves-effect waves-light red"><i
+
+       <th:block th:if="${avatar} == NULL">
+        <img style="width: 206.75px;" src="https://github.com/arielrbv/universidadutiles/blob/main/sample-1.png?raw=true" />
+       </th:block>
+       <th:block th:if="${avatar} != NULL"><img style="width: 206.75px;" th:src="'data:image/png;base64,' + ${avatar}" />
+       </th:block>
+       
+       
+       <span class="card-title"></span>
+       <a href="#modal2" class="btn-floating halfway-fab waves-effect waves-light red modal-trigger"><i
         class="material-icons">add</i></a>
+
+
+
       </div>
       <div class="card-content" style="margin-top: 0%; padding: 0%; padding-top: 5%">
        <div class="row" style="margin: 0px; width: 100%;">
@@ -88,8 +105,7 @@
        <div class="row" style="margin-top: 4%; width: 100%; margin-left: 0px; margin-right: 0px;">
         <div class="col l12" style="padding: 0px; width: 100%;">
          <a class="waves-effect waves-light btn-small grey tooltipped" data-position="right"
-     data-tooltip="Funcionalidad aún no disponible" style="width: 100%; font-size: 12px;">Eliminar
-          cuenta</a>
+          data-tooltip="Funcionalidad aún no disponible" style="width: 100%; font-size: 12px;">Eliminar cuenta</a>
         </div>
        </div>
       </div>
@@ -104,8 +120,8 @@
        <div class="col l4 m5 s12">
         <div class="input-field zpadding0">
          <input disabled id="firstName" type="text" class="validate ztext" th:field="${patient.firstName}" required
-          oninvalid="this.setCustomValidity('Por favor, ingresa tu Nombre')" oninput="this.setCustomValidity('')" /> 
-          <label class="active"for="firstName">Nombre</label>
+          oninvalid="this.setCustomValidity('Por favor, ingresa tu Nombre')" oninput="this.setCustomValidity('')" /> <label
+          class="active" for="firstName">Nombre</label>
         </div>
        </div>
        <div class="col l4 m5 s12">
@@ -118,30 +134,28 @@
        <div class="col l4 m5 s12">
         <div class="input-field zpadding0">
          <input disabled id="dni" type="number" class="ztext validate " th:field="${patient.dni}" required
-          oninvalid="this.setCustomValidity('Por favor, ingresa tu DNI')" oninput="this.setCustomValidity('')" /> 
-          <label class="active" for="dni">DNI</label>
+          oninvalid="this.setCustomValidity('Por favor, ingresa tu DNI')" oninput="this.setCustomValidity('')" /> <label
+          class="active" for="dni">DNI</label>
         </div>
        </div>
        <div class="col l4 m5 s12">
         <div class="input-field zpadding0">
          <input id="dateAux" type="text" class="validate datepicker overflow-auto" th:field="${aux.date}" required
           oninvalid="this.setCustomValidity('Por favor, ingresa tu Fecha de Nacimiento')"
-          oninput="this.setCustomValidity('')" /> 
-          <label class="active" for="dateAux">Fecha de Nacimiento</label>
+          oninput="this.setCustomValidity('')" /> <label class="active" for="dateAux">Fecha de Nacimiento</label>
         </div>
        </div>
        <div class="col l4 m5 s12">
         <div class="input-field zpadding0">
          <input id="email" type="email" class="validate ztext" th:field="${patient.email}" required
-          oninvalid="this.setCustomValidity('Por favor, ingresa tu Email')" oninput="this.setCustomValidity('')" /> 
-          <label class="active" for="email">Email</label>
+          oninvalid="this.setCustomValidity('Por favor, ingresa tu Email')" oninput="this.setCustomValidity('')" /> <label
+          class="active" for="email">Email</label>
         </div>
        </div>
        <div class="col l4 m5 s12">
         <div class="input-field zpadding0">
-         <input id="phone" type="text" class="validate ztext" th:field="${patient.phone}" required
-          oninvalid="this.setCustomValidity('Por favor, ingresa tu Nombre')" oninput="this.setCustomValidity('')" /> 
-          <label class="active" for="phone">Teléfono</label>
+         <input id="phone" type="text" class="validate ztext" th:field="${patient.phone}"/> <label
+          class="active" for="phone">Teléfono</label>
         </div>
        </div>
       </div>
@@ -149,14 +163,15 @@
       <div class="row">
        <div class="col l4 m6 s6">
         <div class="zheight input-field inline zpadding0" style="margin-left: 0px;">
-         <input id="height" type="text" th:field="${patient.height}" class="validate"> <label class="active" for="heigth">Altura</label>
+         <input id="height" type="text" th:field="${patient.height}" class="validate"> <label class="active"
+          for="heigth">Altura</label>
         </div>
         Mts
        </div>
        <div class="col l4 m6 s6">
         <div class="zheight input-field inline zpadding0" style="margin-left: 0px;">
-         <input id="weight" type="text" th:field="${patient.weight}" class="validate"> 
-         <label class="active" for="weight">Peso</label>
+         <input id="weight" type="text" th:field="${patient.weight}" class="validate"> <label class="active"
+          for="weight">Peso</label>
         </div>
         Kgs
        </div>
@@ -165,8 +180,7 @@
          <option th:value="N" th:text="'Sin indicar'" />
          <option th:value="F" th:text="Femenino" />
          <option th:value="M" th:text="Masculino" />
-        </select> 
-        <label class="active">Genero Biológico</label>
+        </select> <label class="active">Genero Biológico</label>
        </div>
       </div>
       <div class="row">
@@ -180,6 +194,8 @@
    </div>
   </div>
 
+
+
   <!--################################### FIXED BUTTON #################################### -->
   <div
    class="fixed-action-btn direction-top hide-on-small-only hide-on-med-only animate__animated animate__bounceInDown"
@@ -188,8 +204,8 @@
    </a>
    <ul>
     <li><a href="/home" class="btn-floating blue-grey tooltipped" data-position="left"
-     data-tooltip="Volver al inicio" style="opacity: 0; transform: scale(0.4) translateY(40px) translateX(0px);">
-      <i class="material-icons light-green-text text-lighten-1">home</i>
+     data-tooltip="Volver al inicio" style="opacity: 0; transform: scale(0.4) translateY(40px) translateX(0px);"> <i
+      class="material-icons light-green-text text-lighten-1">home</i>
     </a></li>
     <li><a href="/profile/update" class="btn-floating blue-grey tooltipped" data-position="left"
      data-tooltip="Actualizar perfil" style="opacity: 0; transform: scale(0.4) translateY(40px) translateX(0px);"> <i
@@ -212,6 +228,59 @@
     <a href="/home" class="modal-close waves-effect waves-green btn">Aceptar</a>
    </div>
   </div>
+
+  <div id="modal2" class="modal" style="width: 400px; height:270px;">
+   <form id="thisForm" action="/profile/update/avatar" method="post" th:object="${patient}"
+    enctype="multipart/form-data">
+    <input type="hidden" th:value="asd" />
+    <div class="modal-content" style="padding-top: 0px; padding-bottom: 0px;">
+     <h5>Edita tu foto de perfil</h5>
+     <span>Haz click en la imagen para cambiarla</span>
+
+     <!--           <div class="row flexbox" style="margin: 0px;"> -->
+     <!--            <div class="file-field input-field" style="height: 27px;"> -->
+     <!--             <div class="btn-small" style="height: 25px;line-height: 26px;"> -->
+     <!--              <span>Haz click sobre tu la foto para cambiarla</span>  -->
+     <!--              <input type="file" name="avatar" onchange="readURL(this);"> -->
+     <!--             </div> -->
+     <!--             <div class="file-path-wrapper" style="visibility: hidden;"> -->
+     <!--              <input class="file-path validate" type="text"> -->
+     <!--             </div> -->
+     <!--            </div> -->
+     <!--            <div class="col l12 m12 s12 center" style="margin-left: 0px; padding: 0px;"> -->
+     <!--             <img id="blah" height="100" th:src="'data:image/png;base64,' + ${avatar}" alt="your image" /> -->
+     <!--            </div> -->
+     <!--           </div> -->
+
+     <div class="row cvalign" style="margin: 0px;">
+      <div class="file-field input-field center" style="height: 100px;">
+       <div class="row">
+        <th:block th:if="${avatar} == NULL">
+        <img id="blah" height="100" src="https://github.com/arielrbv/universidadutiles/blob/main/sample-1.png?raw=true" />
+        <input type="file" name="avatar" onchange="readURL(this);">
+       </th:block>
+        <th:block th:if="${avatar} != NULL">
+        <img id="blah" height="100" th:src="'data:image/png;base64,' + ${avatar}" alt="your image" /> 
+        <input type="file" name="avatar" onchange="readURL(this);">
+        </th:block>
+       </div>
+
+
+       <div class="file-path-wrapper" style="visibility: hidden;">
+        <input class="file-path validate" type="text">
+       </div>
+
+      </div>
+
+
+    </div>
+    <div class="modal-footer" style="margin-bottom: 2px;">
+     <a class="modal-close waves-effect waves-green btn-small" onclick="document.getElementById('thisForm').submit();">Guardar</a>
+     <a class="modal-close waves-effect waves-green btn-flat">Cancelar</a>
+    </div>
+   </form>
+  </div>
+
 
  </main>
 
@@ -249,11 +318,10 @@
    <div class="container center ">© 2021 Copyright - TFI Ariel Romero</div>
   </div>
  </footer>
- 
- 
+
+
  <script src="/js/jquery-3.6.0.min.js "></script>
  <script src="/js/matminjs.js"></script>
- <script src="/js/general.js"></script>
  <script src="/js/patientUpdateProfile.js"></script>
 
 </body>

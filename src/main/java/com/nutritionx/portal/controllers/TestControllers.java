@@ -1,27 +1,25 @@
 package com.nutritionx.portal.controllers;
 
-import java.time.Period;
-import java.time.ZoneId;
+import java.io.IOException;
+import java.util.Base64;
 import java.util.List;
 import java.util.Optional;
 
 import org.kie.api.runtime.KieSession;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpRequest;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
-import org.springframework.web.bind.annotation.RestController;
-import org.springframework.web.bind.annotation.SessionAttributes;
+import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.nutritionx.portal.model.Breakfast;
@@ -35,7 +33,6 @@ import com.nutritionx.portal.repository.NutritionalPlanRepository;
 import com.nutritionx.portal.repository.PatientNutriPlanRepository;
 import com.nutritionx.portal.repository.PatientRepository;
 import com.nutritionx.portal.service.PatientService;
-import com.nutritionx.portal.service.ServiceResponse;
 import com.nutritionx.portal.util.PlanAssignment;
 
 @Controller
@@ -63,7 +60,33 @@ public class TestControllers {
 //		}
 //		return new ResponseEntity<Object>(response, HttpStatus.OK);
 //	}
+	
+	@GetMapping("/")
+	public ModelAndView showpage(Model m) {
+		Patient p = patRep.findByEmail("patient6@gmail.com");
+		m.addAttribute("patient", p);
+		m.addAttribute("avatar", Base64.getEncoder().encodeToString(p.getAvatar()));
+		return new ModelAndView("imageselect");
+	}
 
+	@PostMapping("/test/profile/update/avatar")
+	public ModelAndView updateAvatar(@RequestParam("avatar") MultipartFile file , Model m) {
+		//Base64.getEncoder().encodeToString(
+		Patient p = (Patient) m.getAttribute("patient");
+		try {
+			p.setAvatar(file.getBytes());
+			System.out.println(p.getAvatar());
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		patRep.save(p);
+		m.addAttribute("patient", p);
+		return new ModelAndView("redirect:/");
+	}
+	
+	
+	
 	
 	@GetMapping ("/test/query")
 	@ResponseBody
@@ -73,12 +96,12 @@ public class TestControllers {
 	
 	@ResponseBody
 	@RequestMapping(value = "/test/query/patient", method = RequestMethod.POST, consumes = MediaType.APPLICATION_JSON_VALUE/*, produces = "application/json"*/)
-	public ResponseEntity createPatientStandAlone(@RequestBody Patient p) {	
+	public ResponseEntity<HttpStatus> createPatientStandAlone(@RequestBody Patient p) {	
 		
 		patServ.updatePatient(p);
 				
 		System.out.println(p);
-		return new ResponseEntity(HttpStatus.OK);
+		return new ResponseEntity<HttpStatus>(HttpStatus.OK);
 	}
 	
 	
@@ -132,7 +155,7 @@ public class TestControllers {
 	
 	
 	
-	@RequestMapping(value = "/test/changeBreakfast", method = RequestMethod.POST, consumes = MediaType.APPLICATION_JSON_VALUE/*, produces = "application/json"*/)
+//	@RequestMapping(value = "/test/changeBreakfast", method = RequestMethod.POST, consumes = MediaType.APPLICATION_JSON_VALUE/*, produces = "application/json"*/)
 //	public ModelAndView changeBreakfast (@RequestBody PatientNutriPlan pnp){
 //		ModelAndView m = new ModelAndView();
 //		String[] input = pnp.getBreakfastId().split("\\|");	
@@ -151,22 +174,22 @@ public class TestControllers {
 //		m.setViewName("home2");
 //		return m;
 //	}
-	public String changeBreakfast (@RequestBody PatientNutriPlan pnp, Model m){
-		String[] input = pnp.getBreakfastId().split("\\|");	
-		Optional<PatientNutriPlan> pnp2 = patNutriPRepo.findById(Integer.parseInt(input[0]));
-		Optional <Breakfast> br = breakfastRepo.findById(input[1]);
-		
-		pnp2.ifPresent(pn2 ->{
-			br.ifPresent(br2 ->{
-				pn2.setBreakfastId(br2.getId());
-				pn2.setBreakfastDescription(br2.getDescription());
-				patNutriPRepo.save(pn2);
-			});
-			m.addAttribute("patient", patRep.findByPatientId(pn2.getPatient().getPatientId()));
-		} );
-		
-		return "home2";
-	}
+//	public String changeBreakfast (@RequestBody PatientNutriPlan pnp, Model m){
+//		String[] input = pnp.getBreakfastId().split("\\|");	
+//		Optional<PatientNutriPlan> pnp2 = patNutriPRepo.findById(Integer.parseInt(input[0]));
+//		Optional <Breakfast> br = breakfastRepo.findById(input[1]);
+//		
+//		pnp2.ifPresent(pn2 ->{
+//			br.ifPresent(br2 ->{
+//				pn2.setBreakfastId(br2.getId());
+//				pn2.setBreakfastDescription(br2.getDescription());
+//				patNutriPRepo.save(pn2);
+//			});
+//			m.addAttribute("patient", patRep.findByPatientId(pn2.getPatient().getPatientId()));
+//		} );
+//		
+//		return "home2";
+//	}
 
 	
 	

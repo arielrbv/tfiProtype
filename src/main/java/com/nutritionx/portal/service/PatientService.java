@@ -11,8 +11,8 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import com.nutritionx.portal.model.Patient;
-import com.nutritionx.portal.model.Professional;
 import com.nutritionx.portal.repository.PatientRepository;
+import com.nutritionx.portal.util.PatientForList;
 
 @Service
 public class PatientService {
@@ -30,12 +30,12 @@ public class PatientService {
 		patRep.save(p);
 	}
 
-	public Page<Patient> findPaginated(List<Patient> p, Pageable pageable) {
-
+	
+	public Page<PatientForList> findPaginated(List<PatientForList> p, Pageable pageable) {
 		int pageSize = 6;
 		int currentPage = pageable.getPageNumber();
 		int startItem = currentPage * pageSize;
-		List<Patient> patL = p;
+		List<PatientForList> patL = p;
 
 		if (p.size() < startItem) {
 			patL = Collections.emptyList();
@@ -44,11 +44,10 @@ public class PatientService {
             patL = p.subList(startItem, toIndex);
         }
 
-        Page<Patient> patientPage
-          = new PageImpl<Patient>(patL, PageRequest.of(currentPage, pageSize), p.size());
+        Page<PatientForList> patientPage
+          = new PageImpl<PatientForList>(patL, PageRequest.of(currentPage, pageSize), p.size());
 
         return patientPage;
 	}
-	
 	
 }

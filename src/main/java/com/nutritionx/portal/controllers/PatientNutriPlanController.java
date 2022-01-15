@@ -1,38 +1,27 @@
 package com.nutritionx.portal.controllers;
 
-import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
-import org.springframework.web.servlet.ModelAndView;
-
 import com.nutritionx.portal.model.Asnack;
 import com.nutritionx.portal.model.Breakfast;
 import com.nutritionx.portal.model.Dinner;
 import com.nutritionx.portal.model.Lunch;
-import com.nutritionx.portal.model.Meals;
 import com.nutritionx.portal.model.Msnack;
-import com.nutritionx.portal.model.NutritionalPlan;
-import com.nutritionx.portal.model.Patient;
 import com.nutritionx.portal.model.PatientNutriPlan;
 import com.nutritionx.portal.model.Pdsnack;
-import com.nutritionx.portal.model.Professional;
 import com.nutritionx.portal.repository.AsnackRepository;
 import com.nutritionx.portal.repository.BreakfastRepository;
 import com.nutritionx.portal.repository.DinnerRepository;
 import com.nutritionx.portal.repository.LunchRepository;
 import com.nutritionx.portal.repository.MsnackRepository;
-import com.nutritionx.portal.repository.NutritionalPlanRepository;
 import com.nutritionx.portal.repository.PatientNutriPlanRepository;
 import com.nutritionx.portal.repository.PatientRepository;
 import com.nutritionx.portal.repository.PdsnackRepository;
@@ -55,8 +44,6 @@ public class PatientNutriPlanController {
 	private PdsnackRepository pdsnackRepo;	
 	@Autowired
 	private DinnerRepository dinnerRepo;
-	@Autowired
-	private NutritionalPlanRepository nutriPlanRepo;
 	
 
 	@ResponseBody
